@@ -12,7 +12,7 @@ gem 'cancan'
 gem 'devise'
 gem 'figaro'
 gem 'haml-rails'
-gem 'pg'
+
 gem 'rails_admin'
 gem 'rolify'
 gem 'simple_form'
@@ -28,7 +28,13 @@ end
 group :development, :test do
   gem 'factory_girl_rails'
   gem 'rspec-rails'
+  gem 'sqlite3'
 end
+
+group :production do
+  gem 'pg'
+end
+
 group :test do
   gem 'capybara'
   gem 'database_cleaner', '1.0.1'

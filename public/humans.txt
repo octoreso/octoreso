@@ -3,10 +3,9 @@
 
 
 /* TEAM */
-  <your title>: <your name>
-  Site:
-  Twitter:
-  Location:
+Toby Pinder 
+  Site: tobypinder.com
+  Twitter: @tobypinder
 
 /* THANKS */
   Daniel Kehoe (@rails_apps) for the RailsApps project

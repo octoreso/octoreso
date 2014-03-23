@@ -12,3 +12,14 @@
  *= require bootstrap
  *= require bootstrap_cyborg.css
  */
+
+ img.front_image
+{
+  margin: 0 auto;
+  display: block;
+}
+
+.row.big_row
+{
+  margin-bottom: 60px;
+}

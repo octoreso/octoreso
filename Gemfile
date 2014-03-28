@@ -8,7 +8,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 gem 'bootstrap-sass'
-gem 'cancan'
+gem 'cancancan'
 gem 'devise'
 gem 'figaro'
 gem 'haml-rails'
@@ -20,12 +20,13 @@ gem 'therubyracer', :platform=>:ruby
 gem 'thin'
 group :development do
   gem 'better_errors'
-  gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]
+  
   gem 'html2haml'
   gem 'quiet_assets'
   gem 'rails_layout'
 end
 group :development, :test do
+  gem 'binding_of_caller'
   gem 'factory_girl_rails'
   gem 'rspec-rails'
   gem 'sqlite3'

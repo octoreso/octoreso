@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Tobypinder::Application.config.secret_key_base = 'fa91ecd832c388a7636c44b77560664930a83f8cd9092c387582e5f7ca40f585908fcfee9c023e9878788caa7de5ce43e897a07c3f6560692c3d3b59c29ad00c'
+Tobypinder::Application.config.secret_key_base = ENV['SECRET_TOKEN']

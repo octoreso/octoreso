@@ -2,28 +2,29 @@
 
 .jumbotron
   .container
-    %h1 Hello, world!
-    %p This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.
+    %h1
+      $ site.init()
+    %p My name is Toby Pinder, Rails and PHP developer by trade. Think of this site as a vault for some of my experiments (or non-pretentious words to that effect). (More typical intro nonsense urgh)
     %p
-      %a.btn.btn-primary.btn-lg{role: 'button'} Learn more »
+      / %a.btn.btn-primary.btn-lg{role: 'button'} Learn more »
 .container
   / Example row of columns
-  .row
-    .col-md-4
-      %h2 Heading
-      %p Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+  %h2 LD29: ????
+  .row.big_row
+    .col-md-5
+      %p Ludum Dare 29 is coming ever so soon and I'm going to be streaming the entire thing live! Details are coming soon, but I'm basically trying it as an experiment. If you want to study the effects of sleep deprivation on programmers, it's going to be the place to be!
       %p
-        %a.btn.btn-default{href: '#', role: 'button'} View details »
-    .col-md-4
-      %h2 Heading
-      %p Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+        %a.btn.btn-default{ href: '#', role: 'button'} View entry
+    .col-md-7
+      %img.front_image{src: "content/0002_ld.png"}
+  %h2 LD27: Astronomical Odds
+  .row.big_row
+    .col-md-5
+      %p I made a game for the Ludum Dare 27 called "Astronomical Odds". Ludum Dare is a 48 hour game development competition. As you can imagine, those are strict time constraints! I entered both LD21 and LD26 with some half-baked, abstract ideas implemented on the server side for the most part, but I was happy with my JS focused result, which boasted a surprisingly polished combat system (even if the enemy AI is... janky),
       %p
-        %a.btn.btn-default{href: '#', role: 'button'} View details »
-    .col-md-4
-      %h2 Heading
-      %p Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
-      %p
-        %a.btn.btn-default{href: '#', role: 'button'} View details »
+        %a.btn.btn-default{ href: 'http://www.ludumdare.com/compo/ludum-dare-27/?action=preview&uid=4783', role: 'button'} View entry
+    .col-md-7
+      %img.front_image{src: "content/0001_astronomical.png"}
   %hr/
   %footer
-    %p © Company 2014
+    %p © Toby Pinder 2014

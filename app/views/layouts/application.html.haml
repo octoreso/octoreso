@@ -10,7 +10,6 @@
     %title Tobypinder.com
     = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
     = javascript_include_tag "application", "data-turbolinks-track" => true
-    = javascript_include_tag :defaults
     = csrf_meta_tags
   %body
     .navbar.navbar-inverse.navbar-fixed-top{role: 'navigation'}
@@ -22,9 +21,11 @@
             %span.icon-bar
             %span.icon-bar
           %a.navbar-brand{href: url_for(root_path)} TobyPinder.com
-        .navbar-collapse.collapse
+        .navbar-collapse.collapse 
+          %ul.nav.navbar-nav
+            %li 
+              = link_to 'Music Monday', category_path(1)
           - if user_signed_in?
-            
             .navbar-right.navbar-form
 
               = "Hello #{current_user.email}"
@@ -40,4 +41,9 @@
         / /.navbar-collapse
     %br/
     = yield
-
+    %hr/
+    %footer
+    .container
+      .row
+        .col-md-12
+          %p © Toby Pinder 2014. Contruction.gif goes here.

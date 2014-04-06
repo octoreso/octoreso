@@ -1,8 +1,10 @@
-- @posts.each do |post|
-  .jumbotron
-    .container
-      %h2= "#{post.title} - #{post.subtitle}"
+.jumbotron
   .container
+    %h1= "Music Monday"
+    %p 
+      Because what is the internet about if not sharing the things you like in an over-pretentious way? 
+- @posts.each do |post|
+  .container{style: 'padding-bottom: 120px'}
     .row
       .col-md-12
         = Haml::Engine.new(post.content).render(self)

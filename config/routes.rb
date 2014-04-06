@@ -3,7 +3,11 @@ Tobypinder::Application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   
 
-  resources :category, only: :show
+  resources :categories, only: :show do
+    collection do
+      get :draft
+    end
+  end
   root to: "home#index"
  
 end

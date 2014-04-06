@@ -15,6 +15,9 @@
 /vendor/bundle/
 /vendor/ruby/
 
+/app/views/categories/draft.html.haml
+
+
 # minimal Rails specific artifacts
 db/*.sqlite3
 /db/*.sqlite3-journal

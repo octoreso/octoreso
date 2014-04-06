@@ -1,0 +1,8 @@
+- @posts.each do |post|
+  .jumbotron
+    .container
+      %h2= "#{post.title} - #{post.subtitle}"
+  .container
+    .row
+      .col-md-12
+        = Haml::Engine.new(post.content).render(self)

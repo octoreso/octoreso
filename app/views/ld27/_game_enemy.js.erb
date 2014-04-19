@@ -1,0 +1,70 @@
+var GameEnemy=function(shipType, level){
+  this.shipType = shipType || 'basic'
+  this.level = level || 1 
+
+  theta = Math.random()*2*Math.PI
+  this.getTarget=function()
+  {
+    //TODO: Add targetting of the bases etc.
+    if(Math.random()<0.7)
+    {
+      return GamePlayer.ship;
+    }
+    else
+    {
+      //attack a base.
+      baseCount =  GameNPCBases.bases.length;
+      return GameNPCBases.bases[Math.floor(Math.random()*baseCount)];
+    }
+  }
+  this.target = this.getTarget();
+  this.ship = new GameShip(
+    (9000+Math.random()*1000)*Math.sin(theta),
+    -(9000+Math.random()*1000)*Math.cos(theta),(theta+Math.PI),'255,0,0',this.shipType);
+  //this.ship = new GameShip(100,100,-Math.PI,'ff0000','basic');
+  this.frame=function(ctx)
+  {
+    this.ship.render(ctx);
+  }
+  this.logic=function()
+  {
+    this.ship.logic();
+    //if target is dead pick a new one.
+    if(this.target.killedAt !== null)
+    {
+      this.getTarget();
+    }
+
+
+    //Simple follow AI.
+    targetDeltaX = this.ship.x - this.target.x;
+    targetDeltaY = this.ship.y - this.target.y;
+    theta = Math.atan2(targetDeltaX, targetDeltaY);
+
+    diff = theta - this.ship.velocityAngle() + Math.PI;
+    if(diff > Math.PI)
+    {
+      diff = diff - 2*Math.PI
+    }
+
+    if(Math.random()<0.3)
+    {
+      this.ship.thrust();
+    }
+
+    if(diff>(5 * Math.PI)/180 && Math.random()<1)
+    {
+      this.ship.rotate(this.ship.ROTATE_LEFT)
+    }
+    else if(diff<(-5 * Math.PI)/180 && Math.random()<1)
+    {
+      this.ship.rotate(this.ship.ROTATE_RIGHT)
+    }
+
+    if(Math.abs(diff)<30 && (Math.pow(Math.pow(targetDeltaX,2)+Math.pow(targetDeltaY,2),0.5))<1000)
+    {
+      this.ship.fire();
+    }
+  }
+  
+}

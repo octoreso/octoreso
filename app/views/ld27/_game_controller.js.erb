@@ -1,0 +1,16 @@
+var GameController = {
+  init:function(token)
+  {
+    GameModel.init(token);
+    GameView.init();
+    GameModel.gameTimer = setInterval(GameController.loop,(1000/GameModel.stats.MAX_FPS));
+  },
+  loop:function()
+  {
+    
+    GameModel.frame();
+    GameView.frame();
+    GameModel.benchmarkEnd();
+    GameModel.benchmarkStart();
+  }
+}

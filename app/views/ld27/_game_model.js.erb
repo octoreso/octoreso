@@ -1,0 +1,219 @@
+var GameModel = {
+  token: null,
+  gameTimer: null, //timer to clear when not in game!
+  turnCount:0,
+  stats: {
+    MAX_FPS:30,
+    computedFrames:0,
+    timeStart:null,
+    timeEnd:null,
+    frameTime:0,
+    fps:0
+  },
+  minimap:{
+    MIN_X:-10000,
+    MAX_X:10000,
+    MIN_Y:-10000,
+    MAX_Y:10000,
+    ZOOM:200 
+  },
+  rendering: {
+    MIN_ZOOM:0.4,
+    MAX_ZOOM:1,
+    mode:'ui', //ui or game.
+    zoom:1
+  },
+  bases: {
+    levelupRepair:0.1,
+    repairTick: 150,
+    enemyWaveTick: 1000, //overriden
+    pickups:{
+      shotgun:0.02,  //chance of spawn per roll
+      sprayer:0.025,
+      laser:0.03,
+      decimator:0.015,
+      dual: 0.04,
+      triple: 0.03,
+      explosion: 0.01,
+      sweeper: 0.01,
+      sonicboom: 0.015,
+      heal: 0.2
+    },
+    healBase: 2,
+    healLevel: 2,
+    pickupDeath:70 //do70 dicerolls for pickup generation once this building is dead
+  },
+  enemies:{
+    basic:{
+      initialChance:1.00,
+      levelChance:0.1,
+      initialQty:1,
+      levelQty:1,
+      drop:{
+        red: {
+          chance: 0.015,
+          amount: 20,
+          amountRandom: 50,
+          amountLevel: 3,
+          amountLevelSquared: 1
+        },
+        green: {
+          chance: 0.01,
+          amount: 10,
+          amountRandom: 30,
+          amountLevel: 1,
+          amountLevelSquared: 1
+        },
+        blue: {
+          chance: 0.005,
+          amount: 5,
+          amountRandom: 10,
+          amountLevel: 0.5,
+          amountLevelSquared: 1
+        }
+      }
+    },
+    fat:{
+      initialChance:0.00,
+      levelChance:0.05,
+      initialQty:1,
+      levelQty:0.5,
+      drop:{
+        red: {
+          chance: 0.01,
+          amount: 40,
+          amountRandom: 100,
+          amountLevel: 5,
+          amountLevelSquared: 3
+        },
+        green: {
+          chance: 0.005,
+          amount: 30,
+          amountRandom: 50,
+          amountLevel: 2,
+          amountLevelSquared: 2
+        },
+        blue: {
+          chance: 0.002,
+          amount: 10,
+          amountRandom: 20,
+          amountLevel: 1,
+          amountLevelSquared: 1
+        }
+      }
+    },
+    scion:{
+      initialChance:-0.02,
+      levelChance:0.04,
+      initialQty:1,
+      levelQty:0.2,
+      drop:{
+        red: {
+          chance: 0.03,
+          amount: 300,
+          amountRandom: 200,
+          amountLevel: 6,
+          amountLevelSquared: 7
+        },
+        green: {
+          chance: 0.02,
+          amount: 100,
+          amountRandom: 150,
+          amountLevel: 6,
+          amountLevelSquared: 6
+        },
+        blue: {
+          chance: 0.01,
+          amount: 50,
+          amountRandom: 70,
+          amountLevel: 4,
+          amountLevelSquared: 3
+        }
+      }
+    },
+    shard:{
+      initialChance:-0.05,
+      levelChance:0.02,
+      initialQty:2,
+      levelQty:0.5,
+      drop:{
+        red: {
+          chance: 0.08,
+          amount: 600,
+          amountRandom: 500,
+          amountLevel: 20,
+          amountLevelSquared: 9
+        },
+        green: {
+          chance: 0.04,
+          amount: 250,
+          amountRandom: 300,
+          amountLevel: 15,
+          amountLevelSquared: 7
+        },
+        blue: {
+          chance: 0.02,
+          amount: 100,
+          amountRandom: 100,
+          amountLevel: 10,
+          amountLevelSquared: 5
+        },
+      }
+    }
+  },
+  input: {
+    keyboard: {
+      w:false,
+      s:false,
+      a:false,
+      d:false,
+      left_arrow:false,
+      right_arrow:false,
+      up_arrow:false,
+      down_arrow:false,
+      space:false
+    }
+  },
+  init:function(token) {
+    this.token = token;
+    GameModel.bases.enemyWaveTick = (GameModel.stats.MAX_FPS * 10)
+    GamePlayer.init();
+    GameMinimap.init();
+    GameNPCBases.init();
+    GamePickups.init();
+    GameBigText.init();
+  },
+  frame:function(){
+    this.stats.computedFrames++;
+    //this.rendering.zoom = 0.6 + (0.4*Math.sin(this.stats.computedFrames/100)); //TEST
+    //logical steps.
+    this.recalculateZoom();
+    GameDirector.logic();
+    GamePlayer.logic();
+    GameEnemies.logic();
+    GameBullets.logic();
+    GameViewParticles.logic();
+    GameViewDamageText.logic();
+    GameNPCBases.logic();
+    GamePickups.logic();
+    GameBigText.logic();
+  },
+  recalculateZoom:function()
+  {
+    var velocityRatio = GamePlayer.ship.velocity() / GamePlayer.ship.maxThrust
+    var amp =(GameModel.rendering.MAX_ZOOM - GameModel.rendering.MIN_ZOOM)
+    GameModel.rendering.zoom = GameModel.rendering.MAX_ZOOM - Math.sin(0.5 * Math.PI * velocityRatio) * amp
+
+  },
+  benchmarkStart:function() {
+    this.stats.timeStart = new Date().getTime()
+  },
+  benchmarkEnd:function(){
+    this.stats.timeEnd = new Date().getTime()
+    this.stats.frameTime = this.stats.timeEnd - this.stats.timeStart
+    if(this.stats.frameTime > 0 )
+    {
+      this.stats.fps = Math.round(1000/this.stats.frameTime)
+    }
+  }
+}

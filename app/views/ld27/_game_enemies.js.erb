@@ -1,0 +1,42 @@
+var GameEnemies= {
+  enemies:[],
+  frame:function(ctx) {
+    for(var i=0;i<this.enemies.length;i++)
+    {
+      this.enemies[i].frame(ctx);
+    }
+  },
+  logic:function()
+  {
+    var i = this.enemies.length
+    while (i--) {
+      var enemy = this.enemies[i];
+      if(enemy.ship.HP <= 0 && enemy.ship.alpha == 0)
+      {
+        //TODO: Loot.
+        this.enemies.splice(i, 1);
+      }
+
+      this.enemies[i].logic();
+    }
+
+  },
+  addEnemy:function(shipType, level)
+  {
+    //todo: flesh this out with types etc.
+    enemy = new GameEnemy(shipType, level);
+    //TODO: Apply level buffs.
+    enemy.ship.equipMainWeapon(GameBulletTypes.peashooter);
+    switch(shipType)
+    {
+      case 'scion':
+        enemy.ship.equipMainWeapon(GameBulletTypes.peatwo);
+      break;
+      case 'shard':
+        enemy.ship.equipMainWeapon(GameBulletTypes.peathree);
+      break;
+    }
+
+    this.enemies.push(enemy);
+  }
+}

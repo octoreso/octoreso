@@ -1,0 +1,128 @@
+var GamePickup= function(x, y, w, h, color, type, faction, magnitude){
+  this.HP = 1; //binary tracking of state.
+  this.x = x;
+  this.y = y;
+  this.rot = 0;
+  this.width = w || 10;
+  this.baseWidth = this.width;
+  this.height = h || 10;
+  this.baseHeight = this.height;
+  this.collidableSphereRad = (h); //generousity :D
+  this.color = color;
+  this.alpha = 1; //cloak?
+  this.faction = faction || 'good';
+  this.type = type || 'empty'
+  this.magnitude = magnitude; //used to store currency amounts etc.
+
+  //pickups drift in a random direction by total of 0.5px velocity
+  this.velocityDirection = Math.random()* 2* Math.PI;
+  this.velocityX = Math.cos(this.velocityDirection) * 0.5;
+  this.velocityY = Math.sin(this.velocityDirection) * 0.5;
+
+  this.design = [
+    { x:-0.5,  y:-0.5  },
+    { x:-0.5,  y: 0.5  },
+    { x: 0.5,  y: 0.5  },
+    { x: 0.5,  y:-0.5  },
+    //x
+    { x:-0.5,  y: 0.5  },
+    { x: 0.5,  y: 0.5  },
+    { x:-0.5,  y:-0.5  },
+  ];
+
+  this.render = function(ctx)
+  {
+    GameView.renderModeGame();
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.rot);
+
+    ctx.fillStyle="rgba(0,0,0,"+this.alpha+")";
+    ctx.strokeStyle="rgba("+this.color+","+this.alpha+")";
+    
+    w = this.width
+    h = this.height
+    
+    ctx.beginPath();
+    ctx.moveTo((w*this.design[0].x), (h*this.design[0].y));
+    for(var i=1;i<this.design.length;i++)
+    {
+      ctx.lineTo((w*this.design[i].x), (h*this.design[i].y));
+    }
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+    //backup the box
+
+    ctx.strokeRect(
+      -this.width/2,
+      -this.height/2,
+      this.width,
+      this.height
+    );
+    
+    ctx.rotate(-this.rot);
+
+    //text
+    ctx.fillStyle="rgba("+this.color+","+(((Math.sin(this.rot)+1)/4)+0.5)+")";
+    ctx.textAlign = 'center'
+    ctx.fillText(this.type, 0, 0 - 15);
+
+    ctx.translate(-this.x, -this.y);
+  }
+  this.logic = function()
+  {
+    this.rot += 3*Math.PI/180
+    this.width = this.baseWidth + Math.pow(Math.cos(this.rot*4),3)*3
+    this.height = this.baseHeight + Math.pow(Math.cos(this.rot*4),3)*3
+    this.x = this.x + this.velocityX;
+    this.y = this.y + this.velocityY;
+  }
+  this.apply=function(ship)
+  {
+    switch(this.type) 
+    {
+      case 'shotgun':
+      case 'sprayer':
+      case 'laser':
+      case 'decimator':
+      case 'dual':
+      case 'triple':
+      case 'explosion':
+      case 'sweeper':
+      case 'sonicboom':
+        this.applyWeapon(ship, type);
+      break;
+      case 'health':
+        this.applyHealth(ship);
+      break;
+      case 'red':
+      case 'blue':
+      case 'green':
+        this.applyCurrency(ship);
+      break;
+    }
+  }
+  this.applyWeapon=function(ship, name)
+  {
+    var ammo = GamePickups.ammo[name].base + Math.random()*GamePickups.ammo[name].rand;
+    ship.equipAuxWeapon(GameBulletTypes[name],ammo);
+  }
+  this.applyHealth=function(ship)
+  {
+    var amt = GameModel.bases.healBase + (GameModel.bases.healLevel * Math.floor(GameModel.turnCount/10))
+    amt = Math.ceil(Math.random()*amt);
+    //heal and icon
+    ship.HP= ship.HP + amt;
+    ship.HP = Math.min(ship.HP, ship.HPmax);
+    GameViewDamageText.addDamageText(ship, ship, '+ '+amt);
+  }
+  this.applyCurrency=function(ship)
+  {
+    var amt = this.magnitude
+    if(ship.faction == 'good')
+    {
+      GameState.currency[this.type] += amt
+    }
+    GameViewDamageText.addDamageText(ship, ship, this.type[0].toUpperCase()+' x '+amt);
+  }
+}

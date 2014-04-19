@@ -1,0 +1,47 @@
+var GameViewUI = {
+  BAR_WIDTH:GameView.WINDOW_WIDTH-150,
+  frame: function(ctx)
+  {
+    GameView.renderModeUI()
+
+    ctx.fillStyle="#ffffff";  
+
+    ctx.textAlign = 'center'
+    ctx.fillText("["+Math.round(GamePlayer.ship.x)+","+Math.round(GamePlayer.ship.y)+"]", GameView.WINDOW_WIDTH/2, GameView.WINDOW_HEIGHT-5);
+
+    
+    ctx.fillStyle = '#660000'
+    ctx.fillRect(
+      5,
+      7,
+      this.BAR_WIDTH,
+      22
+    )
+    ctx.fillStyle = '#006600'
+    ctx.fillRect(
+      5,
+      7,
+      this.BAR_WIDTH*(GamePlayer.ship.HP/GamePlayer.ship.HPmax),
+      22
+    )
+
+    ctx.fillStyle = '#666600'
+    ctx.fillRect(
+      5,
+      37,
+      (GamePlayer.ship.auxAmmoMax==0) ? 0 : this.BAR_WIDTH * (GamePlayer.ship.auxAmmo / GamePlayer.ship.auxAmmoMax),
+      6
+    )
+
+    ctx.fillStyle = '#ffffff' 
+    ctx.textAlign = 'right'
+    ctx.fillText("hull: "+Math.round(GamePlayer.ship.HP)+"/"+Math.round(GamePlayer.ship.HPmax)+"", this.BAR_WIDTH-5, 25);
+
+    ctx.textAlign = 'right'
+    ctx.fillText(Math.round(GamePlayer.ship.velocity())+" Gm/s", GameView.WINDOW_WIDTH-10, 25);
+
+    ctx.textAlign = 'right'
+    ctx.fillText(GameModel.stats.fps+" fps", GameView.WINDOW_WIDTH-110, GameView.WINDOW_HEIGHT-5);
+    
+  }
+}

@@ -1,0 +1,58 @@
+GameDirector={
+  logic:function()
+  {
+    if(GameModel.stats.computedFrames % (GameModel.bases.enemyWaveTick) == 0)
+    {
+      //TODO: Levelled list of increasingly hard/frequent enemies!
+      this.turn();
+    }
+  },
+  turn:function()
+  {
+
+    GameModel.turnCount++;
+    if(GameModel.turnCount % 10 == 0)
+    {
+      this.levelUp();
+    }
+    this.spawnEnemies();
+  },
+  levelUp:function()
+  {
+  },
+  spawnEnemies:function()
+  {
+    var enemiesSpawned = 0;
+    enemiesSpawned += this.attemptSpawn('basic');  
+    enemiesSpawned += this.attemptSpawn('fat');  
+    enemiesSpawned += this.attemptSpawn('scion');  
+    enemiesSpawned += this.attemptSpawn('shard');  
+    
+  },
+  attemptSpawn:function(type)
+  {
+    var cfg = GameModel.enemies[type];
+    var lvl = Math.floor(GameModel.turnCount/10)
+
+    var qty    = cfg.initialQty    + (cfg.levelQty    * lvl)
+    var chance = cfg.initialChance + (cfg.levelChance * lvl)
+
+    //guaranteed.
+    while(chance > 1)
+    {
+      chance = chance - 1
+      for(var i=Math.ceil(Math.random()*qty);i>=1;i--)
+      {
+        GameEnemies.addEnemy(type,lvl);
+      }
+    }
+    //check chance
+    if(Math.random() < chance)
+    {
+      for(var i=Math.ceil(Math.random()*qty);i>=1;i--)
+      {
+        GameEnemies.addEnemy(type,lvl);
+      }
+    }
+  }
+}

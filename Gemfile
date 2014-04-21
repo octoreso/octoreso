@@ -31,6 +31,8 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'rspec-rails'
   gem 'sqlite3'
+  gem 'pry'
+  gem 'awesome_print'
 end
 
 group :production do

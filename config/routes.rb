@@ -9,7 +9,11 @@ Tobypinder::Application.routes.draw do
   get '/auth/guest/new', to: 'sessions#new_guest', as: 'new_guest'
 
   resources :ld27,        only: :index
-  resources :ld27_test,   only: :index
+  resources :ld27_test,   only: :index do
+    collection do
+      post :data
+    end
+  end
   resources :ld29,        only: :index
 
   resources :categories, only: :show do

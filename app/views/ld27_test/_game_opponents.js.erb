@@ -1,0 +1,12 @@
+var GameOpponents= {
+  opponents:[],
+  frame:function(ctx) {
+    for(var uid in this.opponents)
+    {
+      this.opponents[uid].frame(ctx);
+    }
+  },
+  logic:function()
+  {
+  },
+}

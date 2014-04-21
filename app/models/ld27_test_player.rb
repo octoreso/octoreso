@@ -21,8 +21,6 @@ class Ld27TestPlayer < ActiveRecord::Base
     player.y            = params['ship']['y'].to_f
     player.velocityX    = params['ship']['velocityX'].to_f
     player.velocityY    = params['ship']['velocityY'].to_f
-    puts 'SAVED PLAYER STATE'
-    ap player
     player.save!
 
     player.slice(*client_params)

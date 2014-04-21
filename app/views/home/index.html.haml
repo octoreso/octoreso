@@ -15,8 +15,11 @@
       %p Ludum Dare 29 is coming ever so soon and I'm going to be streaming the entire thing live! Details are coming soon, but I'm basically trying it as an experiment. If you want to study the effects of sleep deprivation on programmers, it's going to be the place to be!
       / %p
       / %a.btn.btn-default{ href: '#', role: 'button'} View entry
+      = link_to 'Coming Soon!', ld29_index_path, class: 'btn btn-warning', role: :button
     .col-md-7
-      %img.front_image{src: "#{root_url}/content/0002_ld.png"}
+      %a{href: ld29_index_path}
+        %img.front_image{src: "#{root_url}/content/0002_ld.png"}
+
   %h2 LD27: Astronomical Odds
   .row.big_row
     .col-md-5

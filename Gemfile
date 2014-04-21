@@ -10,17 +10,19 @@ gem 'jbuilder', '~> 1.2'
 gem 'bootstrap-sass'
 gem 'cancancan'
 gem 'devise'
+gem 'omniauth'
+gem 'omniauth-steam'
 gem 'figaro'
 gem 'haml-rails'
-
 gem 'rails_admin'
 gem 'rolify'
 gem 'simple_form'
 gem 'therubyracer', :platform=>:ruby
 gem 'thin'
+gem 'activerecord-session_store'
+
 group :development do
   gem 'better_errors'
-  
   gem 'html2haml'
   gem 'quiet_assets'
   gem 'rails_layout'

@@ -1,0 +1,12 @@
+var GameOpponent=function(data){
+  this.uid = data['uid']
+  this.ship = new GameShip(data['x'],data['y'],-Math.PI,'ff0000','basic', 'evil');
+  this.frame=function(ctx)
+  {
+    this.ship.render(ctx);
+  }
+  this.logic=function()
+  {
+    // grab updates from the globalish json hash of gamestate.
+  } 
+}

@@ -12,7 +12,7 @@
     = javascript_include_tag "application", "data-turbolinks-track" => true
     = csrf_meta_tags
   %body
-    .navbar.navbar-inverse.navbar-fixed-top{role: 'navigation'}
+    .navbar.navbar-inverse{role: 'navigation'}
       .container
         .navbar-header
           %button.navbar-toggle{'data-target' => '.navbar-collapse', 'data-toggle' => 'collapse', type: 'button'}
@@ -37,7 +37,12 @@
               %li= link_to (image_tag '/steam/sits_small.png'), user_omniauth_authorize_path(:steam)
               %li= link_to 'or use a guest account', new_guest_path  
         / /.navbar-collapse
-    %br/
+    - flash.each do |type, message| 
+      .container
+        %div{class:"alert #{bootstrap_class_for(type)}"}
+          %button.close{'data-dismiss'=>"alert"}
+            ×
+          = message
     = yield
     %hr/
     %footer

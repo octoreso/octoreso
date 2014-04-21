@@ -1,0 +1,35 @@
+var GameAjax = {
+  send:function()
+  {
+      $.ajax({
+      url: '/ld27_test/data?r='+Math.random(1000000), 
+      data: { 
+        username: PLAYER_UID,
+        ship: {
+          HP:         GamePlayer.ship.HP,
+          HPmax:      GamePlayer.ship.HPmax,
+          x:          GamePlayer.ship.x,
+          y:          GamePlayer.ship.y,
+          velocityX:  GamePlayer.ship.velocityX,
+          velocityY:  GamePlayer.ship.velocityY
+        }
+      },
+      type: 'POST',
+      dataType: 'json',
+      error: function(data, textStatus, jqXHR){
+        console.log("Oops")
+      },
+      success: function(data, textStatus, jqXHR){
+        console.log("Success")
+        for(var i=0;i<data.players.length;i++)
+        {
+          GameOpponents.opponents[data.players[i].uid] = new GameOpponent(data.players[i])
+        }
+      }
+    });
+  },
+  recieve:function()
+  {
+
+  }
+}

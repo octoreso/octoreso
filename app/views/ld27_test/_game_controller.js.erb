@@ -4,6 +4,8 @@ var GameController = {
     GameModel.init(token);
     GameView.init();
     GameModel.gameTimer = setInterval(GameController.loop,(1000/GameModel.stats.MAX_FPS));
+    console.log("GameAJAX init")
+    setInterval(function(){GameAjax.send();}, 1000);
   },
   loop:function()
   {
@@ -14,3 +16,4 @@ var GameController = {
     GameModel.benchmarkStart();
   }
 }
+

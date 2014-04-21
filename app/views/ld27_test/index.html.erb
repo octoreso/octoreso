@@ -31,26 +31,35 @@
 }
 </style>
 
-<script>
-  <%= render 'game_controller.js' %>
-  <%= render 'game_model.js' %>
-  <%= render 'game_state.js' %>
-  <%= render 'game_view.js' %>
-  <%= render 'game_key_listener.js' %>
-  <%= render 'game_big_text.js' %>
-  <%= render 'game_view_damage_text.js' %>
-  <%= render 'game_view_particles.js' %>  
-  <%= render 'game_view_ui.js' %>
-  <%= render 'game_minimap.js' %>
-  <%= render 'pad.js' %>
-  <%= render 'game_bullet_type.js' %>
-  <%= render 'game_bullet_types.js' %>
-  <%= render 'game_bullets.js' %>
-  <%= render 'game_director.js' %>
-  <%= render 'game_enemies.js' %>
-  <%= render 'game_enemy.js' %>
-  <%= render 'game_pickup.js' %>
-  <%= render 'game_pickups.js' %>
-  <%= render 'game_player.js' %>
-  <%= render 'game_ship.js' %>
-</script>
+<% if user_signed_in? %>
+  <script>
+    var PLAYER_UID = '<%= current_user.uid %>' 
+    <%= render 'game_controller.js' %>
+    <%= render 'game_model.js' %>
+    <%= render 'game_state.js' %>
+    <%= render 'game_view.js' %>
+    <%= render 'game_key_listener.js' %>
+    <%= render 'game_big_text.js' %>
+    <%= render 'game_view_damage_text.js' %>
+    <%= render 'game_view_particles.js' %>  
+    <%= render 'game_view_ui.js' %>
+    <%= render 'game_minimap.js' %>
+    <%= render 'pad.js' %>
+    <%= render 'game_bullet_type.js' %>
+    <%= render 'game_bullet_types.js' %>
+    <%= render 'game_bullets.js' %>
+    <%= render 'game_director.js' %>
+    <%= render 'game_enemies.js' %>
+    <%= render 'game_enemy.js' %>
+    <%= render 'game_opponents.js' %>
+    <%= render 'game_opponent.js' %>    
+    <%= render 'game_pickup.js' %>
+    <%= render 'game_pickups.js' %>
+    <%= render 'game_player.js' %>
+    <%= render 'game_ship.js' %>
+    <%= render 'game_ajax.js' %>
+
+  </script>
+  <% else %>
+    <h2>Not logged in!</h2>
+  <% end %>

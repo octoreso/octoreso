@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: [:steam]
+  has_one :ld27_test_player, inverse_of: :user
 
   def self.find_for_steam_oauth(auth)
     where(auth.slice(:provider, :uid)).first_or_create! do |user|

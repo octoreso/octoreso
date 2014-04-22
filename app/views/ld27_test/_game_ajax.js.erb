@@ -11,7 +11,8 @@ var GameAjax = {
           x:          GamePlayer.ship.x,
           y:          GamePlayer.ship.y,
           velocityX:  GamePlayer.ship.velocityX,
-          velocityY:  GamePlayer.ship.velocityY
+          velocityY:  GamePlayer.ship.velocityY,
+          rot:        GamePlayer.ship.rot
         }
       },
       type: 'POST',
@@ -20,11 +21,12 @@ var GameAjax = {
         console.log("Oops")
       },
       success: function(data, textStatus, jqXHR){
-        console.log("Success")
+        GameOpponents.opponents = []
         for(var i=0;i<data.players.length;i++)
         {
-          GameOpponents.opponents[data.players[i].uid] = new GameOpponent(data.players[i])
+          GameOpponents.opponents[i] = new GameOpponent(data.players[i])
         }
+        console.log(GameOpponents.opponents.length)
       }
     });
   },

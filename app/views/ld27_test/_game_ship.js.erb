@@ -1,4 +1,4 @@
-var GameShip = function(x, y, rot, color, type, faction){
+var GameShip = function(x, y, rot, color, type, faction, extra_data){
   this.ROTATE_LEFT = -1;
   this.ROTATE_RIGHT = 1;
   this.x = x;
@@ -104,9 +104,21 @@ var GameShip = function(x, y, rot, color, type, faction){
 
   this.maxThrust = this.baseMaxThrust; 
 
-
   this.velocityX = 0;
   this.velocityY = 0;
+
+  if(extra_data)
+  {
+    //override defaults
+    this.velocityX = extra_data['velocityX'] || 0
+    this.velocityX = extra_data['velocityX'] || 0
+    this.x = x || 0
+    this.y = y || 0
+  }
+  else
+  {
+  }
+
   this.equipMainWeapon = function(weapon)
   {
     this.weapons.main = JSON.parse(JSON.stringify(weapon));

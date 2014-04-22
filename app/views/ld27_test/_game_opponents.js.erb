@@ -1,12 +1,16 @@
 var GameOpponents= {
   opponents:[],
   frame:function(ctx) {
-    for(var uid in this.opponents)
+    for(var i=0;i<this.opponents.length;i++)
     {
-      this.opponents[uid].frame(ctx);
+      this.opponents[i].frame(ctx);
     }
   },
   logic:function()
   {
+    for(var i=0;i<this.opponents.length;i++)
+    {
+      this.opponents[i].logic();
+    }
   },
 }

@@ -1,12 +1,27 @@
 var GameOpponent=function(data){
+  console.log(data)
+
   this.uid = data['uid']
-  this.ship = new GameShip(data['x'],data['y'],-Math.PI,'ff0000','basic', 'evil');
+
+  this.ship = new GameShip(
+    parseFloat(data['x']),
+    parseFloat(data['y']),
+    parseFloat(data['rot']),
+    '0,0,255',
+    'basic', 
+    'evil',
+    {
+      velocityX: parseFloat(data['velocityX']),
+      velocityY: parseFloat(data['velocityY'])
+    }
+  );
   this.frame=function(ctx)
   {
     this.ship.render(ctx);
   }
   this.logic=function()
   {
+    this.ship.logic();
     // grab updates from the globalish json hash of gamestate.
   } 
 }

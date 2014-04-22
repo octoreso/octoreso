@@ -19,6 +19,7 @@ class Ld27TestPlayer < ActiveRecord::Base
     player.HPmax        = params['ship']['HPmax'].to_f
     player.x            = params['ship']['x'].to_f
     player.y            = params['ship']['y'].to_f
+    player.rot          = params['ship']['rot'].to_f
     player.velocityX    = params['ship']['velocityX'].to_f
     player.velocityY    = params['ship']['velocityY'].to_f
     player.save!
@@ -36,6 +37,6 @@ class Ld27TestPlayer < ActiveRecord::Base
   private
 
   def self.client_params 
-    ['uid', 'name', 'HP', 'HPmax', 'x', 'y', 'velocityX', 'velocityY']
+    ['uid', 'name', 'HP', 'HPmax', 'x', 'y', 'rot', 'velocityX', 'velocityY']
   end
 end

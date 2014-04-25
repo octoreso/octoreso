@@ -1,7 +1,7 @@
 var GameAjax = {
   send:function()
   {
-      $.ajax({
+    $.ajax({
       url: '/ld27_test/data?r='+Math.random(1000000), 
       data: { 
         username: PLAYER_UID,
@@ -13,7 +13,8 @@ var GameAjax = {
           velocityX:  GamePlayer.ship.velocityX,
           velocityY:  GamePlayer.ship.velocityY,
           rot:        GamePlayer.ship.rot
-        }
+        },
+        bullets: GameBullets.bullets_to_sync
       },
       type: 'POST',
       dataType: 'json',
@@ -26,9 +27,20 @@ var GameAjax = {
         {
           GameOpponents.opponents[i] = new GameOpponent(data.players[i])
         }
-        console.log(GameOpponents.opponents.length)
+        
+        for(var i=0;i<data.bullets.length;i++)
+        {
+          if(GameBullets.bullets_seen.indexOf(data.bullets[i]['id']) === -1)
+          {
+            GameBullets.bullets_seen.push(data.bullets[i]['id']) 
+            GameBullets.addBulletFromJSON(data.bullets[i])
+          }
+        }
       }
     });
+    // We sent the bullets to the server. That classes as 'best effort'
+    // when it comes to this hackjob :D
+    GameBullets.bullets_to_sync = []
   },
   recieve:function()
   {

@@ -1,10 +1,40 @@
 var GameBullets={
+  bullets_to_sync:[],
+  /**
+   * List of IDs to compare against before creating new bullet.
+   */
+  bullets_seen:[],
   bullets:[],
+  addBulletFromJSON:function(json)
+  {
+    var bullet = {
+      faction: 'evil',
+      damage: 30,
+      type: 'basic',
+      x: json['x'],
+      y: json['y'],
+      xOffset: 0,
+      yOffset: -10, //ugly constants
+      rot: json['rot'],
+      velocityX: json['velocityX'],
+      velocityY: json['velocityY'],
+      color: "255,255,255",
+      alpha: 1,
+      decay: 0.98,
+      falloff: 0.2,
+      size: 10
+    }
+    console.log("ONE IN THE CHAMBER")
+    console.log(bullet)
+    this.bullets.push(bullet)
+    console.log("COUNT: "+this.bullets.length)
+    //do stuff
+  },
   addBullet:function(ship, type)
   {
     var bulletRotation = ship.rot + (((Math.random()*type.spread)-(type.spread/2))/180*Math.PI)
     //TODO: Accept bullet type etc.
-    this.bullets.push({
+    var bullet = {
       faction: ship.faction,
       damage: type.damage, 
       type: type.name,
@@ -20,7 +50,10 @@ var GameBullets={
       decay: type.decay,
       falloff: type.falloff,
       size: 10
-    })
+    }
+
+    this.bullets.push(bullet)
+    this.bullets_to_sync.push(bullet)
   },
   render:function(ctx)
   {

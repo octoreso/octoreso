@@ -11,10 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140422192441) do
+ActiveRecord::Schema.define(version: 20140425002119) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "ld27_test_bullets", force: true do |t|
+    t.decimal  "x"
+    t.decimal  "y"
+    t.decimal  "rot"
+    t.decimal  "velocityX"
+    t.decimal  "velocityY"
+    t.integer  "player_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

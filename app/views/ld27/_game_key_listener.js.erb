@@ -1,4 +1,10 @@
 var GameKeyListener = {
+  init:function()
+  {
+    window.addEventListener("keydown",this.keyDown,true);
+    window.addEventListener("keyup",this.keyUp,true);
+  }
+
   keyDown:function(e)
   {
     GameKeyListener.setKey(e, true)
@@ -49,6 +55,5 @@ var GameKeyListener = {
         e.preventDefault();
       break;
     }
-    GameModel.input.keyboard = map
   }
 }

@@ -13,6 +13,7 @@ var GameView = function(ctrl){
   this.tick_ts = new Date().getTime()
   this.tick_ms = 0
   this.sprites = null
+  this.characterMap = null
   this.zoom = 2
 
   this.lighting = null
@@ -29,9 +30,10 @@ var GameView = function(ctrl){
     this.ctx.imageSmoothingEnabled = false;
     this.sprites = new Image();
     this.sprites.src = "/ld29/sprites.png";
+    this.characterMap = new GameCharacterMap()
 
     ///context.drawImage(img,sx,sy,swidth,sheight,x,y,width,height);
-    this.render_reset()
+    this.renderWorld_reset()
   }
   this.renderSprite = function(id)
   {
@@ -111,76 +113,38 @@ var GameView = function(ctrl){
     )
   }
 
-  this.renderFont = function(name,scale)
+  this.renderString = function(chars, scale)
   {
-    var w = 4;
-    var h = 8;
-    var x = 304;
-    var y = 0;
-
-    var dx = 0;
-    var dy = 0;
-
-    switch(name)
-    {
-      case 'x':
-      break;
-
-      // Case fallthrough :D
-      case '9':
-        dx = 4;
-        dy = 2;
-        break;
-      case '8':
-        dx = 3;
-        dy = 2;
-        break;
-      case '7':
-        dx = 2;
-        dy = 2;
-        break;
-      case '6':
-        dx = 1;
-        dy = 2;
-        break;
-      case '5':
-        dx = 0;
-        dy = 2;
-        break;
-      case '4':
-        dx = 4;
-        dy = 1;
-        break;
-      case '3':
-        dx = 3;
-        dy = 1;
-        break;
-      case '2':
-        dx = 2;
-        dy = 1;
-        break;
-      case '1':
-        dx = 1;
-        dy = 1;
-        break;
-      case '0':
-        dx = 0;
-        dy = 1;
-        break;
-      break;
+    chars = chars.toUpperCase()
+    var x = 0; //x offset
+    for(var i =0; i < chars.length; i++)
+    { 
+      var character = chars[i];
+      
+      var dX = this.renderChar(character, scale)
+      this.ctx.transform(1,0,0,1,dX*scale,0)
+      x = x + dX
     }
+    this.ctx.transform(1,0,0,1,-x*scale,0)
+  }
+
+  this.renderChar = function(name,scale)
+  {
+    var c = this.characterMap.getChar(name, scale)
 
     this.ctx.drawImage(
       this.sprites, 
-      x + (dx * w),
-      y + (dy * h),
-      w,
-      h,
+      c.x + (c.dX * c.oW),
+      c.y + (c.dY * c.h),
+      c.w,
+      c.h,
       0,
       0,
-      w * scale,
-      h * scale 
+      c.w * scale,
+      c.h * scale 
     )
+    // for creating strings
+    return c.w
   }
 
   this.start = function()
@@ -192,17 +156,17 @@ var GameView = function(ctrl){
   this.clean = function()
   {
     //clear the screen
-    this.ctx.fillStyle="#000000";  
+    this.ctx.fillStyle="#111111";  
     this.ctx.fillRect(0, 0, this.WIDTH, this.HEIGHT);
     //set more defaults
   }
 
 
-  this.render_push = function()
+  this.renderWorld_push = function()
   {
     this.ctx.transform(this.zoom, 0, 0, this.zoom, this.WIDTH/2, this.HEIGHT/2)
   }
-  this.render_reset = function()
+  this.renderWorld_reset = function()
   {
     // global reset
     this.ctx.setTransform(1,0,0,1,0,0)
@@ -210,20 +174,38 @@ var GameView = function(ctrl){
   } 
   this.render = function()
   { 
-    this.render_push();
-    this.ctrl.model.world.render(this);
-    this.ctrl.model.player.render(this);
-    this.render_reset();
 
-    // UI STUFF
-    this.render_lighting()
+    switch(this.ctrl.state)
+    {
+      case GameState.PLAYING:
+        this.renderWorld_push();
+        this.ctrl.model.world.render(this);
+        this.ctrl.model.player.render(this);
+        this.renderWorld_reset();
+
+        // UI STUFF
+        this.render_lighting()
+        this.ctrl.model.player.inventory.render(this)
+        this.ctrl.model.player.stockpile.render(this)
+      break;
+      case GameState.MENU:
+        //Experimental
+        this.ctx.globalAlpha = 0.2
+        this.renderWorld_push();
+        this.ctrl.model.world.render(this);
+        this.renderWorld_reset();
+        this.ctx.globalAlpha = 1
+        this.render_lighting()
+
+        this.ctrl.model.menu.render(this)
+        
+      break;
+
+    }
+
     if(DEBUG_FPS) {
       this.render_fps();
     }
-    this.ctrl.model.player.inventory.render(this)
-    this.ctrl.model.player.stockpile.render(this)
-    
-    
   }
 
   this.render_fps = function()
@@ -252,7 +234,7 @@ var GameView = function(ctrl){
       this.HEIGHT/2, 
       ((ctrl.model.player.los() - 3)*TILE_SIZE*this.zoom)+3*Math.sin(new Date().getTime()/20)+2*Math.random()-1)
     //this.lighting.addColorStop(0, 'rgba(0,255,0,1)')
-    this.lighting.addColorStop(0.1, 'rgba(0,0,0,0)')
+    this.lighting.addColorStop(0.01, 'rgba(0,0,0,0)')
     this.lighting.addColorStop(1, 'rgba(0,0,0,1)')
 
 

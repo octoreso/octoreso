@@ -1,4 +1,4 @@
-14.5 hours
+==FINAL COUNTDOWN
 
 == High == 
 Pixel font (fed up of nonsense!) ? - Kludge this
@@ -17,6 +17,26 @@ Figure out what that stalling is
 Firefox / IE compat passes
   Remove console.*
 Save - Probably cut this for the LD deadline.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 == NEW PERSPECTIVES == 
 

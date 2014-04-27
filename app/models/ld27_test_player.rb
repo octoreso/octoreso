@@ -1,5 +1,6 @@
 class Ld27TestPlayer < ActiveRecord::Base
   belongs_to :user, inverse_of: :ld27_test_player
+  has_many :bullet, class_name: 'Ld27TestBullet', inverse_of: :player
   validates :user, presence: :true
 
   def uid

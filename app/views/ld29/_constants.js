@@ -15,6 +15,12 @@ var PLAYER_SIZE = 10
 var DEBUG_FPS   = false
 
 // technically doubled.
-var WORLD_WIDTH  = 100
-var WORLD_HEIGHT = 30
+var WORLD_X_MIN = -5
+var WORLD_Y_MIN = -5
+var WORLD_X_MAX = 5
+var WORLD_Y_MAX = 5
+
+
+var WORLD_WIDTH  = WORLD_X_MAX - WORLD_X_MIN//100
+var WORLD_HEIGHT = WORLD_Y_MAX - WORLD_Y_MIN//30
 

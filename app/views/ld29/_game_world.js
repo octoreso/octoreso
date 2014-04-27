@@ -5,32 +5,90 @@ var GameWorld = function(model)
 
   this.init = function()
   {
-    for(var x=-WORLD_WIDTH;x<WORLD_WIDTH;x++)
+    this.generate();
+  };
+
+  this.generate = function(){
+    for(var x=WORLD_X_MIN;x<WORLD_X_MAX;x++)
     {
       if(!this.blocks[x])
       {
         this.blocks[x] = []
       }
 
-      for(var y=-WORLD_HEIGHT;y<WORLD_HEIGHT;y++)
+      for(var y=WORLD_Y_MIN;y<WORLD_Y_MAX;y++)
       {
-        if((x<2 && x>-2) && (y<1 && y>-2))
+        this.generateBasicTerrain(x,y)
+      }  
+    }
+
+    for(var x=WORLD_X_MIN;x<WORLD_X_MAX;x++)
+    {
+      for(var y=WORLD_Y_MIN;y<WORLD_Y_MAX;y++)
+      {
+        this.generateSpecial(x,y)
+      }
+    }
+    this.generateWalls()
+    this.generatePortal(0,0)
+  }
+
+  this.generateBasicTerrain=function(x,y)
+  {
+    switch(Math.floor(Math.random()*5))
+    {
+      case 1:
+        this.blocks[x][y] = new GameBlock(this.model, x, y, this.model.blockTypes.stone)
+      break;
+      default:
+        this.blocks[x][y] = new GameBlock(this.model, x, y, this.model.blockTypes.dirt)
+      break;
+    }
+  }
+
+  this.generateSpecial = function(x,y)
+  {
+    switch(Math.floor(Math.random()*190))
+    {
+      case 1:
+        this.generatePortal(x,y)
+      break;
+      default:
+      break;
+    }
+  }
+  this.generateWalls = function()
+  {
+    for(i = WORLD_X_MIN; i<WORLD_X_MAX; i++)
+    {
+      this.blocks[i][WORLD_Y_MIN-1] = new GameBlock(this.model, i, WORLD_Y_MIN-1, this.model.blockTypes.bedrock)
+      this.blocks[i][WORLD_Y_MAX+1] = new GameBlock(this.model, i, WORLD_Y_MAX+1, this.model.blockTypes.bedrock)
+    }
+    for(j = WORLD_Y_MIN; j<WORLD_Y_MAX; j++)
+    {
+      this.blocks[WORLD_X_MIN-1] = []
+      this.blocks[WORLD_X_MIN-1][j] = new GameBlock(this.model, WORLD_X_MIN-1, j, this.model.blockTypes.bedrock)
+      this.blocks[WORLD_X_MAX+1][j] = new GameBlock(this.model, WORLD_X_MAX+1, j, this.model.blockTypes.bedrock)
+    }
+  }
+
+  this.generatePortal= function(x,y)
+  {
+    //hollow out.
+    for(var i=-1; i<=1; i++)
+    {
+      for(var j=-1; j<1; j++)
+      {
+
+        if(this.blocks[x+i] && this.blocks[x+i][y+j])
         {
-          this.blocks[x][y] = new GameBlock(this.model, x, y, this.model.blockTypes.dirt_gone)
-        } else {
-          switch(Math.floor(Math.random()*6))
-          {
-            case 1:
-              this.blocks[x][y] = new GameBlock(this.model, x, y, this.model.blockTypes.stone)
-            break;
-            default:
-              this.blocks[x][y] = new GameBlock(this.model, x, y, this.model.blockTypes.dirt)
-            break;
-          }
+          this.blocks[x+i][y+j] = new GameBlock(this.model, x+i, y+j, this.model.blockTypes.dirt_gone)
         }
       }
     }
+    this.blocks[x][y] = new GameBlock(this.model, x, y, this.model.blockTypes.portal)
   }
+
   this.render = function(view)
   {
     this.render_push(view)
@@ -51,7 +109,7 @@ var GameWorld = function(model)
           } 
           else
           {
-            new GameBlock(this.model, i,j, this.model.blockTypes.dirt_gone).render(view)
+            new GameBlock(this.model, i,j, this.model.blockTypes.space).render(view)
           }
         }
 

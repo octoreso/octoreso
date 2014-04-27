@@ -105,6 +105,78 @@ var GameView = function(ctrl){
     )
   }
 
+  this.renderFont = function(name, scale)
+  {
+    var w = 4;
+    var h = 8;
+    var x = 304;
+    var y = 0;
+
+    var dx = 0;
+    var dy = 0;
+
+    switch(name)
+    {
+      case 'x':
+      break;
+
+      // Case fallthrough :D
+      case '9':
+        dx = 4;
+        dy = 2;
+        break;
+      case '8':
+        dx = 3;
+        dy = 2;
+        break;
+      case '7':
+        dx = 2;
+        dy = 2;
+        break;
+      case '6':
+        dx = 1;
+        dy = 2;
+        break;
+      case '5':
+        dx = 0;
+        dy = 2;
+        break;
+      case '4':
+        dx = 4;
+        dy = 1;
+        break;
+      case '3':
+        dx = 3;
+        dy = 1;
+        break;
+      case '2':
+        dx = 2;
+        dy = 1;
+        break;
+      case '1':
+        dx = 1;
+        dy = 1;
+        break;
+      case '0':
+        dx = 0;
+        dy = 1;
+        break;
+      break;
+    }
+
+    this.ctx.drawImage(
+      this.sprites, 
+      x + (dx * w),
+      y + (dy * h),
+      w,
+      h,
+      0,
+      0,
+      w * scale,
+      h * scale 
+    )
+  }
+
   this.start = function()
   {
     // SET UP UI TICKS

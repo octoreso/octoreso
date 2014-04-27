@@ -5,9 +5,9 @@ var GamePlayer = function(model)
   this.inventory  = null
   this.stockpile  = null
 
-  this.los_radius = 7
+  this.los_radius = 12
   this.los_min = 5
-  this.los_y_penalty = 0.1
+  this.los_y_penalty = 0.06
   this.init = function()
   {
     this.unit      = new GameUnit(model)

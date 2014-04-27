@@ -8,6 +8,8 @@ var GameBlock = function(model, x, y, blockType)
   this.maxHP      = 1
   this.regen      = 1
 
+  this.extra = {}
+
   this.dead       = false 
 
   //called every time the block changes type or otherwise resets
@@ -16,6 +18,8 @@ var GameBlock = function(model, x, y, blockType)
     this.HP = this.blockType.maxHP + this.blockType.linearDepthHP*y
     this.maxHP = this.blockType.maxHP
     this.regen = this.blockType.regen
+
+    this.blockType.onInit(this)
   }
   this.render = function(view)
   {
@@ -29,6 +33,7 @@ var GameBlock = function(model, x, y, blockType)
     {
       this.kill();
     }
+    this.blockType.onRender(this, view);
     this.render_pop(view)
 
   }  
@@ -58,22 +63,29 @@ var GameBlock = function(model, x, y, blockType)
     this.dead = true
     //do some stuff
     //call type specific callback
-    this.blockType.onKill(this, model);
+    this.blockType.onKill(this);
   }
   this.step = function(ms)
   {
     //get player position.
-    if(
-      Math.abs(this.model.player.unit.x - x) <= 0.5 &&
-      Math.abs(this.model.player.unit.y - y) <= 0.5
-    )
-    {
-      //todo: "consume" blocks that are unconsumed.
-      //this.blockType = this.model.blockTypes.dirt_gone
-    }
-     
-    this.HP = Math.min(this.HP + (this.regen*ms/1000), this.maxHP)
+    var pX = Math.abs(this.model.player.unit.x - this.x)
+    var pY = Math.abs(this.model.player.unit.y - this.y)
+    var d = Math.pow(Math.pow(pX, 2) + Math.pow(pY, 2),0.5)
 
+    if(d<0.5)
+    {
+      this.onTouch(ms);
+    }
+    if(!this.dead)
+    {
+      this.HP = Math.min(this.HP + (this.regen*ms/1000), this.maxHP)
+    }
+
+    this.blockType.onStep(this, ms)
   }  
+  this.onTouch=function(ms)
+  {
+    this.blockType.onTouch(this, ms)
+  }
   this.init(); 
 }

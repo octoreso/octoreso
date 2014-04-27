@@ -8,19 +8,29 @@ Sprite.Offset         = {}
 Sprite.Offset.PLAYER  = 0
 Sprite.Offset.DAMAGE  = 8
 Sprite.SHEET_WIDTH    = 8
+
+var GameState = {}
+GameState.LOADING = 1
+GameState.MENU    = 2
+GameState.PLAYING = 3
+
+var GameMenuState   = {}
+GameMenuState.MAIN  = 0  
+GameMenuState.HELP  = 1  
+GameMenuState.ABOUT = 2  
+
 // Matches Sprite Number
 var TILE_SIZE   = 32
 var ICON_SIZE   = 8
 var PLAYER_SIZE = 10
 var DEBUG_FPS   = false
+var DEBUG_STATE = false
 
 // technically doubled.
-var WORLD_X_MIN = -50
-var WORLD_Y_MIN = -3
-var WORLD_X_MAX = 50
-var WORLD_Y_MAX = 1000
-
+var WORLD_X_MIN = -30
+var WORLD_Y_MIN = -5
+var WORLD_X_MAX = 30
+var WORLD_Y_MAX = 2000
 
 var WORLD_WIDTH  = WORLD_X_MAX - WORLD_X_MIN
 var WORLD_HEIGHT = WORLD_Y_MAX - WORLD_Y_MIN
-

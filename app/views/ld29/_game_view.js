@@ -1,6 +1,7 @@
 var GameView = function(ctrl){
   this.ctrl = ctrl
-
+  this.idle  = true
+  
   this.WIDTH = 800
   this.HEIGHT = 600 
   this.UI_FPS = 60
@@ -15,7 +16,6 @@ var GameView = function(ctrl){
   this.sprites = null
   this.characterMap = null
   this.zoom = 2
-
   this.lighting = null
 
   this.init = function()
@@ -150,7 +150,13 @@ var GameView = function(ctrl){
   this.start = function()
   {
     // SET UP UI TICKS
-    this.tickTimer = setInterval(this.tick,(1000/this.UI_FPS), this);
+    this.tickTimer = window.setInterval(this.tick,(1000/this.UI_FPS), this);
+  }
+
+  this.stop = function()
+  {
+    // SET UP UI TICKS
+    window.clearInterval(this.tickTimer);
   }
 
   this.clean = function()
@@ -189,13 +195,17 @@ var GameView = function(ctrl){
         this.ctrl.model.player.stockpile.render(this)
       break;
       case GameState.MENU:
-        //Experimental
-        this.ctx.globalAlpha = 0.2
-        this.renderWorld_push();
-        this.ctrl.model.world.render(this);
-        this.renderWorld_reset();
-        this.ctx.globalAlpha = 1
-        this.render_lighting()
+      
+        //if(this.ctrl.model.menu.subState == GameMenuState.MAIN)
+        //{
+          //Experimental
+          this.ctx.globalAlpha = 0.2
+          this.renderWorld_push();
+          this.ctrl.model.world.render(this);
+          this.renderWorld_reset();
+          this.ctx.globalAlpha = 1
+          this.render_lighting()
+        //}
 
         this.ctrl.model.menu.render(this)
         
@@ -244,11 +254,14 @@ var GameView = function(ctrl){
 
   this.tick = function (scrn)
   {
+    this.idle = false
+    //console.log("UI "+scrn.tickTimer)
     scrn.clean();
     scrn.render();
     var new_ts = new Date().getTime()
     scrn.tick_ms = (new_ts - scrn.tick_ts)
     scrn.tick_ts = new_ts
+    this.idle = true
   }
 
   this.init();

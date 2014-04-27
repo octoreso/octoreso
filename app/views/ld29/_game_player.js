@@ -25,7 +25,7 @@ var GamePlayer = function(model)
     if(this.inventory.full)
     {
       view.ctx.transform(1, 0, 0, 1,  tX,  tY)
-      view.renderCustom('full',1);
+      view.renderCustom('full', 1);
       view.ctx.transform(1, 0, 0, 1, -tX, -tY)
     }
 

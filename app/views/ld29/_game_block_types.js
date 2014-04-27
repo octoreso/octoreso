@@ -70,7 +70,7 @@ var GameBlockTypes = function(){
 
         block.extra.blockDemanded       = block.model.blockTypes.dirt //todo
         block.extra.blockDemandedQty    = 2
-        block.extra.offerItem           = new GameItem('dirt')
+        block.extra.offerItem           = new GameItem('fuel')
         block.extra.closed_at           = false
       }
       type.onRender = function(block, view)

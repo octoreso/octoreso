@@ -3,7 +3,7 @@ var GameUnit = function(model)
   this.model   = model
   this.HP      = 100
   this.maxHP   = this.HP
-  this.fuel    = 300 //seconds
+  this.fuel    = 60//300 //seconds
   this.maxFuel = this.fuel 
 
   this.dead = false

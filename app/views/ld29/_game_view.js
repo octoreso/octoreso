@@ -17,6 +17,7 @@ var GameView = function(ctrl){
   this.characterMap = null
   this.zoom = 2
   this.lighting = null
+  this.meters = null
 
   this.init = function()
   {
@@ -32,6 +33,7 @@ var GameView = function(ctrl){
     this.sprites.src = "/ld29/sprites.png";
     this.characterMap = new GameCharacterMap()
 
+    this.meters = new GameMeters(this.ctrl.model.player);
     ///context.drawImage(img,sx,sy,swidth,sheight,x,y,width,height);
     this.renderWorld_reset()
   }
@@ -97,6 +99,42 @@ var GameView = function(ctrl){
         y = 16
         w = 17
         h = 7
+      break;
+      case 'pip_health':
+        x = 300
+        y = 32
+        w = 4
+        h = 8
+      break;
+      case 'pip_time':
+        x = 296
+        y = 32
+        w = 4
+        h = 8
+      break;
+      case 'pip_no_health':
+        x = 292
+        y = 32
+        w = 4
+        h = 8
+      break;
+      case 'pip_no_time':
+        x = 288
+        y = 32
+        w = 4
+        h = 8
+      break;
+      case 'icon_health':
+        x = 280
+        y = 32
+        w = 8
+        h = 8
+      break;
+      case 'icon_time':
+        x = 272
+        y = 32
+        w = 8
+        h = 8
       break;
     }
 
@@ -185,28 +223,30 @@ var GameView = function(ctrl){
     {
       case GameState.PLAYING:
         this.renderWorld_push();
-        this.ctrl.model.world.render(this);
-        this.ctrl.model.player.render(this);
+          this.ctrl.model.world.render(this);
+          this.ctrl.model.player.render(this);
+          
         this.renderWorld_reset();
 
         // UI STUFF
         this.render_lighting()
         this.ctrl.model.player.inventory.render(this)
         this.ctrl.model.player.stockpile.render(this)
+        this.renderGameOver();
+        this.renderFuelCounter();
+        this.meters.render(this)
+        
       break;
       case GameState.MENU:
       
-        //if(this.ctrl.model.menu.subState == GameMenuState.MAIN)
-        //{
-          //Experimental
-          this.ctx.globalAlpha = 0.2
-          this.renderWorld_push();
-          this.ctrl.model.world.render(this);
-          this.renderWorld_reset();
-          this.ctx.globalAlpha = 1
-          this.render_lighting()
-        //}
+        this.ctx.globalAlpha = 0.2
+        this.renderWorld_push();
+        this.ctrl.model.world.render(this);
+        this.renderWorld_reset();
+        this.ctx.globalAlpha = 1
+        this.render_lighting()
 
+        this.ctrl.model.menu.render(this)
         this.ctrl.model.menu.render(this)
         
       break;
@@ -216,6 +256,9 @@ var GameView = function(ctrl){
     if(DEBUG_FPS) {
       this.render_fps();
     }
+
+    //reset this flag. KLUDGE
+    this.ctrl.model.player.unit.portal_proximity = false
   }
 
   this.render_fps = function()
@@ -233,19 +276,59 @@ var GameView = function(ctrl){
     );
   }
 
+  this.renderFuelCounter = function()
+  { 
+    if(this.ctrl.model.player.unit.fuel < 60)
+    {
+      this.ctx.transform(1,0,0,1,365,500)
+      this.renderString('Fuel Low!', 2)
+      this.ctx.transform(1,0,0,1,0,20)
+      this.renderString(("0"+Math.floor(this.ctrl.model.player.unit.fuel)).slice(-2), 8)
+      this.ctx.transform(1,0,0,1,-365,-520)
+    }
+  }
+
+  this.renderGameOver = function()
+  { 
+    if(this.ctrl.model.player.unit.dead)
+    {
+      this.ctx.transform(1,0,0,1,240,200)
+      this.renderString("Game Over!", 8)
+      this.ctx.transform(1,0,0,1,-240,-200)
+    }
+  }
+
   this.render_lighting = function()
   {
     //light it up.
     this.lighting = this.ctx.createRadialGradient(
       this.WIDTH/2, 
-      this.HEIGHT/2, 
+      this.HEIGHT/2 - 18, 
       10, 
       this.WIDTH/2, 
-      this.HEIGHT/2, 
+      this.HEIGHT/2 - 18, 
       ((ctrl.model.player.los() - 3)*TILE_SIZE*this.zoom)+3*Math.sin(new Date().getTime()/20)+2*Math.random()-1)
     //this.lighting.addColorStop(0, 'rgba(0,255,0,1)')
-    this.lighting.addColorStop(0.01, 'rgba(0,0,0,0)')
-    this.lighting.addColorStop(1, 'rgba(0,0,0,1)')
+    
+    var colorR = 0
+    var timeSinceDmg = this.tick_ts - this.ctrl.model.player.unit.damaged_at
+    var painAnimationLength = 300
+    var deathAnimationLength = 2000
+    var maxPainIntensity = 66
+    if(timeSinceDmg < painAnimationLength)
+    {
+      
+      colorR = Math.floor(Math.cos(timeSinceDmg/painAnimationLength*0.5*Math.PI)*maxPainIntensity)
+    }  
+    //death overrides obviously.
+    if(this.ctrl.model.player.unit.dead && timeSinceDmg < deathAnimationLength)
+    {
+      //Multiply by 3, always do
+      colorR = Math.floor(Math.cos(timeSinceDmg/deathAnimationLength*0.5*Math.PI)*maxPainIntensity)
+    }
+
+    this.lighting.addColorStop(0.01, 'rgba('+colorR+',0,0,0)')
+    this.lighting.addColorStop(1, 'rgba('+colorR+',0,0,1)')
 
 
     this.ctx.fillStyle=this.lighting;  

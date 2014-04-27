@@ -5,9 +5,10 @@ Direction.LEFT        = 2
 Direction.UP          = 3
 var Sprite            = {}
 Sprite.Offset         = {}
-Sprite.Offset.PLAYER  = 0
-Sprite.Offset.DAMAGE  = 8
-Sprite.SHEET_WIDTH    = 8
+Sprite.Offset.PLAYER           = 0
+Sprite.Offset.PORTAL_PROXIMITY = 24
+Sprite.Offset.DAMAGE           = 8
+Sprite.SHEET_WIDTH             = 8
 
 var GameState = {}
 GameState.LOADING = 1
@@ -17,7 +18,8 @@ GameState.PLAYING = 3
 var GameMenuState   = {}
 GameMenuState.MAIN  = 0  
 GameMenuState.HELP  = 1  
-GameMenuState.ABOUT = 2  
+GameMenuState.STORY = 2  
+GameMenuState.ABOUT = 3  
 
 // Matches Sprite Number
 var TILE_SIZE   = 32

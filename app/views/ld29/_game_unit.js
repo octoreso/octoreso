@@ -1,10 +1,22 @@
 var GameUnit = function(model)
 {
-  this.model = model
+  this.model   = model
+  this.HP      = 100
+  this.maxHP   = this.HP
+  this.fuel    = 300 //seconds
+  this.maxFuel = this.fuel 
+
+  this.dead = false
+  this.died_at = -1;
+  this.damaged_at = -1;
+  this.death_length = 9000;
+
   this.x = 0
   this.y = 0
 
   this.speed = 1 //tiles/sec
+  this.velocityPainThreshold = 0.1 //beyond this dmg is dealt
+  this.fallDamageMultiplier = 120 //lower is better
 
   this.velocityX = 0
   this.velocityY = 0
@@ -13,8 +25,8 @@ var GameUnit = function(model)
   // boolean tolerance for surfaces to prevent "wobbling"
   this.onFloor = false
 
-  this.accelX = 0.085
-  this.accelY = 0.1
+  this.accelX = 0.095
+  this.accelY = 0.11
   this.decayH = 0.93
   this.decayV = 0.95
   this.gravityAccel = 0.085
@@ -25,6 +37,9 @@ var GameUnit = function(model)
   this.miningVelocityLimit = 0.05
   this.downMiningDamage = 10
   this.sideMiningDamage = 40
+
+  this.portal_proximity     = false //for display sprite  
+  this.last_portal_touched  = null //for logic  
 
   this.moving = false
   this.last_direction = Direction.RIGHT
@@ -38,9 +53,14 @@ var GameUnit = function(model)
   this.render = function(view)
   {
     this.render_push(view)
-    view.renderSprite(this.sprite)
+    
+    var spriteOffset = 0;
+    if(this.portal_proximity)
+    {
+      spriteOffset = Sprite.Offset.PORTAL_PROXIMITY
+    } 
+    view.renderSprite(this.sprite + spriteOffset)
     this.render_pop(view)
-
   }  
   this.render_push = function(view)
   {
@@ -59,8 +79,20 @@ var GameUnit = function(model)
     if(isNaN(theta)) { theta = 0 }
     return theta;
   }
+
+  this.depleteFuel = function(ms)
+  {
+    this.fuel = this.fuel - (ms/1000)
+    if(this.fuel < 0)
+    {
+      this.kill();
+    }
+  }
+
   this.step = function(ms)
   {
+    this.depleteFuel(ms)
+
     if(this.moving)
     {
       for(var d=0;d<this.directions.length;d++)
@@ -133,10 +165,46 @@ var GameUnit = function(model)
   {
     this.onFloor = true
   }
-  
+
+  this.fallDamage=function(velocity)
+  {
+    
+    var amt = Math.floor(velocity*this.fallDamageMultiplier);
+    this.damage(amt)
+  }
+
+  this.damage = function(amt)
+  {
+    this.HP = this.HP - amt
+    this.damaged_at = this.model.tick_ts
+    if(this.HP < 0)
+    {
+      this.kill();
+    }
+  }
+
+  this.heal = function()
+  {
+    this.HP = this.HP + (0.3*this.maxHP)
+  }
+  this.refuel = function()
+  {
+    this.fuel = this.fuel + (0.4*this.maxFuel)
+  }
+
+
+  this.kill = function()
+  {
+    this.dead     = true
+    this.died_at  = this.model.tick_ts
+    this.HP = 0 //for display purposes if C.O.D is unnatural
+    this.velocityX = 0
+    this.velocityY = 0
+    this.gravityAccel = 0.03
+  }
+ 
   this.collide = function(ms, collideX, collideY, blockX, blockY)
   {
-
     if(collideY!=0)
     {
       this.collideY = true
@@ -145,6 +213,11 @@ var GameUnit = function(model)
       if(collideY==1 && this.velocityY < this.miningVelocityLimit && this.directions[0] == Direction.DOWN)
       {
         this.model.world.blocks[blockX][blockY].damage(this, ms, Direction.DOWN)//, this.velocityY)
+      }
+
+      if(Math.abs(this.velocityY)>this.velocityPainThreshold)
+      {
+        this.fallDamage(Math.abs(this.velocityY));
       }
       // Cannot dig up
       this.velocityY = 0

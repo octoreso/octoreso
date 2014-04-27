@@ -1,16 +1,10 @@
 ==FINAL COUNTDOWN
 
 == High == 
-Pixel font (fed up of nonsense!) ? - Kludge this
-UI Clickability
-  Menus
-    Story
   Upgrades
 World Generation
 Lose conditions / Gameplay!
-  Health / Fall damage
-  Fuel / Delivery of Required Materials
-    Make sure to get "required" AI correct as this will be SUPER frustrating if wrong!
+  Trade with portals for esssentual fuel but they will collapse
 
 == Low ==
 Figure out what that stalling is
@@ -18,25 +12,7 @@ Firefox / IE compat passes
   Remove console.*
 Save - Probably cut this for the LD deadline.
 Fix MENUSTEP bug
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Remove render2
 
 == NEW PERSPECTIVES == 
 

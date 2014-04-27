@@ -4,10 +4,10 @@ var GameMenu = function(model)
   this.subState   = GameMenuState.MAIN
 
   this.selectedItem = 0;
-  this.menuItems = 3;
+  this.menuItems = 4;
 
   this.TITLE_OFFSET_Y = 20
-  this.MAIN_MENU_OFFSET_Y = 140
+  this.MAIN_MENU_OFFSET_Y = 110
   this.MAIN_MENU_ITEM_OFFSET_Y = 36
 
   this.menuActionDelay = 100
@@ -20,12 +20,6 @@ var GameMenu = function(model)
   this.render = function(view)
   {
     this.render_push(view)
-    this.renderTitle(view)
-    this.render_pop(view)
-  }  
-  this.renderTitle = function(view)
-  {
-    
     switch(this.subState)
     {
       case GameMenuState.MAIN:
@@ -34,11 +28,16 @@ var GameMenu = function(model)
       case GameMenuState.HELP:
         this.renderStateHelp(view)
       break;
+      case GameMenuState.STORY:
+        this.renderStateStory(view)
+      break;
       case GameMenuState.ABOUT:
         this.renderStateAbout(view)
       break;
     }
-  } 
+    this.render_pop(view)
+  }  
+
   this.step = function(ms)
   {
     if(this.model.tick_ts - this.menuActionDelay > this.lastMenuAction)
@@ -84,17 +83,30 @@ var GameMenu = function(model)
   {
     this.renderMenuTitle(view)
     this.renderMenuItem(view, "NEW GAME", 0)
-    this.renderMenuItem(view, "HELP", 1)
-    this.renderMenuItem(view, "ABOUT", 2)
-
-    view.ctx.transform(1, 0, 0, 1, 0, -this.MAIN_MENU_OFFSET_Y-(3*this.MAIN_MENU_ITEM_OFFSET_Y))
+    this.renderMenuItem(view, "HELP",     1)
+    this.renderMenuItem(view, "STORY",    2)
+    this.renderMenuItem(view, "ABOUT",    3)
+    
   }
 
   this.renderStateHelp=function(view)
   {
     this.renderMenuTitle(view)
-    
+  
+    this.renderMenuString(view,"<> KEYS OR WASD TO MOVE")
+    this.renderMenuString(view,"HOLD  E`  NEAR QUANTUM TUNNELS TO STORE MINERALS") 
+    this.renderMenuString(view,"PRESS Q  NEAR QUANTUM TUNNELS TO GET EQUIPMENT") 
+    this.renderMenuString(view,"`               THIS WILL COLLAPSE THE PORTAL!") 
+    this.renderMenuString(view," ")
 
+
+    this.renderMenuItem(view, "BACK", 0) 
+  }
+
+  this.renderStateStory=function(view)
+  {
+    this.renderMenuTitle(view)
+  
     this.renderMenuString(view,"THE YEAR IS 2556. YOU HAVE BEEN SENT BY THE ")
     this.renderMenuString(view,"FEDERATION TO MINE ASTEROID IXION-518-B.") 
     this.renderMenuString(view,"AFTER THE SPACE JUNK ACCIDENTS OF 2545, ") 
@@ -107,8 +119,6 @@ var GameMenu = function(model)
 
 
     this.renderMenuItem(view, "BACK", 0) 
-
-    view.ctx.transform(1, 0, 0, 1, 0, -this.MAIN_MENU_OFFSET_Y)
   }
 
   this.renderStateAbout=function(view)
@@ -120,14 +130,12 @@ var GameMenu = function(model)
     this.renderMenuString(view,"") 
     this.renderMenuString(view,"") 
     this.renderMenuItem(view,"BACK",0) 
-
-    view.ctx.transform(1, 0, 0, 1, 0, -this.MAIN_MENU_OFFSET_Y)
   }
 
   this.renderMenuTitle = function(view)
   {
     view.ctx.transform(1, 0, 0, 1, 0, this.TITLE_OFFSET_Y)
-    view.renderString("    <NAME OF GAME>", 8)
+    view.renderString("QUANTUM TUNNELLING", 8)
     view.ctx.transform(1, 0, 0, 1, 0, this.MAIN_MENU_OFFSET_Y)
   }
 
@@ -173,12 +181,16 @@ var GameMenu = function(model)
           this.menuStateTransition(GameMenuState.HELP)
           break;
           case 2:
+          this.menuStateTransition(GameMenuState.STORY)
+          break;
+          case 3:
           this.menuStateTransition(GameMenuState.ABOUT)
           break;
         }
       break;
 
       case GameMenuState.HELP:
+      case GameMenuState.STORY:
       case GameMenuState.ABOUT:
         this.menuStateTransition(GameMenuState.MAIN)
       break;
@@ -187,12 +199,11 @@ var GameMenu = function(model)
 
   this.menuStateTransition=function(state)
   {
-    console.log("Tx to state "+state)
     this.subState = state
     switch(state)
     {
       case GameMenuState.MAIN:
-      this.menuItems = 3
+      this.menuItems = 4
       break;
       default:
       this.menuItems = 1 
@@ -203,10 +214,11 @@ var GameMenu = function(model)
 
   this.render_push = function(view)
   {
-    
+    view.ctx.save(); 
   }
   this.render_pop = function(view)
   {
+    view.ctx.restore();
   } 
 
   this.init();

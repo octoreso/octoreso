@@ -37,6 +37,12 @@ var GameBlock = function(model, x, y, blockType)
     this.render_pop(view)
 
   }  
+  this.render2 = function(view)
+  {
+    this.render_push(view)
+    this.blockType.onRender2(this, view);
+    this.render_pop(view)
+  } 
   this.render_push = function(view)
   {
     view.ctx.transform(1, 0, 0, 1, x*TILE_SIZE, y*TILE_SIZE)

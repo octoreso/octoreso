@@ -9,6 +9,7 @@ var GameBlockType = function(initCode)
   
   this.onKill = function(block){}
   this.onRender = function(block, view){}
+  this.onRender2 = function(block, view){}
   this.onStep = function(block, ms){}
   this.onTouch = function(block, ms){}
   this.onInit = function(block){}

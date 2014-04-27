@@ -4,6 +4,8 @@ var GameKeyListener =function(){
     s:false,
     a:false,
     d:false,
+    e:false,
+    q:false,
     left_arrow:false,
     right_arrow:false,
     up_arrow:false,
@@ -67,6 +69,14 @@ var GameKeyListener =function(){
       break;
       case 40: 
         this.map.down_arrow = state
+        e.preventDefault();
+      break;
+      case 69:
+        this.map.e = state
+        e.preventDefault();
+      break;
+      case 81:
+        this.map.q = state
         e.preventDefault();
       break;
     }

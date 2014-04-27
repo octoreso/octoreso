@@ -125,8 +125,20 @@ var GameWorld = function(model)
             new GameBlock(this.model, i,j, this.model.blockTypes.space).render(view)
           }
         }
+      }
+    }
 
-
+    for(var i=(x-r); i<(x+r); i++)
+    {
+      for(var j=(y-r); j<(y+r); j++)
+      {
+        if(Math.abs(x-i)+Math.abs(y-j) < r)
+        {
+          if(this.blocks[i] && this.blocks[i][j])
+          {
+            this.blocks[i][j].render2(view)
+          } 
+        }
       }
     }
     this.render_pop(view)
@@ -146,26 +158,29 @@ var GameWorld = function(model)
   } 
   this.step = function(ms)
   {
-    //collisions etc.
-    var r = Math.ceil(this.model.player.los());
-    var x = Math.round(this.model.player.unit.x)
-    var y = Math.round(this.model.player.unit.y)
-
-    for(var i=(x-r); i<(x+r); i++)
+    if(!this.model.player.unit.dead)
     {
-      for(var j=(y-r); j<(y+r); j++)
+      //collisions etc.
+      var r = Math.ceil(this.model.player.los()+1);
+      var x = Math.round(this.model.player.unit.x)
+      var y = Math.round(this.model.player.unit.y)
+
+      for(var i=(x-r); i<(x+r); i++)
       {
-        if(this.blocks[i] && this.blocks[i][j])
+        for(var j=(y-r); j<(y+r); j++)
         {
-          this.blocks[i][j].step(ms)
-        } 
-        else
-        {
-        
+          if(this.blocks[i] && this.blocks[i][j])
+          {
+            this.blocks[i][j].step(ms)
+          } 
+          else
+          {
+          
+          }
         }
       }
+      this.collision(this.model.player.unit.x,this.model.player.unit.y,ms)
     }
-    this.collision(this.model.player.unit.x,this.model.player.unit.y,ms)
   } 
 
   this.collisionCondition=function(x,y)

@@ -62,7 +62,8 @@ var GameStockpile =function(model){
     view.renderIcon(this.items[i][0].icon, this.UI_SCALE)
 
     view.ctx.transform(1, 0, 0, 1, 1*this.UI_ICON_SIZE, -0.5*this.UI_ICON_SIZE)
-    view.renderChar(this.items[i].icon, this.UI_SCALE)
+    view.renderChar('X', this.UI_SCALE)
+
     
     //x0000
     view.ctx.transform(1, 0, 0, 1, 1*this.UI_ICON_SIZE, 0)
@@ -95,7 +96,30 @@ var GameStockpile =function(model){
   {
   } 
 
-  this.storeIntoPortal = function()
+  this.purchaseFromPortal = function(portal)
+  {
+    console.log("Attempting purchase of "+portal.extra.offerItem.name);
+    //TODO
+    for(var i =0;i<this.items.length;i++)
+    {
+      if(this.items[i][0].name == portal.extra.blockDemanded.name && portal.extra.blockDemandedQty <=  this.items[i][1])
+      {
+        this.items[i][1] = this.items[i][1] - portal.extra.blockDemandedQty
+        portal.extra.closed_at = portal.model.tick_ts
+        portal.extra.offerItem.onGet(this.model.player)
+
+        //TODO: Timeout, BOOM, something cool before replacing block
+        portal.blockType = portal.model.blockTypes.dirt_gone
+        portal.init()
+
+
+        break;
+      }
+    }
+
+  }
+
+  this.storeIntoPortal = function(portal)
   {
     var inv = this.model.player.inventory;
     for(i=inv.items.length;i>=0;i--)

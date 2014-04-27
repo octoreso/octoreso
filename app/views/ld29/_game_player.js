@@ -5,6 +5,9 @@ var GamePlayer = function(model)
   this.inventory  = null
   this.stockpile  = null
 
+
+  
+
   this.los_radius = 11
   this.los_min = 5
   this.los_y_penalty = 0.06
@@ -19,17 +22,19 @@ var GamePlayer = function(model)
     this.render_push(view)
     this.unit.render(view)
 
-    var tX = -8
-    var tY = 6
+    
 
     if(this.inventory.full)
     {
+      var tX = -8
+      var tY = 6
       view.ctx.transform(1, 0, 0, 1,  tX,  tY)
       view.renderCustom('full', 1);
       view.ctx.transform(1, 0, 0, 1, -tX, -tY)
     }
 
     this.render_pop(view)
+
   }  
   this.render_push = function(view)
   {
@@ -40,31 +45,41 @@ var GamePlayer = function(model)
   } 
   this.step = function(ms)
   {
-    this.unit.moving = false 
-    this.unit.directions = []
-    //check controls.
-    if(model.keys.map.d || model.keys.map.right_arrow)
+    if(!this.unit.dead)
     {
-      this.unit.moving = true
-      this.unit.directions.push(Direction.RIGHT)
+      this.unit.moving = false 
+      this.unit.directions = []
+      //check controls.
+      if(model.keys.map.d || model.keys.map.right_arrow)
+      {
+        this.unit.moving = true
+        this.unit.directions.push(Direction.RIGHT)
+      }
+      if(model.keys.map.s || model.keys.map.down_arrow)
+      {
+        this.unit.moving = true
+        this.unit.directions.push(Direction.DOWN)
+      }
+      if(model.keys.map.a || model.keys.map.left_arrow)
+      {
+        this.unit.moving = true
+        this.unit.directions.push(Direction.LEFT)
+      }
+      if(model.keys.map.w || model.keys.map.up_arrow)
+      {
+        this.unit.moving = true
+        this.unit.directions.push(Direction.UP)
+      }
+      this.unit.step(ms)
     }
-    if(model.keys.map.s || model.keys.map.down_arrow)
-    {
-      this.unit.moving = true
-      this.unit.directions.push(Direction.DOWN)
+    else {
+      //if we're dead, back to the main menu.
+      if((this.model.tick_ts - this.unit.died_at - this.unit.death_length) > 0)
+      {
+        this.model.stateTransition(GameState.MENU);
+      }
     }
-    if(model.keys.map.a || model.keys.map.left_arrow)
-    {
-      this.unit.moving = true
-      this.unit.directions.push(Direction.LEFT)
-    }
-    if(model.keys.map.w || model.keys.map.up_arrow)
-    {
-      this.unit.moving = true
-      this.unit.directions.push(Direction.UP)
-    }
-
-    this.unit.step(ms)
+    
   }
   this.menuStep = function(ms)
   {
@@ -80,7 +95,18 @@ var GamePlayer = function(model)
 
   this.los = function()
   {
-    return Math.max((this.los_radius - (this.los_y_penalty * this.unit.y)),this.los_min)
+    var l = Math.max((this.los_radius - (this.los_y_penalty * this.unit.y)),this.los_min)
+    if(this.unit.dead)
+    {
+      now = this.model.tick_ts
+
+      l = l * (1-((now-this.unit.died_at)/(this.unit.death_length)))
+      if(l<3.3)
+      {
+        l =3.3 // Experimentally established!
+      }
+    }
+    return l
   }
 
   this.init();

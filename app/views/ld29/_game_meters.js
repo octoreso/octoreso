@@ -10,11 +10,11 @@ var GameMeters = function(player){
 
   this.render_push = function(view)
   {
-    view.ctx.transform(1,0,0,1,8,view.HEIGHT - 34)
+    view.ctx.transform(1,0,0,1,8,view.HEIGHT - 54)
   }
   this.render_pop = function(view)
   {
-    view.ctx.transform(1,0,0,1,-8,-(view.HEIGHT - 34))
+    view.ctx.transform(1,0,0,1,-8,-(view.HEIGHT - 54))
   }
 
   this.render = function(view)
@@ -22,10 +22,12 @@ var GameMeters = function(player){
     this.render_push(view);
     
     view.ctx.transform(1,0,0,1,this.INDENT,this.INDENT)
-    this.renderHealth(view)
-    view.ctx.transform(1,0,0,1,650,0)
-    this.renderTime(view)
-    view.ctx.transform(1,0,0,1,-this.INDENT-650,-(20+this.INDENT))
+    this.renderHealth(view);
+    view.ctx.transform(1,0,0,1,150, 0)
+    this.renderOffer(view);
+    view.ctx.transform(1,0,0,1,500, 0)
+    this.renderTime(view);
+    view.ctx.transform(1,0,0,1,-this.INDENT-650,-(0+this.INDENT))
 
     this.render_pop(view);
   } 
@@ -33,7 +35,14 @@ var GameMeters = function(player){
   this.renderHealth=function(view)
   {
     numPips = Math.ceil(view.ctrl.model.player.unit.HP/view.ctrl.model.player.unit.maxHP*10)
-
+    if(numPips < 0)
+    {
+      numPips = 0;
+    }
+    if(numPips > 10)
+    {
+      numPips = 10
+    }
 
     view.renderCustom('icon_health',2);
     view.ctx.transform(1,0,0,1,10,0)
@@ -50,9 +59,41 @@ var GameMeters = function(player){
     view.ctx.transform(1,0,0,1,-110,0) 
   }
 
+  this.renderOffer=function(view)
+  {
+    view.ctx.save();
+    
+    if(view.ctrl.model.player.unit.portal_proximity)
+    {
+      view.ctx.transform(1,0,0,1,40,0)
+      view.ctx.fillStyle = 'rgba(0,0,0,0.5)'
+      view.ctx.fillRect(0,0,365,18);
+      view.ctx.fillRect(0,20,365,18);
+      view.ctx.transform(1,0,0,1,8,2)
+
+      //render the offer
+      var portal = view.ctrl.model.player.unit.last_portal_touched
+      view.renderString("Press E to stockpile resources" ,2)
+      view.ctx.transform(1,0,0,1,0,20)
+      view.renderString("Press Q to trade    X"+portal.extra.blockDemandedQty+" for "+portal.extra.offerItem.name ,2)
+      view.ctx.transform(1,0,0,1,150,8)
+      view.renderIcon(new GameItem(portal.extra.blockDemanded.name).icon,2)
+    } 
+
+    view.ctx.restore();
+  }
+
   this.renderTime=function(view)
   {
-    numPips = 5 
+    numPips = Math.ceil(view.ctrl.model.player.unit.fuel/view.ctrl.model.player.unit.maxFuel*10)
+    if(numPips < 0)
+    {
+      numPips = 0;
+    }
+    if(numPips > 10)
+    {
+      numPips = 10
+    }
 
     view.renderCustom('icon_time',2);
     view.ctx.transform(1,0,0,1,10,0)

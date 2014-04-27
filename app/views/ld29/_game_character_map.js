@@ -181,6 +181,10 @@ var GameCharacterMap = function(ctrl){
         dX = 4
         dY = 9
       break; 
+      case '`':
+        //I use this to nudge by a pixel
+        w = 1
+      break;
 
       case ' ':
       default:

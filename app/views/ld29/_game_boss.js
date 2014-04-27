@@ -1,0 +1,3 @@
+var GameBoss = function(){
+  
+}

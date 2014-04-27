@@ -18,8 +18,8 @@ var GameController = function(){
     this.view.start();
     if(DEBUG_STATE !== false && initial)
     {
-      //console.log("Setting DEBUG STATE to "+DEBUG_STATE)
-      //this.state = DEBUG_STATE
+      console.log("Setting DEBUG STATE to "+DEBUG_STATE)
+      this.state = DEBUG_STATE
     }
   };
 

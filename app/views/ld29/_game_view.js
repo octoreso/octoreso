@@ -17,6 +17,7 @@ var GameView = function(ctrl){
   this.characterMap = null
   this.zoom = 2
   this.lighting = null
+  this.meters = null
 
   this.init = function()
   {
@@ -32,6 +33,7 @@ var GameView = function(ctrl){
     this.sprites.src = "/ld29/sprites.png";
     this.characterMap = new GameCharacterMap()
 
+    this.meters = new GameMeters(this.ctrl.model.player);
     ///context.drawImage(img,sx,sy,swidth,sheight,x,y,width,height);
     this.renderWorld_reset()
   }
@@ -97,6 +99,42 @@ var GameView = function(ctrl){
         y = 16
         w = 17
         h = 7
+      break;
+      case 'pip_health':
+        x = 300
+        y = 32
+        w = 4
+        h = 8
+      break;
+      case 'pip_time':
+        x = 296
+        y = 32
+        w = 4
+        h = 8
+      break;
+      case 'pip_no_health':
+        x = 292
+        y = 32
+        w = 4
+        h = 8
+      break;
+      case 'pip_no_time':
+        x = 288
+        y = 32
+        w = 4
+        h = 8
+      break;
+      case 'icon_health':
+        x = 280
+        y = 32
+        w = 8
+        h = 8
+      break;
+      case 'icon_time':
+        x = 272
+        y = 32
+        w = 8
+        h = 8
       break;
     }
 
@@ -193,6 +231,9 @@ var GameView = function(ctrl){
         this.render_lighting()
         this.ctrl.model.player.inventory.render(this)
         this.ctrl.model.player.stockpile.render(this)
+
+        this.meters.render(this)
+        this.renderGameOver();
       break;
       case GameState.MENU:
       
@@ -231,6 +272,11 @@ var GameView = function(ctrl){
       this.WIDTH/2, 
       this.HEIGHT-25
     );
+  }
+
+  this.renderGameOver = function()
+  { 
+    this.renderText("Game Over!", 8)
   }
 
   this.render_lighting = function()

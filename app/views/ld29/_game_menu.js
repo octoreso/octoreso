@@ -114,8 +114,10 @@ var GameMenu = function(model)
   this.renderStateAbout=function(view)
   {
     this.renderMenuTitle(view)
-    this.renderMenuString(view,"DEVELOPED BY TOBYPINDER FOR LUDUM DARE 29") 
+    this.renderMenuString(view,"DEVELOPED BY TOBYPINDER ") 
+    this.renderMenuString(view,"FOR LUDUM DARE 29")
     this.renderMenuString(view,"THEME    BENEATH THE SURFACE") 
+    this.renderMenuString(view,"") 
     this.renderMenuString(view,"") 
     this.renderMenuItem(view,"BACK",0) 
 

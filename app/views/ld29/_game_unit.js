@@ -1,6 +1,11 @@
 var GameUnit = function(model)
 {
   this.model = model
+  this.HP     = 100
+  this.maxHP = this.HP
+
+  this.dead = false
+
   this.x = 0
   this.y = 0
 
@@ -133,7 +138,25 @@ var GameUnit = function(model)
   {
     this.onFloor = true
   }
-  
+
+  this.fallDamage=function(velocity)
+  {
+    
+    var amt = Math.floor(velocity*200);
+    console.log("FALL DAMAGE:  "+amt)
+    this.damage(amt)
+  }
+
+  this.damage = function(amt)
+  {
+    this.HP = this.HP - amt
+    if(this.HP < 0)
+    {
+      this.dead = true
+    }
+  }
+ 
+
   this.collide = function(ms, collideX, collideY, blockX, blockY)
   {
 
@@ -145,6 +168,12 @@ var GameUnit = function(model)
       if(collideY==1 && this.velocityY < this.miningVelocityLimit && this.directions[0] == Direction.DOWN)
       {
         this.model.world.blocks[blockX][blockY].damage(this, ms, Direction.DOWN)//, this.velocityY)
+      }
+      console.log(this.velocityY);
+
+      if(Math.abs(this.velocityY)>0.05)
+      {
+        this.fallDamage(Math.abs(this.velocityY));
       }
       // Cannot dig up
       this.velocityY = 0

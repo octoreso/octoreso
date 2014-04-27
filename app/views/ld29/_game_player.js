@@ -18,6 +18,17 @@ var GamePlayer = function(model)
   {
     this.render_push(view)
     this.unit.render(view)
+
+    var tX = -8
+    var tY = 6
+
+    if(this.inventory.full)
+    {
+      view.ctx.transform(1, 0, 0, 1,  tX,  tY)
+      view.renderCustom('full',1);
+      view.ctx.transform(1, 0, 0, 1, -tX, -tY)
+    }
+
     this.render_pop(view)
   }  
   this.render_push = function(view)

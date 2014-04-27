@@ -1,7 +1,13 @@
 var GameBlockTypes = function(){
-  this.dirt = null
-  this.dirt_gone = null
-  this.bedrock = null
+  this.dirt       = null
+  this.dirt_gone  = null
+  this.stone      = null
+  this.stone_gone = null
+  this.coal       = null
+  this.iron       = null
+
+  this.portal     = null
+  this.bedrock    = null
 
   this.space = null
 
@@ -21,11 +27,16 @@ var GameBlockTypes = function(){
         block.init()
       }
     });
+    
+
+
     this.dirt_gone = new GameBlockType(function(type){
       type.name   = 'dirt_gone'
       type.solid  = false
       type.sprite = 5
     });
+
+
 
     this.stone = new GameBlockType(function(type){
       type.name          = 'stone'
@@ -41,11 +52,16 @@ var GameBlockTypes = function(){
         block.init()
       }
     });
+
+
+
     this.stone_gone = new GameBlockType(function(type){
       type.name   = 'stone_gone'
       type.solid  = false
       type.sprite = 7
     });
+
+
 
     this.portal = new GameBlockType(function(type){
       type.name   = 'portal'
@@ -54,6 +70,8 @@ var GameBlockTypes = function(){
       type.onInit = function(block)
       {
         block.extra.rot = 0
+        block.extra.last_item_transfer = block.model.tick_ts
+        block.extra.item_transfer_speed = 100; //ms
       }
       type.onRender = function(block, view)
       {
@@ -82,12 +100,23 @@ var GameBlockTypes = function(){
           
         }
       }
+      
       type.onTouch = function(block, ms)
       {
         //
-        block.model.player.stockpile.items[0][1]++;
+        t = block.model.tick_ts
+        //t-block.extra.item_transfer_speed - block.extra.last_item_transfer)+"");
+        if(t-block.extra.item_transfer_speed > block.extra.last_item_transfer)
+        {
+          block.extra.last_item_transfer = t
+          block.model.player.stockpile.storeIntoPortal();
+          //block.model.player.stockpile.items[0][1]++;
+        }
       }
     });
+
+
+
     this.bedrock = new GameBlockType(function(type){
       type.name   = 'bedrock'
       type.solid  = true
@@ -98,6 +127,38 @@ var GameBlockTypes = function(){
       {
         // not sure how you killed it, but here it is again :)
         block.blockType = block.model.blockTypes.bedrock
+        block.init()
+      }
+    });
+
+    this.iron = new GameBlockType(function(type)
+    {
+      type.name           = 'iron'
+      type.solid          = true
+      type.sprite         = 19
+      type.maxHP          = 500
+      type.linearDepthHP  = 3
+      type.regen          = 20
+      type.onKill = function(block)
+      {
+        block.model.player.inventory.add(new GameItem('iron'))
+        block.blockType = block.model.blockTypes.stone_gone
+        block.init()
+      }
+    });
+
+    this.coal = new GameBlockType(function(type)
+    {
+      type.name           = 'iron'
+      type.solid          = true
+      type.sprite         = 20
+      type.maxHP          = 400
+      type.linearDepthHP  = 3
+      type.regen          = 10
+      type.onKill = function(block)
+      {
+        block.model.player.inventory.add(new GameItem('coal'))
+        block.blockType = block.model.blockTypes.stone_gone
         block.init()
       }
     });

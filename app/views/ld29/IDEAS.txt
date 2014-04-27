@@ -1,3 +1,23 @@
+14.5 hours
+
+== High == 
+Pixel font (fed up of nonsense!) ? - Kludge this
+UI Clickability
+  Menus
+    Story
+  Upgrades
+World Generation
+Lose conditions / Gameplay!
+  Health / Fall damage
+  Fuel / Delivery of Required Materials
+    Make sure to get "required" AI correct as this will be SUPER frustrating if wrong!
+
+== Low ==
+Figure out what that stalling is
+Firefox / IE compat passes
+  Remove console.*
+Save - Probably cut this for the LD deadline.
+
 == NEW PERSPECTIVES == 
 
 Sleep brings ideas.
@@ -9,13 +29,11 @@ Story - Teleported *inside* an Asteroid with the drill - have to load up on rare
   Mineral and miner exfiltration occurs through these portals.
 
 MINIMAL TASKS
-Add "bedrock" type
-3x2 "Portal" areas similar to the start. Spawn regularly.
-  - embed the starting one in 4x3 of bedrock with one exit!
+
 When in contact with a portal - 
   Health up
   Fuel/O2? up
-  Minerals transfer over to permanent bank
+  [X] Minerals transfer over to permanent bank
     - Cool animation
   Upgrades can be purchased from the void
     - No cash, just banked materials
@@ -47,71 +65,12 @@ PREFERRED_TASKS
 * PARTICLES? MORE LIKE FULLICLES MUAHAHAHAHA
   - Make up for no art talent with flying bits
 
-
-
-
-
-
-
-
-
-
-
-  Each time drill enters new cell - send JSON
-    * Masks latency
-  Get response with contents of cell and visible minerals around player
-  Accumulate player wealth direct to bank - add inv later.
-
-Under the surface: 
-* Digging Mechanics?
-* Fights for resources?
-* Cavesssss
-* Limited Civilisation?
-
-Very minecraftey theme tbh
-
-Game about trading resources between players to fight for survival?
-
 Motherload springs to mind :)
 
 Motherload mechanics honestly appeal to me,
 but what could I do different?
-
- -- Want to use Rails - idea of adding server side/multiplayer?
-
- -- Fighting for the same resources!
-
- * Latency and such not an issue because display would be best effort
- * Resources are either there or depleted
- * Grace period of x seconds for lag where two people can mine same block?
-
-
- ** SERVER **
-cell_mineral(x,y,)
-mineral(name, type, etc)
-
+ 
 WHAT ARE MINERALS USED FOR?
  * Upgrades obviously
  * Expand on this
  * NOT keen on the idea of "sell for cash"
-
-BASE
- * Base used for storage of gains?
- * Some sort of asynchronous base attacking
-  * Kings of Chaos/Mechg were cool before F2P nonsense ruined them and morphed the genre into Skinner Box Zynga cash farms :)
-
-
-WHAT CAN BE UNIQUE HERE?
-* Drill types 
-  * Mining certain minerals only possible with specialized drills
-  * Encourages player choice
-  * Players can work together for optimal mining if friendly
-* "In world" PvP via mining around each other
-* "aSync" PvP through typical "send units to base" time mechanics
-* Players trade off storage of minerals vs risks
-  * Losing a fight loses a percentage and makes safe a la most games of genre.
-
-
-
-
-  LET'S

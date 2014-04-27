@@ -35,10 +35,17 @@ var GameWorld = function(model)
 
   this.generateBasicTerrain=function(x,y)
   {
-    switch(Math.floor(Math.random()*5))
+    switch(Math.floor(Math.random()*14))
     {
       case 1:
+      case 2:
         this.blocks[x][y] = new GameBlock(this.model, x, y, this.model.blockTypes.stone)
+      break
+      case 3:
+        this.blocks[x][y] = new GameBlock(this.model, x, y, this.model.blockTypes.iron)
+      break;
+      case 4:
+        this.blocks[x][y] = new GameBlock(this.model, x, y, this.model.blockTypes.coal)
       break;
       default:
         this.blocks[x][y] = new GameBlock(this.model, x, y, this.model.blockTypes.dirt)
@@ -61,15 +68,21 @@ var GameWorld = function(model)
   {
     for(i = WORLD_X_MIN; i<WORLD_X_MAX; i++)
     {
-      this.blocks[i][WORLD_Y_MIN-1] = new GameBlock(this.model, i, WORLD_Y_MIN-1, this.model.blockTypes.bedrock)
-      this.blocks[i][WORLD_Y_MAX+1] = new GameBlock(this.model, i, WORLD_Y_MAX+1, this.model.blockTypes.bedrock)
+      this.blocks[i][WORLD_Y_MIN] = new GameBlock(this.model, i, WORLD_Y_MIN, this.model.blockTypes.bedrock)
+      this.blocks[i][WORLD_Y_MAX] = new GameBlock(this.model, i, WORLD_Y_MAX, this.model.blockTypes.bedrock)
     }
+    this.blocks[WORLD_X_MIN] = []
+    this.blocks[WORLD_X_MAX] = []
     for(j = WORLD_Y_MIN; j<WORLD_Y_MAX; j++)
     {
-      this.blocks[WORLD_X_MIN-1] = []
-      this.blocks[WORLD_X_MIN-1][j] = new GameBlock(this.model, WORLD_X_MIN-1, j, this.model.blockTypes.bedrock)
-      this.blocks[WORLD_X_MAX+1][j] = new GameBlock(this.model, WORLD_X_MAX+1, j, this.model.blockTypes.bedrock)
+      this.blocks[WORLD_X_MIN][j] = new GameBlock(this.model, WORLD_X_MIN, j, this.model.blockTypes.bedrock)
+      this.blocks[WORLD_X_MAX][j] = new GameBlock(this.model, WORLD_X_MAX, j, this.model.blockTypes.bedrock)
     }
+
+    this.blocks[WORLD_X_MIN][WORLD_Y_MIN] = new GameBlock(this.model, WORLD_X_MIN, WORLD_Y_MIN, this.model.blockTypes.bedrock)
+    this.blocks[WORLD_X_MIN][WORLD_Y_MAX] = new GameBlock(this.model, WORLD_X_MIN, WORLD_Y_MAX, this.model.blockTypes.bedrock)
+    this.blocks[WORLD_X_MAX][WORLD_Y_MIN] = new GameBlock(this.model, WORLD_X_MAX, WORLD_Y_MIN, this.model.blockTypes.bedrock)
+    this.blocks[WORLD_X_MAX][WORLD_Y_MAX] = new GameBlock(this.model, WORLD_X_MAX, WORLD_Y_MAX, this.model.blockTypes.bedrock)
   }
 
   this.generatePortal= function(x,y)

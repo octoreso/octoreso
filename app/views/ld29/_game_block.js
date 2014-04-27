@@ -16,7 +16,7 @@ var GameBlock = function(model, x, y, blockType)
   this.init = function()
   {
     this.HP = this.blockType.maxHP + this.blockType.linearDepthHP*y
-    this.maxHP = this.blockType.maxHP
+    this.maxHP = this.blockType.maxHP + this.blockType.linearDepthHP*y
     this.regen = this.blockType.regen
 
     this.blockType.onInit(this)

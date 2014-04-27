@@ -10,6 +10,8 @@ var GameStockpile =function(model){
     // init to zero?
     this.items.push([new GameItem('dirt') , 0])
     this.items.push([new GameItem('stone'), 0])
+    this.items.push([new GameItem('iron'), 0])
+    this.items.push([new GameItem('coal'), 0])
   }
 
   this.step = function(ms)
@@ -39,13 +41,18 @@ var GameStockpile =function(model){
 
     tY = tY + 0.5 * (this.UI_ICON_SIZE+this.UI_PADDING)
 
+    menuSlot = 0
     for(i=0;i<this.items.length;i++)
     {
-      tY = tY + (this.UI_ICON_SIZE+this.UI_PADDING)
+      if(this.items[i][1] > 0)
+      {
+        menuSlot++;
+        tY = tY + (this.UI_ICON_SIZE+this.UI_PADDING)
+        view.ctx.transform(1, 0, 0, 1, tX, tY)
+        this.render_stockpile_slot(view, i)
+        view.ctx.transform(1, 0, 0, 1, -tX, -tY)
+      }
       
-      view.ctx.transform(1, 0, 0, 1, tX, tY)
-      this.render_stockpile_slot(view, i)
-      view.ctx.transform(1, 0, 0, 1, -tX, -tY)
     }
 
     this.render_pop(view)
@@ -99,6 +106,29 @@ var GameStockpile =function(model){
   this.render_pop = function(view)
   {
   } 
+
+  this.storeIntoPortal = function()
+  {
+    var inv = this.model.player.inventory;
+    for(i=inv.items.length;i>=0;i--)
+    {
+      if(inv.items[i])
+      {
+        for(var x=0;x< this.items.length;x++)
+        {
+          if(this.items[x][0].name == inv.items[i].name)
+          {
+            this.items[x][1]++;
+            inv.full = false
+            break;
+          }
+        }
+        inv.items.splice(i,1);
+
+        break;
+      }
+    }
+  }
     
   this.init();
 }

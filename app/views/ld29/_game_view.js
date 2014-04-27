@@ -13,7 +13,6 @@ var GameView = function(ctrl){
   this.tick_ts = new Date().getTime()
   this.tick_ms = 0
   this.sprites = null
-
   this.zoom = 2
 
   this.lighting = null
@@ -71,6 +70,7 @@ var GameView = function(ctrl){
 
   this.renderCustom=function(name,scale)
   {
+    if(!scale) { scale = 1 }
     var w = 0;
     var h = 0;
     var x = 0;
@@ -90,6 +90,12 @@ var GameView = function(ctrl){
         w = 40
         h = 8
       break;
+      case 'full':
+        x = 265
+        y = 16
+        w = 17
+        h = 7
+      break;
     }
 
     this.ctx.drawImage(
@@ -105,7 +111,7 @@ var GameView = function(ctrl){
     )
   }
 
-  this.renderFont = function(name, scale)
+  this.renderFont = function(name,scale)
   {
     var w = 4;
     var h = 8;

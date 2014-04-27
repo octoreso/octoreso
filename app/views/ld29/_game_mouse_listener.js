@@ -1,0 +1,3 @@
+var GameMouseListener = function(){
+
+}

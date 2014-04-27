@@ -8,7 +8,8 @@ var GameKeyListener =function(){
     right_arrow:false,
     up_arrow:false,
     down_arrow:false,
-    space:false
+    space:false,
+    enter:false
   };
 
   this.init = function()
@@ -28,6 +29,10 @@ var GameKeyListener =function(){
   {
     switch(e.keyCode)
     {
+      case 13: 
+        this.map.enter = state
+        e.preventDefault();
+      break;
       case 87: 
         this.map.w = state
         e.preventDefault();

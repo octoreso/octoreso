@@ -5,7 +5,7 @@ var GamePlayer = function(model)
   this.inventory  = null
   this.stockpile  = null
 
-  this.los_radius = 12
+  this.los_radius = 11
   this.los_min = 5
   this.los_y_penalty = 0.06
   this.init = function()
@@ -25,7 +25,7 @@ var GamePlayer = function(model)
     if(this.inventory.full)
     {
       view.ctx.transform(1, 0, 0, 1,  tX,  tY)
-      view.renderCustom('full',1);
+      view.renderCustom('full', 1);
       view.ctx.transform(1, 0, 0, 1, -tX, -tY)
     }
 
@@ -66,7 +66,19 @@ var GamePlayer = function(model)
 
     this.unit.step(ms)
   }
-  this.los=function()
+  this.menuStep = function(ms)
+  {
+    var period    = this.model.tick_ts / 70000 * Math.PI
+    var magnitude = 20
+    var centreX   = 0
+    var centreY   = 50 
+    // The player acts as a camera with zero logic.
+    this.unit.x = centreX + magnitude * Math.cos(period)
+    this.unit.y = centreY + magnitude * Math.sin(period)
+  }
+
+
+  this.los = function()
   {
     return Math.max((this.los_radius - (this.los_y_penalty * this.unit.y)),this.los_min)
   }

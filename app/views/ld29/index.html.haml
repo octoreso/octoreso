@@ -19,14 +19,18 @@
   = render 'game_block.js'
   = render 'game_block_type.js'
   = render 'game_block_types.js'
+  = render 'game_character_map.js'  
   = render 'game_inventory.js' 
   = render 'game_item.js' 
   = render 'game_key_listener.js' 
+  = render 'game_mouse_listener.js' 
+  = render 'game_menu.js' 
   = render 'game_player.js'
   = render 'game_stockpile.js'
   = render 'game_unit.js' 
   = render 'game_world.js'
 
   = render 'constants.js'
+  = render 'debug.js' if Rails.env.development?
+
   = render 'game.js' 
-  =# render 'debug.js' if Rails.env.development?

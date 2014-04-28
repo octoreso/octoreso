@@ -72,6 +72,9 @@ var GameItem = function(type, extra){
           player.unit.improveCargo();
         }
       break;
+      case 'ruby':
+        this.icon = 12
+      break;
 
     }
   }

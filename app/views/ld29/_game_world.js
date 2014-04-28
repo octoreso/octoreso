@@ -50,8 +50,9 @@ var GameWorld = function(model)
     var stone_chance = Math.max(0, 5 + (rarity*0.12))
     var coal_chance  = Math.max(0, 0 + (rarity*0.1))
     var iron_chance  = Math.max(0, -2 + (rarity*0.1))
+    var ruby_chance  = Math.max(0, -10 + (rarity*0.1))
 
-    var chanceSum = dirt_gone_chance + dirt_chance + stone_chance + coal_chance + iron_chance
+    var chanceSum = dirt_gone_chance + dirt_chance + stone_chance + coal_chance + iron_chance + ruby_chance
 
     var roll = Math.random() * chanceSum;
 
@@ -61,8 +62,6 @@ var GameWorld = function(model)
     {
       return this.model.blockTypes.dirt_gone
     }
-
-
     roll = roll - dirt_chance
     if(roll <= 0)
     {
@@ -84,6 +83,11 @@ var GameWorld = function(model)
     if(roll <= 0)
     {
       return this.model.blockTypes.iron
+    }
+    roll = roll - ruby_chance
+    if(roll <= 0)
+    {
+      return this.model.blockTypes.ruby
     }
   }
 
@@ -148,6 +152,7 @@ var GameWorld = function(model)
     var stone_chance = Math.max(0, 5 + (rarity*0.12*1.1))
     var coal_chance  = Math.max(0, 0 + (rarity*0.1*1.1))
     var iron_chance  = Math.max(0, -2 + (rarity*0.1*1.1))
+    var ruby_chance  = Math.max(0, -10 + (rarity*0.1*1.1))
 
     var chanceSum = dirt_chance + stone_chance + coal_chance + iron_chance
 
@@ -175,6 +180,11 @@ var GameWorld = function(model)
     {
       return this.model.blockTypes.iron
     }
+    roll = roll - ruby_chance
+    if(roll <= 0)
+    {
+      return this.model.blockTypes.ruby
+    }
   }
 
   this.rollBlockDemandedQty=function(x,y, block)
@@ -195,6 +205,9 @@ var GameWorld = function(model)
       break;
       case this.model.blockTypes.iron:
         rolled = rolled / 35
+      break;
+      case this.model.blockTypes.ruby:
+        rolled = rolled / 100
       break;
     }
     var multi = Math.floor(Math.random()*3)+1

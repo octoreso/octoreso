@@ -13,6 +13,7 @@ var GameStockpile =function(model){
     this.items.push([new GameItem('iron'), 0])
     this.items.push([new GameItem('coal'), 0])
     this.items.push([new GameItem('ruby'), 0])
+    this.items.push([new GameItem('mountaindew'), 0])
   }
 
   this.step = function(ms)

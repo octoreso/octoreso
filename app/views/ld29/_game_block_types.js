@@ -206,6 +206,22 @@ var GameBlockTypes = function(){
       }
     });
 
+    this.mountaindew = new GameBlockType(function(type)
+    {
+      type.name           = 'mountaindew'
+      type.solid          = true
+      type.sprite         = 22
+      type.maxHP          = 1300
+      type.linearDepthHP  = 3
+      type.regen          = 25
+      type.onKill = function(block)
+      {
+        block.model.player.inventory.add(new GameItem('mountaindew'))
+        block.blockType = block.model.blockTypes.stone_gone
+        block.init()
+      }
+    });
+
 
     this.space = this.bedrock
   }

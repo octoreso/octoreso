@@ -75,6 +75,9 @@ var GameItem = function(type, extra){
       case 'ruby':
         this.icon = 12
       break;
+      case 'mountaindew':
+        this.icon = 13
+      break;
 
     }
   }

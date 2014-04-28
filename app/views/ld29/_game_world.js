@@ -250,8 +250,8 @@ var GameWorld = function(model)
 
 
     // modify the portal, adding an appropriate item roll.
-    //this.blocks[x][y].extra.offerItem         = this.rollBasicOffer(x,y)
-    this.blocks[x][y].extra.offerItem         = new GameItem('cargo')
+    this.blocks[x][y].extra.offerItem         = this.rollBasicOffer(x,y)
+    //this.blocks[x][y].extra.offerItem         = new GameItem('cargo')
 
     this.blocks[x][y].extra.blockDemanded     = this.rollBlockDemanded(x,y)
     this.blocks[x][y].extra.blockDemandedQty  = this.rollBlockDemandedQty(x,y,this.blocks[x][y].extra.blockDemanded)

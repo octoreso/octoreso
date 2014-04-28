@@ -27,7 +27,6 @@ var GameBlockTypes = function(){
         block.init()
       }
     });
-    
 
     this.dirt_gone = new GameBlockType(function(type){
       type.name   = 'dirt_gone'
@@ -68,9 +67,9 @@ var GameBlockTypes = function(){
         block.extra.last_item_transfer  = block.model.tick_ts
         block.extra.item_transfer_speed = 100; //ms
 
-        block.extra.blockDemanded       = block.model.blockTypes.dirt //todo
-        block.extra.blockDemandedQty    = 2
-        block.extra.offerItem           = new GameItem('fuel')
+        //block.extra.blockDemanded       = block.model.blockTypes.dirt //todo
+        //block.extra.blockDemandedQty    = 2
+        //block.extra.offerItem           = new GameItem('fuel')
         block.extra.closed_at           = false
       }
       type.onRender = function(block, view)

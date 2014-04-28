@@ -30,36 +30,180 @@ var GameWorld = function(model)
       }
     }
     this.generateWalls()
-    this.generatePortal(0,0)
+    this.generatePortal(0,0,true)
   }
+
 
   this.generateBasicTerrain=function(x,y)
   {
-    switch(Math.floor(Math.random()*14))
+
+    var block = this.rollBasicTerrain(x,y)
+    this.blocks[x][y] = new GameBlock(this.model, x, y, block)
+  }
+
+  this.rollBasicTerrain=function(x,y)
+  {
+    var rarity = Math.abs(x) + Math.abs(y)
+    
+    var dirt_chance  = Math.max(0, 15 - (rarity*0.03))
+    var stone_chance = Math.max(0, 5 + (rarity*0.12))
+    var coal_chance  = Math.max(0, 0 + (rarity*0.1))
+    var iron_chance  = Math.max(0, -2 + (rarity*0.1))
+
+    var chanceSum = dirt_chance + stone_chance + coal_chance + iron_chance
+
+    var roll = Math.random() * chanceSum;
+
+    roll = roll - dirt_chance
+    if(roll <= 0)
     {
-      case 1:
-      case 2:
-        this.blocks[x][y] = new GameBlock(this.model, x, y, this.model.blockTypes.stone)
-      break
-      case 3:
-        this.blocks[x][y] = new GameBlock(this.model, x, y, this.model.blockTypes.iron)
-      break;
-      case 4:
-        this.blocks[x][y] = new GameBlock(this.model, x, y, this.model.blockTypes.coal)
-      break;
-      default:
-        this.blocks[x][y] = new GameBlock(this.model, x, y, this.model.blockTypes.dirt)
-      break;
+      return this.model.blockTypes.dirt
+    }
+
+    roll = roll - stone_chance
+    if(roll <= 0)
+    {
+      return this.model.blockTypes.stone
+    }
+
+    roll = roll - coal_chance
+    if(roll <= 0)
+    {
+      return this.model.blockTypes.coal
+    }
+    roll = roll - iron_chance
+    if(roll <= 0)
+    {
+      return this.model.blockTypes.iron
     }
   }
 
+  this.rollBasicOffer=function(x,y)
+  {
+    var rarity = Math.abs(x) + Math.abs(y)
+    
+    var fuel_chance       = Math.max(0, 60)
+    var health_chance     = Math.max(0, 5)
+    var drillspeed_chance = Math.max(0, 3)
+    var light_chance      = Math.max(0, 15)
+    var fueltank_chance   = Math.max(0, 6)
+    var engine_chance     = Math.max(0, 6)
+    var cargo_chance      = Math.max(0, 6)
+    
+    var chanceSum = fuel_chance + health_chance + drillspeed_chance + light_chance + fueltank_chance + engine_chance + cargo_chance
+
+    var roll = Math.random() * chanceSum;
+
+    roll = roll - fuel_chance
+    if(roll <= 0)
+    {
+      return new GameItem('fuel')
+    }
+    roll = roll - health_chance
+    if(roll <= 0)
+    {
+      return new GameItem('health')
+    }
+    roll = roll - drillspeed_chance
+    if(roll <= 0)
+    {
+      return new GameItem('drillspeed')
+    }
+    roll = roll - light_chance
+    if(roll <= 0)
+    {
+      return new GameItem('light')
+    }
+    roll = roll - fueltank_chance
+    if(roll <= 0)
+    {
+      return new GameItem('fueltank')
+    }
+    roll = roll - engine_chance
+    if(roll <= 0)
+    {
+      return new GameItem('engine')
+    }
+    roll = roll - cargo_chance
+    if(roll <= 0)
+    {
+      return new GameItem('cargo')
+    }
+  }
+
+  this.rollBlockDemanded=function(x,y)
+  {
+    var rarity = Math.abs(x) + Math.abs(y)
+    //see normal blocks
+    var dirt_chance  = Math.max(0, 15 - (rarity*0.03*1.1))
+    var stone_chance = Math.max(0, 5 + (rarity*0.12*1.1))
+    var coal_chance  = Math.max(0, 0 + (rarity*0.1*1.1))
+    var iron_chance  = Math.max(0, -2 + (rarity*0.1*1.1))
+
+    var chanceSum = dirt_chance + stone_chance + coal_chance + iron_chance
+
+    var roll = Math.random() * chanceSum;
+
+    roll = roll - dirt_chance
+    if(roll <= 0)
+    {
+      return this.model.blockTypes.dirt
+    }
+
+    roll = roll - stone_chance
+    if(roll <= 0)
+    {
+      return this.model.blockTypes.stone
+    }
+
+    roll = roll - coal_chance
+    if(roll <= 0)
+    {
+      return this.model.blockTypes.coal
+    }
+    roll = roll - iron_chance
+    if(roll <= 0)
+    {
+      return this.model.blockTypes.iron
+    }
+  }
+
+  this.rollBlockDemandedQty=function(x,y, block)
+  {
+    var rarity = Math.abs(x) + Math.abs(y) + 10
+
+    var rolled = Math.pow(rarity, 1.1)
+    switch(block)
+    {
+      case this.model.blockTypes.dirt:
+        rolled = rolled / 5
+      break;
+      case this.model.blockTypes.stone:
+        rolled = rolled / 10
+      break;
+      case this.model.blockTypes.coal:
+        rolled = rolled / 20
+      break;
+      case this.model.blockTypes.iron:
+        rolled = rolled / 35
+      break;
+    }
+    var multi = Math.floor(Math.random()*3)+1
+    return Math.ceil(rolled*multi);
+  }  
+
   this.generateSpecial = function(x,y)
   {
-    switch(Math.floor(Math.random()*190))
+    switch(Math.floor(Math.random()*300))
     {
       case 1:
-        this.generatePortal(x,y)
+        this.generatePortal(x,y,true)
       break;
+      case 2:
+      case 3:
+      case 4:
+      case 5:
+        this.generatePortal(x,y,false)
       default:
       break;
     }
@@ -85,21 +229,32 @@ var GameWorld = function(model)
     this.blocks[WORLD_X_MAX][WORLD_Y_MAX] = new GameBlock(this.model, WORLD_X_MAX, WORLD_Y_MAX, this.model.blockTypes.bedrock)
   }
 
-  this.generatePortal= function(x,y)
+  this.generatePortal= function(x,y, hollow)
   {
-    //hollow out.
-    for(var i=-1; i<=1; i++)
+    if(hollow)
     {
-      for(var j=-1; j<1; j++)
+      //hollow out 2x3
+      for(var i=-1; i<=1; i++)
       {
-
-        if(this.blocks[x+i] && this.blocks[x+i][y+j])
+        for(var j=-1; j<1; j++)
         {
-          this.blocks[x+i][y+j] = new GameBlock(this.model, x+i, y+j, this.model.blockTypes.dirt_gone)
+
+          if(this.blocks[x+i] && this.blocks[x+i][y+j])
+          {
+            this.blocks[x+i][y+j] = new GameBlock(this.model, x+i, y+j, this.model.blockTypes.dirt_gone)
+          }
         }
       }
     }
     this.blocks[x][y] = new GameBlock(this.model, x, y, this.model.blockTypes.portal)
+
+
+    // modify the portal, adding an appropriate item roll.
+    //this.blocks[x][y].extra.offerItem         = this.rollBasicOffer(x,y)
+    this.blocks[x][y].extra.offerItem         = new GameItem('cargo')
+
+    this.blocks[x][y].extra.blockDemanded     = this.rollBlockDemanded(x,y)
+    this.blocks[x][y].extra.blockDemandedQty  = this.rollBlockDemandedQty(x,y,this.blocks[x][y].extra.blockDemanded)
   }
 
   this.render = function(view)

@@ -8,7 +8,7 @@ var GamePlayer = function(model)
 
   
 
-  this.los_radius = 11
+  this.los_radius = 9
   this.los_min = 5
   this.los_y_penalty = 0.06
   this.init = function()

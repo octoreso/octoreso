@@ -3,7 +3,7 @@ var GameUnit = function(model)
   this.model   = model
   this.HP      = 100
   this.maxHP   = this.HP
-  this.fuel    = 60//300 //seconds
+  this.fuel    = 120//300 //seconds
   this.maxFuel = this.fuel 
 
   this.dead = false
@@ -190,6 +190,49 @@ var GameUnit = function(model)
   this.refuel = function()
   {
     this.fuel = this.fuel + (0.4*this.maxFuel)
+  }
+
+  this.improveDrill = function()
+  {
+    this.downMiningDamage = this.downMiningDamage * 1.3
+    this.sideMiningDamage = this.sideMiningDamage * 1.3
+  }
+
+  this.improveEngine = function()
+  {
+    this.accelX = this.accelX * 1.2
+    this.accelY = this.accelY * 1.2
+    this.miningVelocityLimit = this.miningVelocityLimit * 1.2
+    this.velocityPainThreshold = this.velocityPainThreshold * 1.2
+  }
+  this.improveCargo = function()
+  {
+    this.model.player.inventory.space = this.model.player.inventory.space + 5
+
+  }
+
+  this.hax=function()
+  {
+    for(var i =0;i< 5; i++)
+    {
+      this.improveEngine();
+      this.improveDrill();
+      this.improveFuelTank();
+      this.improveCargo();
+    }
+
+    this.model.player.los_radius = 20
+  }
+
+  this.improveLOS = function()
+  {
+    this.model.player.los_radius = this.model.player.los_radius + 2
+  }
+
+  this.improveFuelTank = function()
+  {
+    this.maxFuel = this.maxFuel * 1.4 
+    this.fuel    = this.fuel * 1.4 
   }
 
 

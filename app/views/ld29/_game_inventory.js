@@ -7,9 +7,10 @@ var GameInventory =function(model){
   this.UI_ICON_SIZE = this.UI_SCALE * ICON_SIZE
   this.UI_PADDING = 1
 
-  this.dirt   = null
-  this.stone  = null
-  this.iron   = null
+  // this.dirt   = null
+  // this.stone  = null
+  // this.iron   = null
+  
   this,full   = null
 
   this.init = function()

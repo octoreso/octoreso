@@ -98,7 +98,6 @@ var GameStockpile =function(model){
 
   this.purchaseFromPortal = function(portal)
   {
-    console.log("Attempting purchase of "+portal.extra.offerItem.name);
     //TODO
     for(var i =0;i<this.items.length;i++)
     {
@@ -112,11 +111,9 @@ var GameStockpile =function(model){
         portal.blockType = portal.model.blockTypes.dirt_gone
         portal.init()
 
-
         break;
       }
     }
-
   }
 
   this.storeIntoPortal = function(portal)

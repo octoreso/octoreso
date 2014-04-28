@@ -2,7 +2,6 @@ var GameMeters = function(player){
   this.player = null
   this.INDENT = 4
 
-
   this.init = function()
   {
     this.player = player

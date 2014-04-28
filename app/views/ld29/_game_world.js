@@ -45,14 +45,23 @@ var GameWorld = function(model)
   {
     var rarity = Math.abs(x) + Math.abs(y)
     
+    var dirt_gone_chance  = Math.max(0, 2)
     var dirt_chance  = Math.max(0, 15 - (rarity*0.03))
     var stone_chance = Math.max(0, 5 + (rarity*0.12))
     var coal_chance  = Math.max(0, 0 + (rarity*0.1))
     var iron_chance  = Math.max(0, -2 + (rarity*0.1))
 
-    var chanceSum = dirt_chance + stone_chance + coal_chance + iron_chance
+    var chanceSum = dirt_gone_chance + dirt_chance + stone_chance + coal_chance + iron_chance
 
     var roll = Math.random() * chanceSum;
+
+
+    roll = roll - dirt_gone_chance
+    if(roll <= 0)
+    {
+      return this.model.blockTypes.dirt_gone
+    }
+
 
     roll = roll - dirt_chance
     if(roll <= 0)

@@ -45,15 +45,24 @@ var GameWorld = function(model)
   {
     var rarity = Math.abs(x) + Math.abs(y)
     
+    var dirt_gone_chance  = Math.max(0, 2)
     var dirt_chance  = Math.max(0, 15 - (rarity*0.03))
     var stone_chance = Math.max(0, 5 + (rarity*0.12))
     var coal_chance  = Math.max(0, 0 + (rarity*0.1))
     var iron_chance  = Math.max(0, -2 + (rarity*0.1))
+    var ruby_chance  = Math.max(0, -10 + (rarity*0.1))
+    var mountaindew_chance  = Math.max(0, -50 + (rarity*0.1))
 
-    var chanceSum = dirt_chance + stone_chance + coal_chance + iron_chance
+    var chanceSum = dirt_gone_chance + dirt_chance + stone_chance + coal_chance + iron_chance + ruby_chance + mountaindew_chance
 
     var roll = Math.random() * chanceSum;
 
+
+    roll = roll - dirt_gone_chance
+    if(roll <= 0)
+    {
+      return this.model.blockTypes.dirt_gone
+    }
     roll = roll - dirt_chance
     if(roll <= 0)
     {
@@ -75,6 +84,16 @@ var GameWorld = function(model)
     if(roll <= 0)
     {
       return this.model.blockTypes.iron
+    }
+    roll = roll - ruby_chance
+    if(roll <= 0)
+    {
+      return this.model.blockTypes.ruby
+    }
+    roll = roll - mountaindew_chance
+    if(roll <= 0)
+    {
+      return this.model.blockTypes.mountaindew
     }
   }
 
@@ -139,6 +158,7 @@ var GameWorld = function(model)
     var stone_chance = Math.max(0, 5 + (rarity*0.12*1.1))
     var coal_chance  = Math.max(0, 0 + (rarity*0.1*1.1))
     var iron_chance  = Math.max(0, -2 + (rarity*0.1*1.1))
+    var ruby_chance  = Math.max(0, -10 + (rarity*0.1*1.1))
 
     var chanceSum = dirt_chance + stone_chance + coal_chance + iron_chance
 
@@ -148,6 +168,7 @@ var GameWorld = function(model)
     if(roll <= 0)
     {
       return this.model.blockTypes.dirt
+
     }
 
     roll = roll - stone_chance
@@ -165,6 +186,11 @@ var GameWorld = function(model)
     if(roll <= 0)
     {
       return this.model.blockTypes.iron
+    }
+    roll = roll - ruby_chance
+    if(roll <= 0)
+    {
+      return this.model.blockTypes.ruby
     }
   }
 
@@ -186,6 +212,9 @@ var GameWorld = function(model)
       break;
       case this.model.blockTypes.iron:
         rolled = rolled / 35
+      break;
+      case this.model.blockTypes.ruby:
+        rolled = rolled / 100
       break;
     }
     var multi = Math.floor(Math.random()*3)+1

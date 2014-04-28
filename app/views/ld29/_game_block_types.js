@@ -5,6 +5,7 @@ var GameBlockTypes = function(){
   this.stone_gone = null
   this.coal       = null
   this.iron       = null
+  this.ruby       = null
 
   this.portal     = null
   this.bedrock    = null
@@ -184,6 +185,38 @@ var GameBlockTypes = function(){
       type.onKill = function(block)
       {
         block.model.player.inventory.add(new GameItem('coal'))
+        block.blockType = block.model.blockTypes.stone_gone
+        block.init()
+      }
+    });
+
+    this.ruby = new GameBlockType(function(type)
+    {
+      type.name           = 'ruby'
+      type.solid          = true
+      type.sprite         = 21
+      type.maxHP          = 700
+      type.linearDepthHP  = 3
+      type.regen          = 15
+      type.onKill = function(block)
+      {
+        block.model.player.inventory.add(new GameItem('ruby'))
+        block.blockType = block.model.blockTypes.stone_gone
+        block.init()
+      }
+    });
+
+    this.mountaindew = new GameBlockType(function(type)
+    {
+      type.name           = 'mountaindew'
+      type.solid          = true
+      type.sprite         = 22
+      type.maxHP          = 1300
+      type.linearDepthHP  = 3
+      type.regen          = 25
+      type.onKill = function(block)
+      {
+        block.model.player.inventory.add(new GameItem('mountaindew'))
         block.blockType = block.model.blockTypes.stone_gone
         block.init()
       }

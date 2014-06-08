@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140607220503) do
+ActiveRecord::Schema.define(version: 20140608003716) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -21,6 +21,36 @@ ActiveRecord::Schema.define(version: 20140607220503) do
 
   create_table "gamedata_games", force: true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "gamedata_recipe_resource_modes", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "gamedata_recipe_resources", force: true do |t|
+    t.integer  "recipe_id"
+    t.integer  "resource_id"
+    t.integer  "quantity"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "recipe_resource_mode_id"
+  end
+
+  create_table "gamedata_recipes", force: true do |t|
+    t.integer  "game_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "name"
+  end
+
+  create_table "gamedata_resources", force: true do |t|
+    t.integer  "game_id"
+    t.string   "name"
+    t.string   "source_url"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

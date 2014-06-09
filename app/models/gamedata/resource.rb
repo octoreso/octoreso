@@ -6,6 +6,18 @@ class Gamedata::Resource < ActiveRecord::Base
   validates :game, presence: true
   validates :name, presence: true
 
+  has_attached_file :icon,
+    styles: {
+      mini:   ['16x16#',   :png],
+      tiny:   ['32x32#',   :png],
+      small:  ['64x64#',   :png],
+      medium: ['128x128#', :png],
+      large:  ['256x256#', :png] 
+    }
+  validates_attachment_content_type :icon, :content_type => /\Aimage\/.*\Z/
+  attr_accessor :delete_icon
+  before_validation { self.icon.clear if self.delete_icon == '1' }
+
   def to_s
     name
   end
@@ -15,6 +27,7 @@ class Gamedata::Resource < ActiveRecord::Base
       field :game
       field :name
       field :source_url
+      field :icon
     end
   end
 end

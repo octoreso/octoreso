@@ -2,3 +2,6 @@
   .row
     .col-md-12
       %h2= @resource
+  .row
+    .col-md-12
+      - image_tag @resource.icon.url(:large)    

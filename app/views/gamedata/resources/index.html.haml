@@ -4,9 +4,12 @@
       %table.table.table-condensed
         %thead
           %tr
+            %th Icon
             %th Name
         %tbody
           - @resources.each do |resource|
             %tr
+              %td 
+                = image_tag @resource.icon.url(:tiny)
               %td
                 = link_to resource, resource_path(resource)

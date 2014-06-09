@@ -10,6 +10,6 @@
           - @resources.each do |resource|
             %tr
               %td 
-                = image_tag resource.icon.url(:tiny)
+                = link_to (image_tag resource.icon.url(:tiny)), resource_path(resource) if resource.icon.present?
               %td
                 = link_to resource, resource_path(resource)

@@ -8,14 +8,22 @@ Tobypinder::Application.routes.draw do
   
   get '/auth/guest/new', to: 'sessions#new_guest', as: 'new_guest'
 
-  resources :ld27,        only: :index
-  resources :ld29,        only: :index
+  constraints subdomain: 'www' do
+    resources :ld27,        only: :index
+    resources :ld29,        only: :index
 
-  resources :categories, only: :show do
-    collection do
-      get :draft
+    resources :categories, only: :show do
+      collection do
+        get :draft
+      end
     end
   end
+
+  scope module: 'gamedata' do
+    constraints subdomain: 'warframe' do
+        resources :resources, only: [:index, :show]
+      end
+    end
+
   root to: "home#index"
-  
 end

@@ -18,6 +18,8 @@ gem 'rolify'
 gem 'simple_form'
 gem 'therubyracer', :platform=>:ruby
 gem 'thin'
+gem 'paperclip'
+gem 'aws-sdk'
 gem 'activerecord-session_store'
 
 group :development do

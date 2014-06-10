@@ -1,6 +1,6 @@
 class Gamedata::ResourcesController < ApplicationController
   def index
-    @resources = Gamedata::Resource.where(game_id: 1)
+    @resources = Gamedata::Resource.where(game_id: 1).order(:name)
   end
 
   def show

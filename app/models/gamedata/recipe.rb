@@ -4,7 +4,7 @@ class Gamedata::Recipe < ActiveRecord::Base
 
   accepts_nested_attributes_for :recipe_resources, allow_destroy: true
 
-  default_scope { order(:game, :name) }
+  default_scope { order(:name) }
 
   validates :game, presence: true
   validates :name, presence: true

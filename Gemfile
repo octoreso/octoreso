@@ -22,6 +22,7 @@ gem 'paperclip'
 gem 'aws-sdk'
 gem 'activerecord-session_store'
 
+
 group :development do
   gem 'better_errors'
   gem 'html2haml'
@@ -32,14 +33,14 @@ group :development, :test do
   gem 'binding_of_caller'
   gem 'factory_girl_rails'
   gem 'rspec-rails'
-  gem 'sqlite3'
   gem 'pry'
   gem 'awesome_print'
+  gem 'sqlite3'
 end
 
 group :production do
-  gem 'pg'
   gem 'rails_12factor' # assets
+  gem 'pg'
 end
 
 group :test do

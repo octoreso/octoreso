@@ -7,19 +7,19 @@
       = image_tag @resource.icon.url(:large)    
 
     %table.table.table-condensed
-        %thead
+      %thead
+        %tr
+          %th Dir
+          %th Name
+      %tbody
+        - @inputs.each do |input|
           %tr
-            %th Dir
-            %th Name
-        %tbody
-          - @inputs.each do |input|
-            %tr
-              %td Input
-              %td 
-                = input
-          - @outputs.each do |output|
-            %tr
-              %td Output
-              %td 
-                = output
+            %td Input
+            %td 
+              = input
+        - @outputs.each do |output|
+          %tr
+            %td Output
+            %td 
+              = output
 

@@ -3,7 +3,7 @@ class Gamedata::Resource < ActiveRecord::Base
 
   has_many :recipe_resources, inverse_of: :resource, class_name: '::Gamedata::RecipeResource'
   has_many :resource_descriptors, inverse_of: :resource, class_name: '::Gamedata::ResourceDescriptor'
-
+  has_many :descriptors, through: :resource_descriptors, inverse_of: :resources
 
   validates :game, presence: true
   validates :name, presence: true
@@ -30,6 +30,7 @@ class Gamedata::Resource < ActiveRecord::Base
       field :name
       field :source_url
       field :icon
+      field :descriptors
     end
   end
 end

@@ -11,9 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140609215831) do
+ActiveRecord::Schema.define(version: 20140611191909) do
 
   create_table "categories", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "gamedata_descriptors", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -47,6 +53,13 @@ ActiveRecord::Schema.define(version: 20140609215831) do
     t.string   "name"
   end
 
+  create_table "gamedata_resource_descriptors", force: true do |t|
+    t.integer  "resource_id",   null: false
+    t.integer  "descriptor_id", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "gamedata_resources", force: true do |t|
     t.integer  "game_id"
     t.string   "name"
@@ -57,30 +70,6 @@ ActiveRecord::Schema.define(version: 20140609215831) do
     t.string   "icon_content_type"
     t.integer  "icon_file_size"
     t.datetime "icon_updated_at"
-  end
-
-  create_table "ld27_test_bullets", force: true do |t|
-    t.decimal  "x"
-    t.decimal  "y"
-    t.decimal  "rot"
-    t.decimal  "velocityX"
-    t.decimal  "velocityY"
-    t.integer  "player_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "ld27_test_players", force: true do |t|
-    t.integer  "user_id"
-    t.decimal  "x"
-    t.decimal  "y"
-    t.decimal  "HP"
-    t.decimal  "HPmax"
-    t.decimal  "velocityX"
-    t.decimal  "velocityY"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.decimal  "rot"
   end
 
   create_table "posts", force: true do |t|

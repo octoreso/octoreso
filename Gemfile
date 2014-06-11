@@ -24,6 +24,7 @@ gem 'activerecord-session_store'
 
 
 group :development do
+  gem 'erd'
   gem 'better_errors'
   gem 'html2haml'
   gem 'quiet_assets'

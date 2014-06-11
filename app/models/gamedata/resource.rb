@@ -2,6 +2,8 @@ class Gamedata::Resource < ActiveRecord::Base
   belongs_to :game, inverse_of: :resources, class_name: '::Gamedata::Game'
 
   has_many :recipe_resources, inverse_of: :resource, class_name: '::Gamedata::RecipeResource'
+  has_many :resource_descriptors, inverse_of: :resource, class_name: '::Gamedata::ResourceDescriptor'
+
 
   validates :game, presence: true
   validates :name, presence: true

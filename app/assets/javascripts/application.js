@@ -22,3 +22,11 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 
 ga('create', 'UA-1644869-11', 'tobypinder.com');
 ga('send', 'pageview');
+
+$('[data-toggle=offcanvas]').click(function() {
+  $('.row-offcanvas').toggleClass('active');
+});
+
+$('.btn-toggle').click(function() {
+  $(this).find('.btn').toggleClass('active').toggleClass('btn-default').toggleClass('btn-primary');
+});

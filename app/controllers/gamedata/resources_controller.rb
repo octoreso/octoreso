@@ -1,4 +1,4 @@
-class Gamedata::ResourcesController < ApplicationController
+class Gamedata::ResourcesController < Gamedata::AbstractController
   def index
     @resources = Gamedata::Resource.where(game_id: 1).order(:name)
   end

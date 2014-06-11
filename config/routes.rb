@@ -7,8 +7,8 @@ Tobypinder::Application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   
   get '/auth/guest/new', to: 'sessions#new_guest', as: 'new_guest'
-
-  constraints subdomain: 'www' do
+ 
+  scope constraints: lambda{ |r| !r.subdomain.present? || %w(www).include?(r.subdomain) } do
     resources :ld27,        only: :index
     resources :ld29,        only: :index
 

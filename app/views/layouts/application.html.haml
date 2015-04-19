@@ -21,11 +21,11 @@
             %span.icon-bar
             %span.icon-bar
           %a.navbar-brand{href: url_for(root_path)} TobyPinder.com
-        .navbar-collapse.collapse 
-          %ul.nav.navbar-nav 
-            
-            %li= link_to 'LD27 - Astronomical Odds', ld27_index_path
+        .navbar-collapse.collapse
+          %ul.nav.navbar-nav
+            %li= link_to 'LD32 - APT', ld32_index_path
             %li= link_to 'LD29 - Quantum Tunnelling', ld29_index_path
+            %li= link_to 'LD27 - Astronomical Odds', ld27_index_path
             / %li= link_to 'Music Monday', category_path(1)
           %ul.nav.navbar-nav.navbar-right
             - if user_signed_in?
@@ -34,9 +34,9 @@
               %li= link_to 'Logout', destroy_user_session_path, method: :delete
             - else
               %li= link_to (image_tag '/steam/sits_small.png'), user_omniauth_authorize_path(:steam)
-              %li= link_to 'or use a guest account', new_guest_path  
+              %li= link_to 'or use a guest account', new_guest_path
         / /.navbar-collapse
-    - flash.each do |type, message| 
+    - flash.each do |type, message|
       .container
         %div{class:"alert #{bootstrap_class_for(type)}"}
           %button.close{'data-dismiss'=>"alert"}

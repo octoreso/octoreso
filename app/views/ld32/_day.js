@@ -104,7 +104,6 @@ var GameDay = {
     this.seedRandomCalendarTargetEvent();
     this.seedRandomExploitInvestEvent();
 
-
     this.seedRandomDay();
   },
   seedRandomExploitInvestEvent:function()

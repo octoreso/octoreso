@@ -135,7 +135,7 @@ var Generator = {
     [
       "You must have seen some of my work. You wouldn't know it, ",
       "though..."
-    ],
+    ]
   ],
   day_nothing: [
     [
@@ -156,7 +156,6 @@ var Generator = {
     [
       'User input required.'
     ],
-
   ],
   new_calendar_target: [
     [
@@ -186,7 +185,7 @@ var Generator = {
     [
       'Verifying unavailability of undesirable services',
       'from %ip%...'
-    ]
+    ],
     [
       'Target %ip% availability status...'
     ]
@@ -219,7 +218,6 @@ var Generator = {
     [
       '[ERROR] Undesirable Host still sending malicious traffic.'
     ]
-
   ],
   new_pwn_target: [
     [
@@ -281,6 +279,10 @@ var Generator = {
       '"Those clowns thought their poxy bugbounty program would cover"',
       '0day of this magnitude, heh. Assume you have better ideas?"'
     ]
+      'Message:// ',
+      "I have contacts in Russia and China. Or I can sell you the code,",
+      'for the right fee, of course...'
+    ],
   ],
   win_proxy: [
     [
@@ -295,6 +297,8 @@ var Generator = {
     ],
     [
       'Traffic Anonymisation installed on node.'
+      'Host Compromise Success.',
+      'OnionRouting.exe deploy: [ OK ]'
     ]
   ],
   win_botnet: [
@@ -312,6 +316,10 @@ var Generator = {
       'Compromisation        [ OK ]',
       'Monetization          [ OK ]'
     ],
+    [
+      'Root Access Granted',
+      'Command and Control server received Ping.'
+    ]
   ],
   win_takedown: [
     [

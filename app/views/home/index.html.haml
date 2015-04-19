@@ -4,15 +4,28 @@
   .container
     %h1
       $ site.init()
-    %p My name is Toby Pinder, Rails and PHP developer by trade. Think of this site as a vault for some of my experiments (or non-pretentious words to that effect). Particular passion projects of mine include Ludum Dare games, data driven and statistical analysis tools, and digital and virtual economies and currencies. 
+    %p My name is Toby Pinder, Rails and PHP developer by trade. Think of this site as a vault for some of my experiments (or non-pretentious words to that effect). Particular passion projects of mine include Ludum Dare games, data driven and statistical analysis tools, and digital and virtual economies and currencies.
 .container
+
+  %a{href: ld32_index_path}
+    %h2
+      LD32: Advanced Persistent Threat
+  .row.big_row
+    .col-md-5
+      %p NEW FOR LUDUM DARE 32!
+      / %p
+      / %a.btn.btn-default{ href: '#', role: 'button'} View entry
+      = link_to 'Play it Now!', ld32_index_path, class: 'btn btn-success', role: :button
+    .col-md-7
+      %a{href: ld29_index_path}
+        %img.front_image{src: "#{root_url}/content/0002_ld.png"}
   / Example row of columns
-  %a{href: ld29_index_path} 
-    %h2 
+  %a{href: ld29_index_path}
+    %h2
       LD29: Quantum Tunnelling
   .row.big_row
     .col-md-5
-      %p For Ludum Dare 29 I created "Quantum Tunnelling". The asteroid miners of the future have had one too many accidents with mining lasers and space dust. So they've come up with a far more sensible option - using the power of quantum to teleport non risk-averse employees into the asteroids themselves! 
+      %p For Ludum Dare 29 I created "Quantum Tunnelling". The asteroid miners of the future have had one too many accidents with mining lasers and space dust. So they've come up with a far more sensible option - using the power of quantum to teleport non risk-averse employees into the asteroids themselves!
       / %p
       / %a.btn.btn-default{ href: '#', role: 'button'} View entry
       = link_to 'Play it Now!', ld29_index_path, class: 'btn btn-success', role: :button
@@ -21,7 +34,7 @@
         %img.front_image{src: "#{root_url}/content/0002_ld.png"}
 
   %a{href: ld27_index_path}
-    %h2 
+    %h2
       LD27: Astronomical Odds
   .row.big_row
     .col-md-5

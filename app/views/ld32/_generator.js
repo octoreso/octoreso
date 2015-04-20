@@ -17,6 +17,12 @@ var Generator = {
     'SAND',
     'CYBER',
     'POV',
+    'KEY',
+    'GRID',
+    'PLAY',
+    'DATA',
+    'JACK',
+    'STEAM'
   ],
   p2: [
     'FOX',
@@ -34,15 +40,47 @@ var Generator = {
     'STORM',
     'COMMANDO',
     'DARE',
-    'CAT'
+    'CAT',
+    'BUS',
+    'SPIKE'
   ],
   attack: [
     'Bypassing Firewall',
-    'Mapped Network Topology'
+    'Mapped Network Topology',
+    'Attack Surface Identified',
+    'Port Knocking Circumvented',
+    'Authentication Downgrade',
+    'MitM Activated',
+    'Countermeasures Bypassed',
+    'Phished Credentials',
+    'Antivirus Disabled',
+    'Hash Collision Found',
+    'Logfiles Expunged',
+    'Buffer Overflow',
+    'Buffer Underflow',
+    'SQL Injected',
+    'CSRF Injected',
+    'RAM Corrupted',
+    'Forkbomb Deployed',
+    'Rootkit on System',
+    'C++ Compiler Compromised'
   ],
   defend: [
     'Nullrouted Malicious IP range',
-    'IDS Detected Anomalous Access'
+    'IDS Detected Anomalous Access',
+    'Address Space Randomized',
+    'PKI Keys Revoked',
+    'Passwords Changed',
+    'Honeypot Tripwire Activated',
+    'AV Signatures Updated',
+    'Critical Systems Sandboxed',
+    '2FA Enabled',
+    'PBKDF2 Iterations Increased',
+    'Malicious Traffic Nullrouted',
+    'Sysadmins Alerted',
+    'Terminated Remote Shell',
+    'Non-critical System Shutdown',
+    'Rebuild from Factory Image'
   ],
   member_refusal: [
     [
@@ -55,6 +93,9 @@ var Generator = {
     [
       'Your loss.'
     ],
+    [
+      'The corporate world holds plenty of opportunity anyway.'
+    ],
   ],
   member_accept: [
     [
@@ -66,6 +107,9 @@ var Generator = {
     [
       'Fascinating...'
     ],
+    [
+      "I'll begin right away."
+    ]
   ],
   member_offer: [
     [
@@ -73,7 +117,7 @@ var Generator = {
       'going on...'
     ],
     [
-      'You need someone with my 1337 skillz.',
+      'You need someone with my 1337 skillz?',
     ],
     [
       'You need root? I can get it.',
@@ -84,7 +128,14 @@ var Generator = {
     [
       "What I do have are a very particular set of skills, skills I",
       "have acquired over a very long career."
-    ]
+    ],
+    [
+      "If you're building a red team, I want in."
+    ],
+    [
+      "You must have seen some of my work. You wouldn't know it, ",
+      "though..."
+    ],
   ],
   day_nothing: [
     [
@@ -99,6 +150,13 @@ var Generator = {
     [
       'System nominal.'
     ],
+    [
+      'Network Status: 200'
+    ],
+    [
+      'User input required.'
+    ],
+
   ],
   new_calendar_target: [
     [
@@ -109,6 +167,11 @@ var Generator = {
     [
       'We used to have presence on %ip% but they took us out.',
       'It is critical that we have access before %date%.'
+    ],
+    [
+      'IP: %ip%',
+      'Expiry: %date%.',
+      'Requested Action: Make unavailable by all means necessary.',
     ]
   ],
   check_calendar_target: [
@@ -119,23 +182,44 @@ var Generator = {
     ],
     [
       '<<C&C Daemon>> PING %ip%'
+    ],
+    [
+      'Verifying unavailability of undesirable services',
+      'from %ip%...'
+    ]
+    [
+      'Target %ip% availability status...'
     ]
   ],
   takedown_success: [
     [
-      'Successful Takedown'
+      '404 - System no longer responding to requests'
     ],
     [
-      'Takedown success.'
+      'All services no longer serving requests.'
+    ],
+    [
+      'No longer detecting traffic from designated IP range.'
+    ],
+    [
+      'Ping timeout... Service no longer available.'
     ]
+
   ],
   takedown_failure: [
     [
-      'Failed Takedown'
+      'Target services operational. Mission failure.'
     ],
     [
-      'Takedown failure.'
+      'ICMP Ping responses still being received from target'
+    ],
+    [
+      'Target Host still routable.'
+    ],
+    [
+      '[ERROR] Undesirable Host still sending malicious traffic.'
     ]
+
   ],
   new_pwn_target: [
     [
@@ -145,6 +229,13 @@ var Generator = {
     [
       '%ip% presents strategic importance.',
       "You know what to do."
+    ],
+    [
+      '%ip% hosting unpatched applications',
+      "[Recommend] Compromise"
+    ],
+    [
+      'Identified usable host: %ip%'
     ]
   ],
   generate_exploit: [
@@ -161,6 +252,14 @@ var Generator = {
       "Please find attached malware sample. Utilises novel techniques for",
       'popping shells on hardened clients.'
     ],
+    [
+      "Message-ID:23F5D632AB:",
+      '',
+      "Check this out - found it in the wild! The way it",
+      'tunnels through the virtualization is quite extraordinary.',
+      '',
+      "EOF"
+    ],
   ],
   buy_zeroday: [
     [
@@ -169,10 +268,19 @@ var Generator = {
       'feeling your agency will get use out of this.'
     ],
     [
-      'Message:// ',
+      'From: Unknown Source',
+      'To: Unknown Recipient',
       "I have contacts in Russia and China. Or I can sell you the code,",
       'for the right fee, of course...'
     ],
+    [
+      '"I have something very special indeed. Respond with GPG Pubkey',
+      'if interested"'
+    ],
+    [
+      '"Those clowns thought their poxy bugbounty program would cover"',
+      '0day of this magnitude, heh. Assume you have better ideas?"'
+    ]
   ],
   win_proxy: [
     [
@@ -180,8 +288,13 @@ var Generator = {
       'OnionRouting.exe deploy: [ OK ]'
     ],
     [
-      'Host Compromise Success.',
-      'OnionRouting.exe deploy: [ OK ]'
+      'Tor node initialized'
+    ],
+    [
+      'Added to VPN chain.'
+    ],
+    [
+      'Traffic Anonymisation installed on node.'
     ]
   ],
   win_botnet: [
@@ -190,9 +303,15 @@ var Generator = {
       'Command and Control server received Ping.'
     ],
     [
-      'Root Access Granted',
-      'Command and Control server received Ping.'
-    ]
+      'Node added. Email lists downloaded. Deploying msgs.'
+    ],
+    [
+      'Remote administration tools deployed.'
+    ],
+    [
+      'Compromisation        [ OK ]',
+      'Monetization          [ OK ]'
+    ],
   ],
   win_takedown: [
     [
@@ -200,6 +319,12 @@ var Generator = {
     ],
     [
       'Network Activity Suppressed'
+    ],
+    [
+      'No longer reachable.'
+    ],
+    [
+      '0 bytes sniffed from MitM. Host assumed neutralised.'
     ]
   ],
   garbage: "!£$%^&*:@~;'#/\\1234567890_-=+",

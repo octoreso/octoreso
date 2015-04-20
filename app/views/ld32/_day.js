@@ -102,8 +102,74 @@ var GameDay = {
     this.seedRandomGenerateExploitEvent();
     this.seedRandomBuyZeroDayEvent();
     this.seedRandomCalendarTargetEvent();
+    this.seedRandomExploitInvestEvent();
+
 
     this.seedRandomDay();
+  },
+  seedRandomExploitInvestEvent:function()
+  {
+    var chance = 0.02;
+    var roll   = Math.random();
+    if(roll <= chance)
+    {
+      var price = roundStat(0.2 + Math.random() * 0.2, 8)
+
+      this.events.push({
+        text: [
+          'Funding Request: Reverse Engineering',
+          'Source: Unknown advanced sample found',
+          '   on highrisk target',
+          'Amount: '+price.toFixed(8)+" BTC",
+          '',
+          'Approve?'
+        ],
+        actions: {
+          'Yes': function()
+          {
+            if(GamePlayer.totals.btc > price)
+            {
+              GamePlayer.totals.btc -= price
+              GamePlayer.balanceSheet.push([GamePlayer.date, 'Research Investment', -price])
+
+              // Add research fruition.
+              for(var x=0; x<3; x++)
+              {
+                var date = GameDay.in_x_days(GamePlayer.date, (Math.random()*2+5)*(x+1))
+                var maturity = {
+                  text: [
+                    'Malware research yielded usable results.',
+                    '',
+                    '1 Exploit Added.'
+                  ],
+                  actions: {
+                    'OK': function(){
+                      GamePlayer.totals.exploits.standard++;
+                    }
+                  }
+                }
+
+                GameDay.calendar.push({date: date, event: maturity, visibility: false} )
+              }
+
+              var tx = {
+                text: ['Funds allocated.','','Removed '+price.toFixed(8)+" BTC"],
+                actions: {
+                  'OK': function(){}
+                }
+              }
+
+              GameDay.events.push(tx)
+            }
+          },
+          'No': function()
+          {
+
+          }
+        }
+      });
+
+    }
   },
   seedRandomDay:function()
   {
@@ -186,12 +252,7 @@ var GameDay = {
 
           var ips = GamePlayer.targets.map(function(t){ return t.ip })
 
-          console.log("Removing Useless machine.");
-          console.log(ips.indexOf(target.ip));
           GamePlayer.targets.splice(ips.indexOf(target.ip), 1)
-
-
-
         }
       }
     }

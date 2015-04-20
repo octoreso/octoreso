@@ -14,3 +14,12 @@
   margin: 0 !important;
   padding: 0 !important;
 }
+
+.gameparent {
+   width: 100%;
+   text-align:center;
+}
+
+canvas {
+   display: inline;
+}

@@ -12,7 +12,8 @@
   %style{ type:'text/css' }= render '_font.css'
 
   %body
-    %canvas.gamearea{ width: 900, height: 600 }
+    %div.gameparent
+      %canvas.gamearea{ width: 900, height: 600 }
   %script
     = render 'general.js'
     = render 'config.js'

@@ -279,10 +279,6 @@ var Generator = {
       '"Those clowns thought their poxy bugbounty program would cover"',
       '0day of this magnitude, heh. Assume you have better ideas?"'
     ]
-      'Message:// ',
-      "I have contacts in Russia and China. Or I can sell you the code,",
-      'for the right fee, of course...'
-    ],
   ],
   win_proxy: [
     [

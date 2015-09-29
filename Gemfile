@@ -1,11 +1,12 @@
 source 'https://rubygems.org'
-ruby '2.1.1'
-gem 'rails', '4.0.4'
-gem 'sass-rails', '~> 4.0.2'
-gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.0.0'
+ruby '2.2.3'
+
+gem 'rails'
+gem 'sass-rails'
+gem 'uglifier'
+gem 'coffee-rails'
 gem 'jquery-rails'
-gem 'jbuilder', '~> 1.2'
+gem 'jbuilder'
 gem 'bootstrap-sass'
 gem 'cancancan'
 gem 'devise'
@@ -15,8 +16,8 @@ gem 'figaro'
 gem 'haml-rails'
 gem 'rails_admin'
 gem 'rolify'
+gem 'marco-polo'
 gem 'simple_form'
-gem 'therubyracer', :platform=>:ruby
 gem 'thin'
 gem 'paperclip'
 gem 'aws-sdk'
@@ -27,16 +28,27 @@ group :development do
   gem 'erd'
   gem 'better_errors'
   gem 'html2haml'
-  gem 'quiet_assets'
   gem 'rails_layout'
 end
+
 group :development, :test do
+  gem 'annotate'
+  gem 'awesome_print'
   gem 'binding_of_caller'
+  gem 'bullet'
+  gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'rspec-rails'
+  gem 'rspec-collection_matchers'
   gem 'pry'
-  gem 'awesome_print'
+  gem 'pry-coolline'
+  gem 'pry-rails'
+  gem 'pry-rescue'
+  gem 'pry-stack_explorer'
+  gem 'quiet_assets'
+  gem 'rubocop'
   gem 'sqlite3'
+  gem 'whiny_validation'
 end
 
 group :production do
@@ -46,6 +58,5 @@ end
 
 group :test do
   gem 'capybara'
-  gem 'database_cleaner', '1.0.1'
   gem 'email_spec'
 end

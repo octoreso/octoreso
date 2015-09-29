@@ -11,7 +11,11 @@ Tobypinder::Application.routes.draw do
   scope constraints: lambda{ |r| !r.subdomain.present? || %w(www).include?(r.subdomain) } do
     resources :ld27,        only: :index
     resources :ld29,        only: :index
-    resources :ld32,        only: :index
+    resources :ld32,        only: :index do
+      collection do
+        get 'redirect'
+      end
+    end
 
     resources :categories, only: :show do
       collection do

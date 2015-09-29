@@ -292,7 +292,7 @@ var Generator = {
       'Added to VPN chain.'
     ],
     [
-      'Traffic Anonymisation installed on node.'
+      'Traffic Anonymisation installed on node.',
       'Host Compromise Success.',
       'OnionRouting.exe deploy: [ OK ]'
     ]

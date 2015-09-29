@@ -15,7 +15,7 @@
       %p NEW FOR LUDUM DARE 32!
       / %p
       / %a.btn.btn-default{ href: '#', role: 'button'} View entry
-      = link_to 'Play it Now!', ld32_index_path, class: 'btn btn-success', role: :button
+      = link_to 'Play it Now!', redirect_ld32_index_path, class: 'btn btn-success', role: :button
     .col-md-7
       %a{href: ld29_index_path}
         %img.front_image{src: "#{root_url}/content/0002_ld.png"}

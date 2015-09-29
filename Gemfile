@@ -59,4 +59,13 @@ end
 group :test do
   gem 'capybara'
   gem 'email_spec'
+  gem 'capybara-email'
+  gem 'factory_girl'
+  gem 'fuubar'
+  gem 'headless'
+  gem 'puffing-billy'
+  gem 'selenium-webdriver'
+  gem 'shoulda-matchers'
+  gem 'simplecov'
+  gem 'timecop'
 end

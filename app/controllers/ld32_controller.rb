@@ -1,8 +1,6 @@
 class Ld32Controller < ApplicationController
   after_action :allow_iframe, only: :index
 
-  after_action :allow_iframe, only: :index
-
   def index
     render 'index', layout: false
   end

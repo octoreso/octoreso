@@ -10,11 +10,12 @@
  *
  */
 
- @import "bootstrap-sprockets";
- @import "bootstrap";
- @import "bootstrap_holo";
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "bootstrap_holo";
+@import "ingress";
 
- img.front_image
+img.front_image
 {
   margin: 0 auto;
   display: block;

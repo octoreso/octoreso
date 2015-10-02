@@ -1,49 +1,124 @@
 $(document).ready(function(){
   $('#intel_link_link').change(function() {
-    var value = $(this).val()
-    $('.result').text(Parser.parse(value))
+    var value = $(this).val();
+    value     = Parser.parse(value);
   });
 });
 
+//
+
 var Parser = {
-  parse:function(str)
-  {
+  parse:function(str) {
     // Parses link, splits "_,", returns Graph
     str = str.replace('https://www.ingress.com/intel?', '');
-    console.log(str);
-    return str;
+
+    var params = str.split('&');
+    var bounds = new Bounds(); //Single tuple.
+    var nodes = [];
+    var edges = [];
+
+    params.forEach(function(pair){
+      pair = pair.split('=');
+      var value = pair[1];
+
+      switch(pair[0]){
+        case 'll':
+          value = value.split(',');
+          bounds.lat  = parseFloat(value[0]);
+          bounds.lng = parseFloat(value[1]);
+          Map.panTo(bounds);
+        break;
+
+        case 'z':
+          bounds.z = parseFloat(value);
+          Map.setZoom(bounds.z);
+        break;
+
+        case 'pls':
+          value = value.split(/,|_/g);
+          for(var i=0;i<value.length;i=i+4) {
+            var a = new Node(parseFloat(value[i  ]), parseFloat(value[i+1]));
+            var b = new Node(parseFloat(value[i+2]), parseFloat(value[i+3]));
+
+            nodes.push(a);
+            nodes.push(b);
+            edges.push(new Edge(a, b));
+          }
+        break;
+
+        default:
+        break;
+      }
+    });
+
+    var graph = new Graph(bounds, nodes, edges);
+    console.log(graph);
+
+
+    return graph;
     // https://www.ingress.com/intel?ll=...&z=16&pls=...
   }
+};
 
-}
-
-// Single LatLong pair representing a portal
-var Node=function()
+// Single LatLng pair representing a portal
+var Node=function(lat, lng)
 {
-  this.x = null
-  this.y = null
-  this.name = null
-}
+  this.lat = lat;
+  this.lng = lng;
+  this.name = null;
+  this._marker = null;
+
+  this.render = function() {
+    this._marker = new google.maps.Marker({
+      position: { lat: this.lat, lng: this.lng },
+      title:'Unknown Portal',
+      //label:'',
+      animation: google.maps.Animation.DROP,
+      map: Map
+    });
+  };
+};
 
 // Line connecting two portals
-var Edge=function()
+var Edge=function(x, y)
 {
-  this.from = null
-  this.to   = null
-}
+  this.x = x; // Node
+  this.y = y; // Node
+};
 
 
 var Bounds=function()
 {
-  this.lat  = 0
-  this.long = 0
-  this.z    = 0
-}
+  this.lat = 0;
+  this.lng = 0;
+  this.z   = 0;
+};
 
 // Assembled collection of Nodes and Edges
-var Graph = function()
+var Graph = function(bounds, nodes, edges)
 {
-  this.bounds = null
-  this.nodes  = []
-  this.graphs = []
-}
+  this.bounds = bounds;
+  this.nodes  = nodes;
+  this.edges  = edges;
+
+  this.update = function(){
+    //render, update Map
+    for(var i=0;i<this.nodes.length;i++){
+      nodes[i].render();
+    }
+  };
+
+  this.clear = function() {
+    // unlink and nullify all markers
+  };
+
+  this.update();
+};
+
+var Map = null;
+var MapLoader = function(){
+  Map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: 0, lng: 0},
+    zoom: 1
+  });
+};

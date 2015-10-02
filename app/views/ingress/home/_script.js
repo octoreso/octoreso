@@ -52,9 +52,6 @@ var Parser = {
     });
 
     var graph = new Graph(bounds, nodes, edges);
-    console.log(graph);
-
-
     return graph;
     // https://www.ingress.com/intel?ll=...&z=16&pls=...
   }
@@ -84,6 +81,25 @@ var Edge=function(x, y)
 {
   this.x = x; // Node
   this.y = y; // Node
+  this._polyline = null;
+
+  this.render = function() {
+    this._polyline = new google.maps.Polyline({
+      path: [
+        { lat: x.lat, lng: x.lng},
+        { lat: y.lat, lng: y.lng}
+      ],
+      geodesic: true,
+      strokeColor: '#FF0000',
+      strokeOpacity: 1.0,
+      strokeWeight: 2,
+      map: Map
+    });
+  };
+
+  this.clearRender = function() {
+
+  };
 };
 
 
@@ -101,18 +117,29 @@ var Graph = function(bounds, nodes, edges)
   this.nodes  = nodes;
   this.edges  = edges;
 
-  this.update = function(){
+  this.render = function(){
     //render, update Map
     for(var i=0;i<this.nodes.length;i++){
       nodes[i].render();
     }
+
+    for(i=0;i<this.edges.length;i++){
+      edges[i].render();
+    }
   };
 
-  this.clear = function() {
+  this.clearRender = function() {
     // unlink and nullify all markers
+    for(var i=0;i<this.nodes.length;i++){
+      nodes[i].clearRender();
+    }
+
+    for(i=0;i<this.edges.length;i++){
+      edges[i].clearRender();
+    }
   };
 
-  this.update();
+  this.render();
 };
 
 var Map = null;

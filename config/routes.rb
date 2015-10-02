@@ -9,28 +9,18 @@ Tobypinder::Application.routes.draw do
   get '/auth/guest/new', to: 'sessions#new_guest', as: 'new_guest'
 
   scope constraints: lambda{ |r| !r.subdomain.present? || %w(www).include?(r.subdomain) } do
-    resources :ld27,        only: :index
-    resources :ld29,        only: :index
-    resources :ld32,        only: :index do
+    resources :ld27, only: :index
+    resources :ld29, only: :index
+    resources :ld32, only: :index do
       collection do
         get 'redirect'
       end
     end
-
-    resources :categories, only: :show do
-      collection do
-        get :draft
-      end
-    end
   end
 
-  scope module: 'gamedata' do
-    constraints subdomain: /warframe.?*/ do
-        resources :resources, only: [:index, :show]
+  scope module: :ingress, constraints: lambda{ |r| r.subdomain.include?('ingress') } do
+    get '/' => 'home#index'
+  end
 
-        get '/' => 'resources#index'
-      end
-    end
-
-  root to: "home#index"
+  root to: 'home#index'
 end

@@ -1,0 +1,8 @@
+
+.container
+  .row
+    .col-md-12
+      = simple_form_for :intel_link do |f|
+        = f.input :link
+%script
+  = render 'script.js'

@@ -9,9 +9,9 @@
         = link_to 'Competition Entry Page', 'http://www.ludumdare.com/compo/ludum-dare-29/?action=preview&uid=4783'
       %li This game currently performs <b> FAR BETTER </b> in Chrome: please use this! Fixes are coming.
       %li Red artefacts is another known issue - post compo versions will fix this!
-      %li Use <b>WASD/Arrows</b> to move, and mine blocks of resources. 
-      %li <b>E</b> = Stockpile resources in Portals 
-      %li <b>Q</b> = Buy upgrades with stockpile from Portals 
+      %li Use <b>WASD/Arrows</b> to move, and mine blocks of resources.
+      %li <b>E</b> = Stockpile resources in Portals
+      %li <b>Q</b> = Buy upgrades with stockpile from Portals
 
 
 .hero-unit
@@ -25,24 +25,24 @@
 
   = render 'game_controller.js'
   = render 'game_model.js'
-  = render 'game_view.js' 
+  = render 'game_view.js'
 
   = render 'game_block.js'
   = render 'game_block_type.js'
   = render 'game_block_types.js'
-  = render 'game_character_map.js'  
-  = render 'game_inventory.js' 
-  = render 'game_item.js' 
-  = render 'game_key_listener.js' 
-  = render 'game_mouse_listener.js' 
-  = render 'game_menu.js' 
+  = render 'game_character_map.js'
+  = render 'game_inventory.js'
+  = render 'game_item.js'
+  = render 'game_key_listener.js'
+  = render 'game_mouse_listener.js'
+  = render 'game_menu.js'
   = render 'game_meters.js'
   = render 'game_player.js'
   = render 'game_stockpile.js'
-  = render 'game_unit.js' 
+  = render 'game_unit.js'
   = render 'game_world.js'
 
   = render 'constants.js'
   /= render 'debug.js' if Rails.env.development?
 
-  = render 'game.js' 
+  = render 'game.js'

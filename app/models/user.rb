@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   has_one :ld27_test_player, inverse_of: :user
 
   def self.find_for_steam_oauth(auth)
-    where(auth.slice(:provider, :uid)).first_or_create! do |user|
+    where(provider: auth[:provider], uid: auth[:uid]).first_or_create! do |user|
       user.provider = auth.provider
       user.uid      = auth.uid
       user.roles    = auth.uid == ENV['ADMIN_STEAM_UID'] ? [Role.find_by(name: 'admin')] : [Role.find_by(name: 'user')]
@@ -24,12 +24,12 @@ class User < ActiveRecord::Base
     r2 = Devise.friendly_token
     user = User.new
     user.provider = 'guest'
-    user.uid      = "#{r1}"   
+    user.uid      = "#{r1}"
     user.name     = "Guest #{r1[15,20]}"
     user.email    = "#{r1}@random.org"
     user.password = "#{r2}"
     user.roles    = []
     user.save!
-    user 
+    user
   end
 end

@@ -25,7 +25,7 @@ Tobypinder::Application.routes.draw do
   end
 
   scope module: 'gamedata' do
-    constraints subdomain: 'warframe' do
+    constraints subdomain: /warframe.?*/ do
         resources :resources, only: [:index, :show]
 
         get '/' => 'resources#index'

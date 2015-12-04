@@ -22,7 +22,7 @@ gem 'thin'
 gem 'paperclip'
 gem 'aws-sdk'
 gem 'activerecord-session_store'
-
+gem 'pg'
 
 group :development do
   gem 'erd'
@@ -47,13 +47,11 @@ group :development, :test do
   gem 'pry-stack_explorer'
   gem 'quiet_assets'
   gem 'rubocop'
-  gem 'sqlite3'
   gem 'whiny_validation'
 end
 
 group :production do
   gem 'rails_12factor' # assets
-  gem 'pg'
 end
 
 group :test do

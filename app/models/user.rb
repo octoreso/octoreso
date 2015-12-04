@@ -5,7 +5,9 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: [:steam]
-  has_one :ld27_test_player, inverse_of: :user
+  # has_one :ld27_test_player, inverse_of: :user
+  #
+  has_and_belongs_to_many :roles, join_table: :users_roles
 
   def self.find_for_steam_oauth(auth)
     where(provider: auth[:provider], uid: auth[:uid]).first_or_create! do |user|
@@ -20,16 +22,17 @@ class User < ActiveRecord::Base
   end
 
   def self.create_guest
-    r1 = Devise.friendly_token
-    r2 = Devise.friendly_token
-    user = User.new
-    user.provider = 'guest'
-    user.uid      = "#{r1}"
-    user.name     = "Guest #{r1[15,20]}"
-    user.email    = "#{r1}@random.org"
-    user.password = "#{r2}"
-    user.roles    = []
-    user.save!
-    user
+    fail 'No longer accepting Guest Accounts.'
+    # r1 = Devise.friendly_token
+    # r2 = Devise.friendly_token
+    # user = User.new
+    # user.provider = 'guest'
+    # user.uid      = "#{r1}"
+    # user.name     = "Guest #{r1[15,20]}"
+    # user.email    = "#{r1}@random.org"
+    # user.password = "#{r2}"
+    # user.roles    = []
+    # user.save!
+    # user
   end
 end

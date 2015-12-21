@@ -11,72 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151117222055) do
+ActiveRecord::Schema.define(version: 20151221223928) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "categories", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "gamedata_descriptors", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "gamedata_games", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "gamedata_recipe_resource_modes", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "gamedata_recipe_resources", force: :cascade do |t|
-    t.integer  "recipe_id"
-    t.integer  "resource_id"
-    t.integer  "quantity"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "recipe_resource_mode_id"
-  end
-
-  create_table "gamedata_recipes", force: :cascade do |t|
-    t.integer  "game_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "name"
-  end
-
-  create_table "gamedata_resource_descriptors", force: :cascade do |t|
-    t.integer  "resource_id",   null: false
-    t.integer  "descriptor_id", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "gamedata_resource_descriptors", ["descriptor_id"], name: "index_gamedata_resource_descriptors_on_descriptor_id", using: :btree
-  add_index "gamedata_resource_descriptors", ["resource_id"], name: "index_gamedata_resource_descriptors_on_resource_id", using: :btree
-
-  create_table "gamedata_resources", force: :cascade do |t|
-    t.integer  "game_id"
-    t.string   "name"
-    t.string   "source_url"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "icon_file_name"
-    t.string   "icon_content_type"
-    t.integer  "icon_file_size"
-    t.datetime "icon_updated_at"
-  end
 
   create_table "ingress_agents", force: :cascade do |t|
     t.string   "name",       null: false
@@ -105,17 +43,6 @@ ActiveRecord::Schema.define(version: 20151117222055) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "posts", force: :cascade do |t|
-    t.string   "title"
-    t.string   "subtitle"
-    t.integer  "category_id"
-    t.text     "content"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "posts", ["category_id"], name: "index_posts_on_category_id", using: :btree
 
   create_table "roles", force: :cascade do |t|
     t.string   "name"

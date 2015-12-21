@@ -7,7 +7,7 @@ class Ability
       can :manage, :all
 
       can :access, :rails_admin
-      can :dashboard     
+      can :dashboard
     end
     # Define abilities for the passed in user here. For example:
     #

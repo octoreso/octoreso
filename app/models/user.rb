@@ -5,9 +5,11 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: [:steam]
-  # has_one :ld27_test_player, inverse_of: :user
-  #
-  has_and_belongs_to_many :roles, join_table: :users_roles
+
+  # As yet unsure why this is tripping the duped HABTM issue, think it's rolify's fault.
+  # We'll be redoing auth/perms anyway, I'm unhappy with CanCan and the Oauth needs swapping for Google.
+
+  # has_and_belongs_to_many :roles, join_table: :users_roles, inverse_of: :users
 
   def self.find_for_steam_oauth(auth)
     where(provider: auth[:provider], uid: auth[:uid]).first_or_create! do |user|

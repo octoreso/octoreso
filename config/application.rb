@@ -16,12 +16,15 @@ module Tobypinder
 
     # don't generate RSpec tests for views and helpers
     config.generators do |g|
-
+      g.orm :active_record
       g.test_framework :rspec, fixture: true
       g.fixture_replacement :factory_girl, dir: 'spec/factories'
+      g.template_engine :haml
 
       g.view_specs false
       g.helper_specs false
+      g.stylesheets false
+      g.javascripts false
     end
 
     config.serve_static_files = true
@@ -35,6 +38,6 @@ module Tobypinder
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
-    # config.i18n.default_locale = :de
+    config.i18n.default_locale = :en
   end
 end

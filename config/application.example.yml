@@ -6,14 +6,19 @@
 # GMAIL_USERNAME: Your_Gmail_Username
 # makes 'Your_Gmail_Username' available as ENV["GMAIL_USERNAME"]
 
-# Add application configuration variables here, as shown below.
-#
-ADMIN_NAME: First User
-ADMIN_EMAIL: user@example.com
-ADMIN_PASSWORD: changeme
-ROLES: [admin, user, VIP]
-SECRET_TOKEN: 111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
-ADMIN_STEAM_UID: 111111
-APIKEY_STEAM: 1111111 
-AWS_ACCESS_KEY_ID: xxx
-AWS_SECRET_ACCESS_KEY: yyy
+ADMIN_NAME: 'First User'
+ADMIN_EMAIL: 'user@example.com'
+ADMIN_PASSWORD: 'changeme'
+ROLES: '[admin, user, VIP]'
+SECRET_TOKEN: '111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111'
+ADMIN_STEAM_UID: '111111'
+APIKEY_STEAM: '1111111'
+AWS_ACCESS_KEY_ID: 'xxx'
+AWS_SECRET_ACCESS_KEY: 'yyy'
+S3_BUCKET_NAME: 'tobypinder'
+
+# Heroku will handle non-local db urls automatically.
+development:
+  DATABASE_URL: postgres://username:password@localhost:5432/tobypinder_dev
+test:
+  DATABASE_URL: postgres://username:password@localhost:5432/tobypinder_test

@@ -23,6 +23,7 @@ gem 'paperclip'
 gem 'aws-sdk'
 gem 'activerecord-session_store'
 gem 'pg'
+gem 'tobypinder-ingress'
 
 group :development do
   gem 'erd'
@@ -48,7 +49,6 @@ group :development, :test do
   gem 'quiet_assets'
   gem 'rubocop'
   gem 'whiny_validation'
-  gem 'tobypinder-ingress'
 end
 
 group :production do

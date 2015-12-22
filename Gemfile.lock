@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/tobypinder/tobypinder-ingress.git
-  revision: b27ea5903b0f45dc381bec2d026f8fe1a6a27cec
+  revision: 12f925fe46061fca5041c861fb20f8aa778eb379
   branch: master
   specs:
     tobypinder-ingress (0.0.3)

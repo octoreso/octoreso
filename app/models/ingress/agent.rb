@@ -10,5 +10,8 @@
 
 module Ingress
   class Agent < ActiveRecord::Base
+    has_many :missions, inverse_of: :agent
+
+    validates :name, presence: true
   end
 end

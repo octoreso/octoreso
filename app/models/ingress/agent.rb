@@ -1,4 +1,4 @@
 module Ingress
-  class Agent < Base
+  class Agent < ActiveRecord::Base
   end
 end

@@ -1,9 +1,3 @@
-PATH
-  remote: ../ingress
-  specs:
-    tobypinder-ingress (0.0.1)
-      rails (~> 4.2.5)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -387,6 +381,8 @@ GEM
     tilt (2.0.1)
     timecop (0.8.0)
     tins (1.6.0)
+    tobypinder-ingress (0.0.1)
+      rails (~> 4.2.5)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (2.7.2)
@@ -459,7 +455,7 @@ DEPENDENCIES
   simplecov
   thin
   timecop
-  tobypinder-ingress!
+  tobypinder-ingress
   uglifier
   whiny_validation
 

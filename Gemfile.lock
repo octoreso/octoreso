@@ -1,3 +1,9 @@
+PATH
+  remote: ../ingress
+  specs:
+    tobypinder-ingress (0.0.1)
+      rails (~> 4.2.5)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -453,8 +459,9 @@ DEPENDENCIES
   simplecov
   thin
   timecop
+  tobypinder-ingress!
   uglifier
   whiny_validation
 
 BUNDLED WITH
-   1.10.6
+   1.11.2

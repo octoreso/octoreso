@@ -48,10 +48,12 @@ group :development, :test do
   gem 'quiet_assets'
   gem 'rubocop'
   gem 'whiny_validation'
+  gem 'tobypinder-ingress'
 end
 
 group :production do
   gem 'rails_12factor' # assets
+
 end
 
 group :test do

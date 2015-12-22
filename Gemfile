@@ -23,7 +23,6 @@ gem 'paperclip'
 gem 'aws-sdk'
 gem 'activerecord-session_store'
 gem 'pg'
-gem 'tobypinder-ingress', github: 'tobypinder/tobypinder-ingress', branch: 'master'
 
 group :development do
   gem 'erd'

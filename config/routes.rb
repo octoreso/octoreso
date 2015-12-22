@@ -19,7 +19,7 @@ Tobypinder::Application.routes.draw do
   end
 
   scope module: :ingress, constraints: lambda{ |r| r.subdomain.include?('ingress') } do
-    mount Ingress::Engine => '/'
+    get '/' => 'home#index'
   end
 
   root to: 'home#index'

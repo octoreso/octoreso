@@ -22,3 +22,10 @@ user = User.create_with(
 )
 puts 'user: ' << user.name
 user.add_role :admin
+
+require 'csv'
+
+file = File.read(Rails.root.join('db', 'seeds', 'missions.csv'))
+csv  = CSV.parse(file, headers: true).each do |row|
+  Ingress::Mission.create_from_csv!(row.to_h)
+end

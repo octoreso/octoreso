@@ -1,7 +1,8 @@
-$(document).ready(function(){
-  $('#intel_link_link').change(function() {
-    var value = $(this).val();
-    value     = Parser.parse(value);
+var Map = null;
+var MapLoader = function(){
+  Map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: 0, lng: 0},
+    zoom: 1
   });
 
   $.ajax({
@@ -9,7 +10,7 @@ $(document).ready(function(){
   }).success(function(data, code) {
     new IngressMap(data);
   });
-});
+};
 
 var IngressMap = function(data)
 {
@@ -45,15 +46,18 @@ var Mission = function(data) {
   this.max_lat     = -90
   this.min_long    = 180
   this.max_long    = -180
-  this.series_id   = parseInt(data.mission_series_id)
+  this.series_id   = parseInt(data.mission_series_id) || null
   this.series_name = data.mission_series ? data.mission_series.name : null
+  this.point_data  = []
 
-  this.points = data['points'].map(function(point) {
+  this.points     = data['points'].map(function(point) {
     this.min_lat = Math.min(this.min_lat, parseFloat(point.lat))
     this.max_lat = Math.max(this.max_lat, parseFloat(point.lat))
 
     this.min_long = Math.min(this.min_long, parseFloat(point.long))
     this.max_long = Math.max(this.max_long, parseFloat(point.long))
+
+    this.point_data.push({ lat: this.lat, lng: this.long })
 
     return new Point(point, this)
   }, this);
@@ -64,6 +68,17 @@ var Mission = function(data) {
     });
   }
 }
+
+// other than red, which is reserved for non-series
+var Icons = [
+  'http://maps.google.com/mapfiles/ms/micons/yellow.png',
+  'http://maps.google.com/mapfiles/ms/micons/blue.png',
+  'http://maps.google.com/mapfiles/ms/micons/green.png',
+  'http://maps.google.com/mapfiles/ms/micons/lightblue.png',
+  'http://maps.google.com/mapfiles/ms/micons/orange.png',
+  'http://maps.google.com/mapfiles/ms/micons/pink.png',
+  'http://maps.google.com/mapfiles/ms/micons/yellow.png'
+]
 
 var Point = function(data, mission) {
   this._marker             = null;
@@ -78,22 +93,20 @@ var Point = function(data, mission) {
       position: { lat: this.lat, lng: this.long },
       title: this.mission_series_name || data.portal_name || 'Unknown Portal',
       animation: google.maps.Animation.DROP,
-      //label: String.fromCharCode(65 + this.mission.series_id),
       map: Map
     }
 
     // marker_data.icon = Icon.portal
-    marker_data.icon = 'http://maps.google.com/mapfiles/ms/micons/yellow.png'
-    this._marker = new google.maps.Marker(marker_data);
+    if(this.mission.series_id == null)
+    {
+      marker_data.icon = 'http://maps.google.com/mapfiles/ms/micons/red.png'
+    } else {
+      marker_data.icon = Icons[parseFloat(this.mission.series_id) % Icons.length]
+    }
 
-    console.log(String.fromCharCode(65 + this.mission.series_id))
+    setTimeout(function(mission, marker_data){
+      console.log('CALLED!')
+      this._marker = new google.maps.Marker(marker_data);
+    }, Math.random() * 2500 + ((this.mission.series_id || 0) * 2400), this, marker_data);
   };
 }
-
-var Map = null;
-var MapLoader = function(){
-  Map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 0, lng: 0},
-    zoom: 1
-  });
-};

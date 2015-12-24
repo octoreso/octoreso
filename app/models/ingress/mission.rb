@@ -98,5 +98,9 @@ module Ingress
 
       self.trace_urls = nil
     end
+
+    def as_json(options = {})
+      super(options.merge(include: [:mission_series, :agent, :points]))
+    end
   end
 end

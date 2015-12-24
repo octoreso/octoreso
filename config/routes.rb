@@ -20,6 +20,10 @@ Tobypinder::Application.routes.draw do
 
   scope module: :ingress, constraints: lambda{ |r| r.subdomain.include?('ingress') } do
     get '/' => 'home#index'
+
+    scope '/api' do
+      resources :missions, only: [:index, :show]
+    end
   end
 
   root to: 'home#index'

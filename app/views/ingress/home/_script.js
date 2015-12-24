@@ -2,7 +2,8 @@ var Map = null;
 var MapLoader = function(){
   Map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 0, lng: 0},
-    zoom: 1
+    zoom: 1,
+    styles: MapStyles.ingress
   });
 
   $.ajax({
@@ -11,6 +12,67 @@ var MapLoader = function(){
     new IngressMap(data);
   });
 };
+
+// via http://googlemaps.github.io/js-samples/styledmaps/wizard/index.html
+var MapStyles = {
+  ingress: [
+    {
+      "featureType": "water",
+      "stylers": [
+        { "color": "#C6D4EC" }
+      ]
+    },{
+      "featureType": "landscape.natural",
+      "stylers": [
+        { "color": "#191F1F" }
+      ]
+    },{
+      "featureType": "landscape.man_made",
+      "stylers": [
+        { "color": "#101414" }
+      ]
+    },{
+      "featureType": "road",
+      "elementType": "geometry",
+      "stylers": [
+        { "visibility": "on" },
+        { "saturation": -100 },
+        { "lightness": -100 }
+      ]
+    },{
+      "featureType": "administrative",
+      "stylers": [
+        { "visibility": "off" }
+      ]
+    },{
+      "featureType": "poi",
+      "stylers": [
+        { "visibility": "off" }
+      ]
+    },{
+      "elementType": "labels",
+      "stylers": [
+        { "visibility": "off" }
+      ]
+    },{
+      "elementType": "labels.text.fill",
+      "stylers": [
+        { "visibility": "on" },
+        { "color": "#ffffff" }
+      ]
+    },{
+      "elementType": "labels.text.stroke",
+      "stylers": [
+        { "color": "#808080" }
+      ]
+    },{
+      "featureType": "road.local",
+      "stylers": [
+        { "lightness": -50 }
+      ]
+    }
+  ]
+}
 
 var IngressMap = function(data)
 {
@@ -71,13 +133,13 @@ var Mission = function(data) {
 
 // other than red, which is reserved for non-series
 var Icons = [
-  'http://maps.google.com/mapfiles/ms/micons/yellow.png',
-  'http://maps.google.com/mapfiles/ms/micons/blue.png',
   'http://maps.google.com/mapfiles/ms/micons/green.png',
-  'http://maps.google.com/mapfiles/ms/micons/lightblue.png',
+  'http://maps.google.com/mapfiles/ms/micons/yellow.png',
   'http://maps.google.com/mapfiles/ms/micons/orange.png',
-  'http://maps.google.com/mapfiles/ms/micons/pink.png',
-  'http://maps.google.com/mapfiles/ms/micons/yellow.png'
+  'http://maps.google.com/mapfiles/ms/micons/red.png',
+  'http://maps.google.com/mapfiles/ms/micons/purple.png',
+  'http://maps.google.com/mapfiles/ms/micons/blue.png',
+  'http://maps.google.com/mapfiles/ms/micons/lightblue.png'
 ]
 
 var Point = function(data, mission) {
@@ -99,14 +161,13 @@ var Point = function(data, mission) {
     // marker_data.icon = Icon.portal
     if(this.mission.series_id == null)
     {
-      marker_data.icon = 'http://maps.google.com/mapfiles/ms/micons/red.png'
+      marker_data.icon = 'http://maps.google.com/mapfiles/ms/micons/pink.png'
     } else {
       marker_data.icon = Icons[parseFloat(this.mission.series_id) % Icons.length]
     }
 
     setTimeout(function(mission, marker_data){
-      console.log('CALLED!')
       this._marker = new google.maps.Marker(marker_data);
-    }, Math.random() * 2500 + ((this.mission.series_id || 0) * 2400), this, marker_data);
+    }, Math.random() * 2500 + ((this.mission.series_id || 0) * 1000) + 2000, this, marker_data);
   };
 }

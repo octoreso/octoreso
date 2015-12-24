@@ -71,8 +71,10 @@ module Ingress
         # "FT Qty" => "0",
         # "Passphrases" => "No",
         # "Trace Link" => "https://www.ingress.com/intel?ll=55.952197,-3.17503&z=18&pls=55.952257,-3.174327,55.952359,-3.175461_55.952359,-3.175461,55.952501,-3.175715_55.952501,-3.175715,55.952306,-3.175824_55.952306,-3.175824,55.952131,-3.176426_55.952131,-3.176426,55.951924,-3.176555"
-        def create_from_csv!(row)
+        def create_from_csv!(row, community_name: nil)
+          community             = community_name.present? ? Ingress::Community.where(name: community_name).first_or_create! : nil
           mission               = Ingress::Mission.new
+          mission.community     = community
           mission.name          = row['Name']
           mission.agent         = Ingress::Agent.where(name: row['Creator']).first_or_create!
           mission.mission_url   = row['Mission Link']
@@ -80,10 +82,7 @@ module Ingress
           mission.series_type   = SERIES_MAPPING[row['Series Type']]
 
           if row['Series Name'].present? && row['Series Name'] != '-'
-            # TODO: Mission Series name collision - nothing dictates that there can't be two banners with the same name.
-            #   only viable way to handle this IMHO is a time check with the understanding that individual CSVs will be
-            #   imported individually (???), or some kind of "community" field tracking source CSV.
-            mission.mission_series = Ingress::MissionSeries.where(name: row['Series Name']).first_or_create!
+            mission.mission_series = Ingress::MissionSeries.where(name: row['Series Name'], community: community).first_or_create!
             mission.series_index   = row['Series Index'].present? ? row['Series Index'] : nil
           end
 

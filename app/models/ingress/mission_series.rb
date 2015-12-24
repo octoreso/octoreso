@@ -12,6 +12,8 @@ module Ingress
   class MissionSeries < ActiveRecord::Base
     has_many :missions, inverse_of: :mission_series
 
+    belongs_to :community, inverse_of: :mission_series
+
     validates :name, presence: true
   end
 end

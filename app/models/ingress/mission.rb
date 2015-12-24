@@ -27,6 +27,8 @@ module Ingress
 
     after_create :populate_from_trace_urls
 
+    belongs_to :community, inverse_of: :missions
+
     has_many :mission_points, inverse_of: :mission
 
     has_many :points, through: :mission_points, inverse_of: :missions

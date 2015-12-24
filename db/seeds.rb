@@ -28,10 +28,11 @@ require 'csv'
 # file = File.read(Rails.root.join('db', 'seeds', 'missions.csv'))
 
 Dir[Rails.root.join('db', 'seeds', 'ingress', 'missions', '**', '*.csv')].each do |file|
-  puts "* #{file}"
+  file_name = file.split('db/seeds/ingress/missions/').last.gsub('.csv', '')
+  puts "* #{file_name}"
 
   file = File.read(file)
   csv  = CSV.parse(file, headers: true).each do |row|
-    Ingress::Mission.create_from_csv!(row.to_h)
+    Ingress::Mission.create_from_csv!(row.to_h, community_name: file_name)
   end
 end

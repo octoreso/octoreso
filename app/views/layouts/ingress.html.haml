@@ -23,13 +23,13 @@
           %a.navbar-brand{href: url_for(root_path)} Ingress Tool
         .navbar-collapse.collapse
           %ul.nav.navbar-nav.navbar-right
-            - if user_signed_in?
-              %li= link_to "Hello #{current_user.name}", root_path
-              %li= link_to 'Administrate', rails_admin_path if can? :access, :rails_admin
-              %li= link_to 'Logout', destroy_user_session_path, method: :delete
-            - else
-              %li= link_to (image_tag '/steam/sits_small.png'), user_omniauth_authorize_path(:steam)
-              %li= link_to 'or use a guest account', new_guest_path
+            -# - if user_signed_in?
+            -#   %li= link_to "Hello #{current_user.name}", root_path
+            -#   %li= link_to 'Administrate', rails_admin_path if can? :access, :rails_admin
+            -#   %li= link_to 'Logout', destroy_user_session_path, method: :delete
+            -# - else
+            -#   %li= link_to (image_tag '/steam/sits_small.png'), user_omniauth_authorize_path(:steam)
+            -#   %li= link_to 'or use a guest account', new_guest_path
     - flash.each do |type, message|
       .container
         %div{class:"alert #{bootstrap_class_for(type)}"}

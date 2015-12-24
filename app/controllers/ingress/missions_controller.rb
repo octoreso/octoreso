@@ -3,7 +3,7 @@ module Ingress
     respond_to :json
 
     def index
-      @missions = Ingress::Mission.all
+      @missions = Ingress::Mission.all.includes(:mission_series, :agent, :points)
 
       respond_with @missions
     end

@@ -3,9 +3,49 @@ $(document).ready(function(){
     var value = $(this).val();
     value     = Parser.parse(value);
   });
+
+  $.ajax({
+    url: '/api/missions.json'
+  }).success(function(data, code) {
+    data.forEach(function(item) {
+      new Mission(item).draw()
+    });
+  });
 });
 
-//
+var Mission = function(data) {
+  this.data = data
+  this.points = data['points'].map(function(point) {
+    return new Point(point)
+  });
+
+  this.draw = function() {
+    console.log(this.data)
+    this.points.forEach(function(point) {
+      point.draw();
+    });
+  }
+}
+
+var Point = function(data) {
+  this._marker     = null;
+  this.lat         = parseFloat(data.lat);
+  this.long        = parseFloat(data.long);
+  this.portal_name = data.portal_name;
+
+  this.draw = function()
+  {
+    this._marker = new google.maps.Marker({
+      position: { lat: this.lat, lng: this.long },
+      title: data.portal_name || 'Unknown Portal',
+      animation: google.maps.Animation.DROP,
+      map: Map
+    });
+  };
+}
+
+
+// OLD
 
 var Parser = {
   parse:function(str) {

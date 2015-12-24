@@ -68,7 +68,7 @@ var Node=function(lat, lng)
   this.render = function() {
     this._marker = new google.maps.Marker({
       position: { lat: this.lat, lng: this.lng },
-      title:'Unknown Portal',
+      title: 'Unknown Portal',
       //label:'',
       animation: google.maps.Animation.DROP,
       map: Map

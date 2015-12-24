@@ -12,6 +12,7 @@ class Ability
       can :view, Ingress::Agent
       can :view, Ingress::MissionSeries
       can :view, Ingress::Mission
+      can :view, Ingress::Point
     end
   end
 end

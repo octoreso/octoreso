@@ -57,6 +57,8 @@ module Ingress
       end
 
       class_methods do
+        # TODO: Modification from CSV -
+        #
         # "Name" => "Edinburgh #1 - 18",
         # "Creator" => nil,
         # "Mission Link" => "https://www.ingress.com/mission/7176b31364aa486d8590b1e0b7ca1a4e.1c",
@@ -70,21 +72,27 @@ module Ingress
         # "Passphrases" => "No",
         # "Trace Link" => "https://www.ingress.com/intel?ll=55.952197,-3.17503&z=18&pls=55.952257,-3.174327,55.952359,-3.175461_55.952359,-3.175461,55.952501,-3.175715_55.952501,-3.175715,55.952306,-3.175824_55.952306,-3.175824,55.952131,-3.176426_55.952131,-3.176426,55.951924,-3.176555"
         def create_from_csv!(row)
-          mission                          = Ingress::Mission.new
-          mission.name                     = row['Name']
-          mission.agent                    = Ingress::Agent.where(name: row['Creator']).first_or_create!
-          mission.mission_url              = row['Mission Link']
-          mission.sequence_type            = SEQUENCE_MAPPING[row['Sequence Type']]
-          mission.series_type              = SERIES_MAPPING[row['Series Type']]
-          mission.mission_series           = Ingress::MissionSeries.where(name: row['Series Name']).first_or_create!
-          mission.series_index             = row['Series Index']
+          mission               = Ingress::Mission.new
+          mission.name          = row['Name']
+          mission.agent         = Ingress::Agent.where(name: row['Creator']).first_or_create!
+          mission.mission_url   = row['Mission Link']
+          mission.sequence_type = SEQUENCE_MAPPING[row['Sequence Type']]
+          mission.series_type   = SERIES_MAPPING[row['Series Type']]
+
+          if row['Series Name'].present? && row['Series Name'] != '-'
+            # TODO: Mission Series name collision - nothing dictates that there can't be two banners with the same name.
+            #   only viable way to handle this IMHO is a time check with the understanding that individual CSVs will be
+            #   imported individually (???), or some kind of "community" field tracking source CSV.
+            mission.mission_series = Ingress::MissionSeries.where(name: row['Series Name']).first_or_create!
+            mission.series_index   = row['Series Index'].present? ? row['Series Index'] : nil
+          end
+
           mission.difficulty_type          = DIFFICULTY_MAPPING[row['Difficulty']]
           mission.field_trip_waypoint_type = FIELD_TRIP_WAYPOINT_MAPPING[row['Field Trip Waypoints']]
           mission.field_trip_waypoint_qty  = row['FT Qty']
           mission.passphrase_type          = PASSPHRASE_MAPPING[row['Passphrases']]
+          mission.trace_urls               = row['Trace Link']
 
-          links = row['Trace Link'].split('\n')
-          links.map { |l| puts l }
           mission.save!
         end
       end

@@ -25,6 +25,12 @@ module Ingress
     attr_accessor :from_csv_import
     attr_accessor :trace_urls
 
+    after_create :populate_from_trace_urls
+
+    has_many :mission_points, inverse_of: :mission
+
+    has_many :points, through: :mission_points, inverse_of: :missions
+
     belongs_to :agent,          inverse_of: :missions
     belongs_to :mission_series, inverse_of: :missions
 
@@ -74,5 +80,23 @@ module Ingress
       field_trip_waypoint_type_medium: 3,
       field_trip_waypoint_type_far:    4
     }
+
+    def populate_from_trace_urls
+      return unless trace_urls.present?
+
+      links = trace_urls.split('\n')
+      links.each do |link|
+        params = link.gsub('https://www.ingress.com/intel?', '').split('&')
+        coords = params.detect { |param| /pls=/.match(param) }.gsub('pls=', '').split(/[,_]/)
+
+        coords.each_slice(2) do |lat, long|
+          point = Ingress::Point.where(lat: lat, long: long).first_or_create!
+
+          Ingress::MissionPoint.create!(mission: self, point: point)
+        end
+      end
+
+      self.trace_urls = nil
+    end
   end
 end

@@ -12,6 +12,7 @@ YAML.load(ENV['ROLES']).each do |role|
   Role.find_or_create_by(name: role)
   puts 'role: ' << role
 end
+
 puts 'DEFAULT USERS'
 user = User.create_with(
   name:                  ENV['ADMIN_NAME'].dup,
@@ -24,8 +25,13 @@ puts 'user: ' << user.name
 user.add_role :admin
 
 require 'csv'
+# file = File.read(Rails.root.join('db', 'seeds', 'missions.csv'))
 
-file = File.read(Rails.root.join('db', 'seeds', 'missions.csv'))
-csv  = CSV.parse(file, headers: true).each do |row|
-  Ingress::Mission.create_from_csv!(row.to_h)
+Dir[Rails.root.join('db', 'seeds', 'ingress', 'missions', '**', '*.csv')].each do |file|
+  puts "* #{file}"
+
+  file = File.read(file)
+  csv  = CSV.parse(file, headers: true).each do |row|
+    Ingress::Mission.create_from_csv!(row.to_h)
+  end
 end

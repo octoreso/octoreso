@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151221223928) do
+ActiveRecord::Schema.define(version: 20151223221254) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,13 @@ ActiveRecord::Schema.define(version: 20151221223928) do
     t.string   "name",       null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "ingress_mission_points", force: :cascade do |t|
+    t.integer  "mission_id"
+    t.integer  "point_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "ingress_mission_series", force: :cascade do |t|
@@ -42,6 +49,14 @@ ActiveRecord::Schema.define(version: 20151221223928) do
     t.integer  "passphrase_type",                      null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "ingress_points", force: :cascade do |t|
+    t.decimal  "lat",         precision: 9, scale: 6, null: false
+    t.decimal  "long",        precision: 9, scale: 6, null: false
+    t.string   "portal_name"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
   end
 
   create_table "roles", force: :cascade do |t|

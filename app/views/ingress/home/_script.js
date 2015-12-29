@@ -154,11 +154,9 @@ var Point = function(data, mission) {
     var marker_data = {
       position: { lat: this.lat, lng: this.long },
       title: this.mission_series_name || data.portal_name || 'Unknown Portal',
-      animation: google.maps.Animation.DROP,
       map: Map
     }
 
-    // marker_data.icon = Icon.portal
     if(this.mission.series_id == null)
     {
       marker_data.icon = 'http://maps.google.com/mapfiles/ms/micons/pink.png'
@@ -166,8 +164,6 @@ var Point = function(data, mission) {
       marker_data.icon = Icons[parseFloat(this.mission.series_id) % Icons.length]
     }
 
-    setTimeout(function(mission, marker_data){
-      this._marker = new google.maps.Marker(marker_data);
-    }, Math.random() * 2500 + ((this.mission.series_id || 0) * 1000) + 2000, this, marker_data);
+    this._marker = new google.maps.Marker(marker_data);
   };
 }

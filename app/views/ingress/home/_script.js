@@ -112,7 +112,7 @@ var Mission = function(data) {
   this.series_name = data.mission_series ? data.mission_series.name : null
   this.point_data  = []
 
-  this.points     = data['points'].map(function(point) {
+  this.points = data['points'].map(function(point) {
     this.min_lat = Math.min(this.min_lat, parseFloat(point.lat))
     this.max_lat = Math.max(this.max_lat, parseFloat(point.lat))
 

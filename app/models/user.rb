@@ -40,8 +40,8 @@ class User < ActiveRecord::Base
       user.uid      = auth.uid
       user.roles    = auth.uid == ENV['ADMIN_STEAM_UID'] ? [Role.find_by(name: 'admin')] : [Role.find_by(name: 'user')]
       user.email    = "#{auth.uid}@steamcommunity.com"
-      user.password = Devise.friendly_token[0,20]
-      user.name     = auth.info.name   # assuming the user model has a name
+      user.password = Devise.friendly_token[0, 20]
+      user.name     = auth.info.name # assuming the user model has a name
       user.image    = auth.info.image # assuming the user model has an image
     end
   end

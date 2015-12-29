@@ -11,10 +11,9 @@
 #
 
 FactoryGirl.define do
-  factory :ingress_point, :class => 'Ingress::Point' do
-    lat ""
-long ""
-portal_name "MyString"
+  factory :ingress_point, class: 'Ingress::Point' do
+    lat ''
+    long ''
+    portal_name 'MyString'
   end
-
 end

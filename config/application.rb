@@ -13,7 +13,6 @@ Bundler.require(*Rails.groups)
 
 module Tobypinder
   class Application < Rails::Application
-
     # don't generate RSpec tests for views and helpers
     config.generators do |g|
       g.orm :active_record

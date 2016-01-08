@@ -32,6 +32,7 @@ module Ingress
         }
 
         FIELD_TRIP_WAYPOINT_MAPPING = {
+          nil            => :field_trip_waypoint_type_not_set,
           'No'           => :field_trip_waypoint_type_none,
           'Yes (close)'  => :field_trip_waypoint_type_close,
           'Yes (medium)' => :field_trip_waypoint_type_medium,
@@ -39,6 +40,7 @@ module Ingress
         }
 
         PASSPHRASE_MAPPING = {
+          nil              => :passphrase_type_not_set,
           'No'             => :passphrase_type_none,
           'Yes (Logical)'  => :passphrase_type_logical,
           'Yes (Research)' => :passphrase_type_research,
@@ -46,6 +48,7 @@ module Ingress
         }
 
         DIFFICULTY_MAPPING = {
+          nil                                      => :difficulty_type_not_set,
           'All Hacks'                              => :difficulty_type_all_hacks,
           'All Capture / Upgrade'                  => :difficulty_type_all_capture_upgrade,
           'All Modding'                            => :difficulty_type_all_modding,
@@ -88,7 +91,7 @@ module Ingress
 
           mission.difficulty_type          = DIFFICULTY_MAPPING[row['Difficulty']]
           mission.field_trip_waypoint_type = FIELD_TRIP_WAYPOINT_MAPPING[row['Field Trip Waypoints']]
-          mission.field_trip_waypoint_qty  = row['FT Qty']
+          mission.field_trip_waypoint_qty  = row['FT Qty'].to_i
           mission.passphrase_type          = PASSPHRASE_MAPPING[row['Passphrases']]
           mission.trace_urls               = row['Trace Link']
 

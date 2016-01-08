@@ -3,8 +3,8 @@
 # Table name: ingress_points
 #
 #  id          :integer          not null, primary key
-#  lat         :decimal(, )      not null
-#  long        :decimal(, )      not null
+#  lat         :decimal(9, 6)    not null
+#  long        :decimal(9, 6)    not null
 #  portal_name :string
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null

@@ -16,6 +16,8 @@
 #  passphrase_type          :integer          not null
 #  created_at               :datetime
 #  updated_at               :datetime
+#  community_id             :integer
+#  validation_level         :integer          default(0), not null
 #
 
 require 'rails_helper'

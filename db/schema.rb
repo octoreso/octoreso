@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151224092325) do
+ActiveRecord::Schema.define(version: 20160108212052) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,17 +46,18 @@ ActiveRecord::Schema.define(version: 20151224092325) do
     t.string   "name",                                 null: false
     t.integer  "agent_id",                             null: false
     t.string   "mission_url",                          null: false
-    t.integer  "sequence_type",                        null: false
-    t.integer  "series_type",                          null: false
+    t.integer  "sequence_type",            default: 0, null: false
+    t.integer  "series_type",              default: 0, null: false
     t.integer  "mission_series_id"
     t.integer  "series_index"
-    t.integer  "difficulty_type",                      null: false
-    t.integer  "field_trip_waypoint_type",             null: false
+    t.integer  "difficulty_type",          default: 0, null: false
+    t.integer  "field_trip_waypoint_type", default: 0, null: false
     t.integer  "field_trip_waypoint_qty",  default: 0, null: false
     t.integer  "passphrase_type",                      null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "community_id"
+    t.integer  "validation_level",         default: 0, null: false
   end
 
   create_table "ingress_points", force: :cascade do |t|

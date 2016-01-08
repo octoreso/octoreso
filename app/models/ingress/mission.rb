@@ -16,6 +16,8 @@
 #  passphrase_type          :integer          not null
 #  created_at               :datetime
 #  updated_at               :datetime
+#  community_id             :integer
+#  validation_level         :integer          default(0), not null
 #
 
 module Ingress
@@ -25,6 +27,7 @@ module Ingress
     attr_accessor :from_csv_import
     attr_accessor :trace_urls
 
+    before_validation :initial_target_validation_level, on: :create
     after_create :populate_from_trace_urls
 
     belongs_to :community, inverse_of: :missions
@@ -39,12 +42,13 @@ module Ingress
     validates :name,                     presence: true
     validates :agent_id,                 presence: true
     validates :mission_url,              presence: true, uniqueness: true
-    validates :sequence_type,            presence: true
-    validates :series_type,              presence: true
-    validates :difficulty_type,          presence: true
-    validates :field_trip_waypoint_type, presence: true
-    validates :field_trip_waypoint_qty,  presence: true
-    validates :passphrase_type,          presence: true
+    validates :sequence_type,            presence: true, if: :validation_level_two
+    validates :series_type,              presence: true, if: :validation_level_two
+    validates :difficulty_type,          presence: true, if: :validation_level_three
+    validates :field_trip_waypoint_type, presence: true, if: :validation_level_three
+    validates :field_trip_waypoint_qty,  presence: true, if: :validation_level_three
+    validates :passphrase_type,          presence: true, if: :validation_level_three
+    validates :validation_level,         inclusion: { in: 1..4 }
 
     enum sequence_type: {
       sequence_type_sequential:        1,
@@ -60,6 +64,7 @@ module Ingress
 
     # TODO: Do we wish to redo as bitmask, reassigning 17/18 manually?
     enum difficulty_type: {
+      difficulty_type_not_set:             0,
       difficulty_type_all_hacks:           1,
       difficulty_type_all_capture_upgrade: 2,
       difficulty_type_all_modding:         4,
@@ -70,6 +75,7 @@ module Ingress
     }
 
     enum passphrase_type: {
+      passphrase_type_not_set:  0,
       passphrase_type_none:     1,
       passphrase_type_logical:  2,
       passphrase_type_research: 3,
@@ -77,16 +83,17 @@ module Ingress
     }
 
     enum field_trip_waypoint_type: {
-      field_trip_waypoint_type_none:   1,
-      field_trip_waypoint_type_close:  2,
-      field_trip_waypoint_type_medium: 3,
-      field_trip_waypoint_type_far:    4
+      field_trip_waypoint_type_not_set: 0,
+      field_trip_waypoint_type_none:    1,
+      field_trip_waypoint_type_close:   2,
+      field_trip_waypoint_type_medium:  3,
+      field_trip_waypoint_type_far:     4
     }
 
     def populate_from_trace_urls
       return unless trace_urls.present?
 
-      links = trace_urls.split('\n')
+      links = trace_urls.split("\n")
       links.each do |link|
         params = link.gsub('https://www.ingress.com/intel?', '').split('&')
         coords = params.detect { |param| /pls=/.match(param) }.gsub('pls=', '').split(/[,_]/)
@@ -95,14 +102,46 @@ module Ingress
           point = Ingress::Point.where(lat: lat, long: long).first_or_create!
 
           Ingress::MissionPoint.create!(mission: self, point: point)
+
         end
       end
 
       self.trace_urls = nil
     end
 
+
     def as_json(options = {})
       super(options.merge(include: [:mission_series, :agent, :points]))
+    end
+
+    private
+
+    def initial_target_validation_level
+      self.validation_level = 0
+      return unless [name, agent, mission_url].all?(&:present?)
+      self.validation_level = 1
+      return unless [sequence_type, series_type].all?(&:present?)
+      self.validation_level = 2
+      return unless [difficulty_type, field_trip_waypoint_type, passphrase_type].all?(&:present?)
+      self.validation_level = 3
+      return unless [trace_urls, mission_points].any?(&:present?)
+      self.validation_level = 4
+    end
+
+    def validation_level_one
+      validation_level >= 1
+    end
+
+    def validation_level_two
+      validation_level >= 2
+    end
+
+    def validation_level_three
+      validation_level >= 3
+    end
+
+    def validation_level_four
+      validation_level >= 4
     end
   end
 end

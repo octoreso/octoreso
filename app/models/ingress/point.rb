@@ -12,7 +12,7 @@
 
 module Ingress
   class Point < ActiveRecord::Base
-    has_many :mission_points, inverse_of: :points
+    has_many :mission_points, inverse_of: :point
 
     has_many :missions, through: :mission_points, inverse_of: :points
 

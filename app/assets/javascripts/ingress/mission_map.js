@@ -18,12 +18,24 @@ var MissionMap = function(data)
     mission.draw();
   }, this);
 
+  /* Real implementation
   var bounds = {
     north: this.max_lat,
     east:  this.max_long,
     south: this.min_lat,
     west:  this.min_long,
   };
+  Map.fitBounds(bounds); */
 
-  Map.fitBounds(bounds);
+  /*TODO: Replace with real implementation!*/
+  var staticBounds = {
+      north: 54.98136579901662,
+      east: -1.5649311425170254,
+      south: 54.96508427502581,
+      west: -1.6473286034545254
+  };
+
+  Map.fitBounds(staticBounds);
+
+
 };

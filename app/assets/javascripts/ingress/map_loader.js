@@ -10,10 +10,14 @@ var MapLoader = function(){
     streetViewControl: false
   });
 
+  Map.addListener('rightclick', function() {
+    $('#main-pane').toggleClass('lightbox-show');
+  });
+
   $.ajax({
     url: '/api/missions.json'
   }).success(function(data, code) {
     new MissionMap(data);
-    console.log(JST.missions(data));
+    $('.lightbox-content').html(JST.missions(data))
   });
 };

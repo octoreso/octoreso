@@ -1,1 +1,6 @@
-Rails.application.config.assets.precompile += %w(ingress/index.js)
+Rails.application.config.assets.precompile += [
+  # JS
+  'ingress/index.js',
+  # CSS
+  'ingress.css.scss'
+]

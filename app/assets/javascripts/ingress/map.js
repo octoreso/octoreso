@@ -12,6 +12,7 @@ var MapLoader = function(){
     url: '/api/missions.json'
   }).success(function(data, code) {
     new IngressMap(data);
+    console.log(JST['mission']({missions: data}))
   });
 };
 

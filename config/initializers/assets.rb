@@ -4,3 +4,5 @@ Rails.application.config.assets.precompile += [
   # CSS
   'ingress.css.scss'
 ]
+
+Rails.application.config.assets.initialize_on_precompile = true

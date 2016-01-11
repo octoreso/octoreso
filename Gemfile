@@ -23,6 +23,7 @@ gem 'paperclip'
 gem 'aws-sdk'
 gem 'activerecord-session_store'
 gem 'pg'
+gem 'handlebars_assets', github: 'leshill/handlebars_assets'
 
 group :development do
   gem 'erd'

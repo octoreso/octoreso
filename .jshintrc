@@ -1,0 +1,10 @@
+{
+  "jquery": true,
+  "browser": true,
+  "indent": 2,
+  "globals": {
+    "console": false,
+    "google": false,
+    "JST": true
+  }
+}

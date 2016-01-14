@@ -26,18 +26,21 @@ module Ingress
 
     attr_accessor :from_csv_import
     attr_accessor :trace_urls
+    attr_accessor :updating_range
 
     before_validation :initial_target_validation_level, on: :create
     after_create :populate_from_trace_urls
+    after_save :update_range
 
-    belongs_to :community, inverse_of: :missions
+    belongs_to :community,      inverse_of: :missions
+    belongs_to :agent,          inverse_of: :missions
+    belongs_to :mission_series, inverse_of: :missions
 
     has_many :mission_points, inverse_of: :mission
 
     has_many :points, through: :mission_points, inverse_of: :missions
 
-    belongs_to :agent,          inverse_of: :missions
-    belongs_to :mission_series, inverse_of: :missions
+
 
     validates :name,                     presence: true
     validates :agent_id,                 presence: true
@@ -112,6 +115,30 @@ module Ingress
 
     def as_json(options = {})
       super(options.merge(include: [:mission_series, :agent, :points]))
+    end
+
+    def update_range
+      return if updating_range
+
+      points.each do |point|
+        if self.min_lat.nil?
+          self.min_lat = point.lat
+          self.max_lat = point.lat
+          self.min_long = point.long
+          self.max_long = point.long
+        else
+          self.min_lat  = [self.min_lat, point.lat].min unless point.lat.nil?
+          self.max_lat  = [self.max_lat, point.lat].max unless point.lat.nil?
+          self.min_long = [self.min_long, point.long].min unless point.long.nil?
+          self.max_long = [self.max_long, point.long].max unless point.long.nil?
+        end
+      end
+
+      self.updating_range = true
+
+      save!
+      # Save
+      mission_series.try(:update_range)
     end
 
     private

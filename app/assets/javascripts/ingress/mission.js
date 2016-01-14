@@ -25,4 +25,21 @@ var Mission = function(data) {
       point.draw();
     });
   };
+
+  this.zoomToBounds = function(){
+    Map.fitBounds({
+      north: this.max_lat,
+      east:  this.max_long,
+      south: this.min_lat,
+      west:  this.min_long,
+    });
+  };
+
+  this.clear = function(){
+    while(this.points.length > 0) {
+      var point = this.points.pop();
+      point._marker.setMap(null);
+      point._marker = null;
+    }
+  };
 };

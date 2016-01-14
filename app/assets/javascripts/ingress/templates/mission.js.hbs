@@ -1,0 +1,21 @@
+<h1>{{name}}</h1>
+<ul>
+  <li><i>By {{agent.name}}</i> [<a href="{{intel_link}}" alt="Intel Link" title="Intel Link">Intel Link</a>]</li>
+  {{#if mission_series_id}}
+    <li> #{{series_index}} in series: <b>{{mission_series.name}}</b></li>
+  {{/if}}
+  <li class="divider">&nbsp; </li>
+  <li>
+    {{points.length}} Portals
+    {{#if field_trip_waypoint_qty}}
+      + {{field_trip_waypoint_type}} [x{{field_trip_waypoint_qty}}]
+    {{/if}}
+  </li>
+  <li class="divider"> &nbsp;</li>
+  <li>{{sequence_type}}</li>
+  <li>{{series_type}}</li>
+  <li>{{difficulty_type}}</li>
+</ul>
+<p>
+  <a href='#' data-ajax='missions'> Back to missions</a>
+</p>

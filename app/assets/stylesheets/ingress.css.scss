@@ -26,15 +26,36 @@
   font-style: normal;
 }
 
+.sidebar {
+  font-family: 'codaregular', 'Verdana', sans-serif;
+  font-size: 1.2em;
+}
+
+.sidebar ul , .sidebar li {
+   list-style-type: none;
+   padding-left: 0px;
+   margin-left: 0px;
+}
+
 #map, #map_container {
    width: 100%;
+ }
+
+ .full-height {
+   height: 100%;
+   max-height: 100%;
+ }
+
+ .scrollable
+ {
+   overflow-x: hidden;
+   overflow-y: scroll;
    height: 100%;
  }
 
 .lightbox-container
 {
   position: absolute;
-
 }
 
  .lightbox {
@@ -52,7 +73,7 @@
  }
 
  .lightbox .lightbox-content {
-  font-family: 'codaregular', 'Verdana', sans-serif;
+
   background: rgba(0,0,0,0.9);
   color: #fff;
  	/** Pad the lightbox image */
@@ -61,7 +82,7 @@
  	max-height: 100%;
   float: right;
   pointer-events: all;
-  overflow: hidden;
+  overflow: scroll;
  }
 
  .lightbox-show {

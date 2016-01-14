@@ -16,7 +16,15 @@ module Ingress
 
     has_many :missions, through: :mission_points, inverse_of: :points
 
+    after_save :update_mission_range
+
     validates :lat,  presence: true, uniqueness: { scope: :long }
     validates :long, presence: true
+
+    private
+
+    def update_mission_range
+      missions.map(&:update_range)
+    end
   end
 end

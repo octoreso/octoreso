@@ -1,9 +1,11 @@
-#map_container
-  #map
+.container-fluid.full-height
+  .row-fluid.full-height
+    .col-xs-9.full-height
+      #map_container.full-height
+        #map.full-height
+    .col-xs-3.full-height
+      .sidebar.scrollable
+        .sidebar-content
 
 = javascript_include_tag 'ingress'
 %script{src: "http://maps.googleapis.com/maps/api/js?key=AIzaSyAE7CVgjwE9GJoWWjc7f3dcLTjBJVBWvVU&callback=MapLoader&signed_in=false"}
-
-.lightbox-container
-  .lightbox#main-pane
-    .lightbox-content

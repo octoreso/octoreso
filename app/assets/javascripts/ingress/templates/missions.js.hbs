@@ -1,12 +1,9 @@
-<div class="container-fluid">
-  <div class="row-fluid">
-    <div class="span12">
-      {{#each this}}
-        <p>
-          Mission:
-          <b>{{name}}</b>
-        </p>
-      {{/each}}
-    </div>
-  </div>
-</div>
+<h1> Missions </h1>
+
+<ul>
+  {{#each this}}
+    <li>
+      <a href='#' data-ajax='mission' data-mission-id="{{id}}">{{name}}</a>
+    </li>
+  {{/each}}
+</ul>

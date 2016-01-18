@@ -26,69 +26,122 @@
   font-style: normal;
 }
 
-.sidebar {
-  font-family: 'codaregular', 'Verdana', sans-serif;
-  font-size: 1.2em;
-}
+$ingress-bg:  #000000;
+$ingress-bg2: #071C1C;
+$ingress-b1:  #00FFFF;
+$ingress-b2a: #00B7B3;
+$ingress-b2b: #009B99;
+$ingress-b3a: #008780;
+$ingress-b3b: #005855;
 
-.sidebar ul , .sidebar li {
+#sidebar ul , #sidebar li {
    list-style-type: none;
    padding-left: 0px;
    margin-left: 0px;
 }
 
-#map, #map_container {
-   width: 100%;
- }
-
- .full-height {
-   height: 100%;
-   max-height: 100%;
- }
-
- .scrollable
- {
-   overflow-x: hidden;
-   overflow-y: scroll;
-   height: 100%;
- }
-
-.lightbox-container
-{
-  position: absolute;
+#container {
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  max-height: 100%;
+  background-color: $ingress-bg2;
 }
 
- .lightbox {
- 	/** Default lightbox to hidden */
- 	display: none;
-  pointer-events: none;
- 	/** Position and style */
- 	position: fixed;
- 	z-index: 99999;
- 	width: 100%;
- 	height: 100%;
- 	top: 0;
- 	left: 0;
- 	background: rgba(0,0,0,0.5);
- }
+#map-container {
+  width: 75%;
+  max-width: 75%;
+  float: left;
+  height: 100%;
+  max-height: 100%;
+  border-bottom: 1px solid $ingress-b1;
+  border-left: 1px solid $ingress-b1;
+  border-top: 1px solid $ingress-b1;
+}
 
- .lightbox .lightbox-content {
+#sidebar {
+  font-family: 'codaregular', 'Verdana', sans-serif;
+  font-size: 1.2em;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  height: 100%;
+  max-height: 100%;
+  padding: 5px 15px;
 
-  background: rgba(0,0,0,0.9);
-  color: #fff;
- 	/** Pad the lightbox image */
+  a {
+    color: $ingress-b1;
+  }
+}
+
+#sidebar-container {
   width: 25%;
- 	max-width: 25%;
- 	max-height: 100%;
+  max-width: 25%;
   float: right;
-  pointer-events: all;
-  overflow: scroll;
- }
+  height: 100%;
+  max-height: 100%;
+  border: 1px solid $ingress-b1;
+}
 
- .lightbox-show {
- 	/** Remove default browser outline */
- 	outline: none;
+#map {
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+}
 
- 	/** Unhide lightbox **/
- 	display: block;
- }
+/* Colors */
+
+.color-bg {
+  color: $ingress-bg
+}
+
+.color-bg2 {
+  color: $ingress-bg2
+}
+
+.color-b1 {
+  color: $ingress-b1
+}
+
+.color-b2a {
+  color: $ingress-b2a
+}
+
+.color-b2b {
+  color: $ingress-b2b
+}
+
+.color-b3a {
+  color: $ingress-b3a
+}
+
+.color-b3b {
+  color: $ingress-b3a
+}
+
+.bgcolor-bg {
+  background-color: $ingress-bg
+}
+
+.bgcolor-bg2 {
+  background-color: $ingress-bg2
+}
+
+.bgcolor-b1 {
+  background-color: $ingress-b1
+}
+
+.bgcolor-b2a {
+  background-color: $ingress-b2a
+}
+
+.bgcolor-b2b {
+  background-color: $ingress-b2b
+}
+
+.bgcolor-b3a {
+  background-color: $ingress-b3a
+}
+
+.bgcolor-b3b {
+  background-color: $ingress-b3a
+}

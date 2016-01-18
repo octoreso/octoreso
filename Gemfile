@@ -24,6 +24,7 @@ gem 'aws-sdk'
 gem 'activerecord-session_store'
 gem 'pg'
 gem 'handlebars_assets', github: 'leshill/handlebars_assets'
+gem 'i18n-js', '>= 3.0.0.rc11'
 
 group :development do
   gem 'erd'

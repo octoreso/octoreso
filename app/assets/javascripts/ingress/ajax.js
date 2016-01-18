@@ -15,7 +15,7 @@ var Ajax = {
         MissionMap.mode = MissionMap.modes.MISSIONS;
         MissionMap.addMissions(data);
         //MissionMap.zoomToBounds();
-        $('.sidebar-content').html(JST.missions(data));
+        $('#sidebar').html(JST.missions(data));
       });
     });
   },
@@ -28,7 +28,7 @@ var Ajax = {
         MissionMap.mode = MissionMap.modes.MISSION;
         mission = MissionMap.addMission(data);
         //mission.zoomToBounds();
-        $('.sidebar-content').html(JST.mission(data));
+        $('#sidebar').html(JST.mission(data));
       });
     });
   },

@@ -20,4 +20,33 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  ingress/mission:
+    sequence_type:
+      sequence_type_sequential:        'Sequential'
+      sequence_type_sequential_hidden: 'Sequential Hidden'
+      sequence_type_any_order:         'Any Order'
+    series_type:
+      series_type_solo:     'Solo'
+      series_type_sequence: 'Sequence'
+      series_type_banner:   'Banner'
+    difficulty_type:
+      difficulty_type_not_set:             '???'
+      difficulty_type_all_hacks:           'All Hacks'
+      difficulty_type_all_capture_upgrade: 'All Capture & Upgrade'
+      difficulty_type_all_modding:         'All Modding'
+      difficulty_type_all_linking:         'All Linking'
+      difficulty_type_all_fielding:        'All Fielding'
+      difficulty_type_easy:                'Easy (All Hack/Capture)'
+      difficulty_type_hard:                'Hard (Contains Modding/Linking/Fielding)'
+    passphrase_type:
+      passphrase_type_not_set:  '???'
+      passphrase_type_none:     'None'
+      passphrase_type_logical:  'Yes (Logical)'
+      passphrase_type_research: 'Yes (Research)'
+      passphrase_type_other:    'Yes (Other)'
+    field_trip_waypoint_type:
+      field_trip_waypoint_type_not_set: '???'
+      field_trip_waypoint_type_none:    'None'
+      field_trip_waypoint_type_close:   'Yes (close proximity)'
+      field_trip_waypoint_type_medium:  'Yes (medium proximity)'
+      field_trip_waypoint_type_far:     'Yes (far proximity)'

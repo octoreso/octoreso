@@ -1,4 +1,5 @@
-// other than red, which is reserved for non-series
+// other than pink, which is reserved for non-series
+// http://maps.google.com/mapfiles/ms/micons/pink.png
 var Icons = [
   'http://maps.google.com/mapfiles/ms/micons/green.png',
   'http://maps.google.com/mapfiles/ms/micons/yellow.png',

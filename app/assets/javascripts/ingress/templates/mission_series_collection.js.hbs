@@ -1,0 +1,12 @@
+<h2> Mission Series </h2>
+<ul>
+  <li>
+    <a href="#" data-ajax="missions"> View All Missions</a>
+  </li>
+  <li class="divider">&nbsp;</li>
+  {{#each this}}
+    <li>
+      <a href="#" data-ajax="mission-series" data-mission-series-id="{{id}}">{{name}}</a>
+    </li>
+  {{/each}}
+</ul>

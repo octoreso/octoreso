@@ -22,6 +22,11 @@
   <li>{{t 'ingress/mission.series_type' series_type}}</li>
   <li>{{t 'ingress/mission.difficulty_type' difficulty_type}}</li>
 </ul>
+{{#if mission_series_id}}
+  <p>
+    <a href="#" data-ajax="mission-series" data-mission-series-id="{{mission_series_id}}"> Back to {{mission_series.name}}</a>
+  </p>
+{{/if}}
 <p>
-  <a href='#' data-ajax='missions'> Back to missions</a>
+  <a href="#" data-ajax="missions"> Back to missions</a>
 </p>

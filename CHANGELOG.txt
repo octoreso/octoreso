@@ -1,3 +1,7 @@
 v0.1.0
 * First Numbered, version tracked release.
 * Draw lines on sequential missions. Note they still omit critical details like the presence of Field Trip Waypoints!
+* Really really simple mission series support.
+  * They represent banners and sequences e.g. groups of Ingress missions designed to be played "together".
+  * They behave like missions
+  * They list and show pins from their constituent missions when selected.

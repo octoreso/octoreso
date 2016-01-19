@@ -1,8 +1,12 @@
 <h2> Missions </h2>
 <ul>
+  <li>
+    <a href="#" data-ajax="mission-series-collection"> View All Mission Series</a>
+  </li>
+  <li class="divider">&nbsp;</li>
   {{#each this}}
     <li>
-      <a href='#' data-ajax='mission' data-mission-id="{{id}}">{{name}}</a>
+      <a href="#" data-ajax="mission" data-mission-id="{{id}}">{{name}}</a>
     </li>
   {{/each}}
 </ul>

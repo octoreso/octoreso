@@ -1,0 +1,11 @@
+<h2>{{name}}</h2>
+<ul>
+  {{#each missions}}
+    <li>
+      <a href="#" data-ajax="mission" data-mission-id="{{id}}">{{name}}</a>
+    </li>
+  {{/each}}
+</ul>
+<p>
+  <a href="#" data-ajax="mission-series-collection"> Back to mission series list</a>
+</p>

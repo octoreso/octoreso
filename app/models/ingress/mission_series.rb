@@ -39,5 +39,9 @@ module Ingress
       self.updating_range = true
       save!
     end
+
+    def as_json(options = {})
+      super(options.merge(include: [:community, missions: { include: :points }]))
+    end
   end
 end

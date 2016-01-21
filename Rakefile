@@ -3,4 +3,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Tobypinder::Application.load_tasks
+Octoreso::Application.load_tasks

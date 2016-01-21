@@ -4,43 +4,5 @@
   .container
     %h1
       $ site.init()
-    %p My name is Toby Pinder, Rails and PHP developer by trade. Think of this site as a vault for some of my experiments (or non-pretentious words to that effect). Particular passion projects of mine include Ludum Dare games, data driven and statistical analysis tools, and digital and virtual economies and currencies.
+    %p Go to ingress subdomain.
 .container
-
-  %a{href: redirect_ld32_index_path}
-    %h2
-      LD32: Advanced Persistent Threat
-  .row.big_row
-    .col-md-5
-      %p NEW FOR LUDUM DARE 32!
-      / %p
-      / %a.btn.btn-default{ href: '#', role: 'button'} View entry
-      = link_to 'Play it Now!', redirect_ld32_index_path, class: 'btn btn-success', role: :button
-    .col-md-7
-      %a{href: ld29_index_path}
-        %img.front_image{src: "#{root_url}/content/0002_ld.png"}
-  / Example row of columns
-  %a{href: ld29_index_path}
-    %h2
-      LD29: Quantum Tunnelling
-  .row.big_row
-    .col-md-5
-      %p For Ludum Dare 29 I created "Quantum Tunnelling". The asteroid miners of the future have had one too many accidents with mining lasers and space dust. So they've come up with a far more sensible option - using the power of quantum to teleport non risk-averse employees into the asteroids themselves!
-      / %p
-      / %a.btn.btn-default{ href: '#', role: 'button'} View entry
-      = link_to 'Play it Now!', ld29_index_path, class: 'btn btn-success', role: :button
-    .col-md-7
-      %a{href: ld29_index_path}
-        %img.front_image{src: "#{root_url}/content/0002_ld.png"}
-
-  %a{href: ld27_index_path}
-    %h2
-      LD27: Astronomical Odds
-  .row.big_row
-    .col-md-5
-      %p I made a game for the Ludum Dare 27 called "Astronomical Odds". Ludum Dare is a 48 hour game development competition. As you can imagine, those are strict time constraints! I entered both LD21 and LD26 with some half-baked, abstract ideas implemented on the server side for the most part, but I was happy with my JS focused result, which boasted a surprisingly polished combat system (even if the enemy AI is... janky),
-      %p
-      = link_to 'Play It Now!', ld27_index_path, class: 'btn btn-success', role: :button
-    .col-md-7
-      %a{href: ld27_index_path}
-        %img.front_image{src: "#{root_url}/content/0001_astronomical.png"}

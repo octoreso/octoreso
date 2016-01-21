@@ -9,13 +9,7 @@ Octoreso::Application.routes.draw do
   get '/auth/guest/new', to: 'sessions#new_guest', as: 'new_guest'
 
   scope constraints: ->(r) { !r.subdomain.present? || %w(www).include?(r.subdomain) } do
-    resources :ld27, only: :index
-    resources :ld29, only: :index
-    resources :ld32, only: :index do
-      collection do
-        get 'redirect'
-      end
-    end
+    # No content yet!
   end
 
   scope module: :ingress, constraints: ->(r) { r.subdomain.include?('ingress') } do

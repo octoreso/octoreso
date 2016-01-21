@@ -15,6 +15,8 @@ module Octoreso
   class Application < Rails::Application
     config.middleware.use I18n::JS::Middleware
 
+    config.force_ssl = true
+
     # don't generate RSpec tests for views and helpers
     config.generators do |g|
       g.orm :active_record

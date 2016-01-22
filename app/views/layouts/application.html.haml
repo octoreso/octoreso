@@ -23,9 +23,6 @@
           %a.navbar-brand{href: url_for(root_path)} TobyPinder.com
         .navbar-collapse.collapse
           %ul.nav.navbar-nav
-            %li= link_to 'LD32 - APT', redirect_ld32_index_path
-            %li= link_to 'LD29 - Quantum Tunnelling', ld29_index_path
-            %li= link_to 'LD27 - Astronomical Odds', ld27_index_path
           %ul.nav.navbar-nav.navbar-right
             - if user_signed_in?
               %li= link_to "Hello #{current_user.name}", root_path

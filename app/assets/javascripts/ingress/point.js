@@ -15,7 +15,7 @@ var Point = function(data, mission) {
 
     if(this.mission.series_id === null)
     {
-      marker_data.icon = 'http://maps.google.com/mapfiles/ms/micons/pink.png';
+      marker_data.icon = '//maps.google.com/mapfiles/ms/micons/pink.png';
     } else {
       marker_data.icon = Icons[parseFloat(this.mission.series_id) % Icons.length];
     }

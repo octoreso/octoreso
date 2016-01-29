@@ -145,3 +145,42 @@ $ingress-b3b: #005855;
 .bgcolor-b3b {
   background-color: $ingress-b3a
 }
+
+/* EWW */
+
+.pin {
+  float: left;
+  width: 1em;
+  height: 1em;
+  margin-right: 5px;
+}
+
+$icon1: #00E64D;
+$icon2: #FDF569;
+$icon3: #FF9900;
+$icon4: #FD7567;
+$icon5: #8E67FD;
+$icon6: #6991FD;
+$icon7: #67DDDD;
+
+.pin-color-1 {
+  background-color: $icon1;
+}
+.pin-color-2 {
+  background-color: $icon2;
+}
+.pin-color-3 {
+  background-color: $icon3;
+}
+.pin-color-4 {
+  background-color: $icon4;
+}
+.pin-color-5 {
+  background-color: $icon5;
+}
+.pin-color-6 {
+  background-color: $icon6;
+}
+.pin-color-7 {
+  background-color: $icon7;
+}

@@ -16,6 +16,14 @@ var Ajax = {
         MissionMap.addMissionSeriesCollection(data);
         //MissionMap.zoomToBounds();
         $('#sidebar').html(JST.mission_series_collection(data));
+        $('[data-mission-series-id]').each(
+          function()
+          {
+            var id = parseInt($(this).data('mission-series-id'));
+            var color_id = (id % 7) + 1;
+            $(this).find('.pin').addClass('pin-color-'+color_id);
+          }
+        )
       });
     });
   },

@@ -103,9 +103,7 @@ module Ingress
 
         coords.each_slice(2) do |lat, long|
           point = Ingress::Point.where(lat: lat, long: long).first_or_create!
-
-          Ingress::MissionPoint.create!(mission: self, point: point)
-
+          Ingress::MissionPoint.where(mission: self, point: point).first_or_create!
         end
       end
 

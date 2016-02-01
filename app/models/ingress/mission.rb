@@ -26,10 +26,12 @@ module Ingress
 
     attr_accessor :from_csv_import
     attr_accessor :trace_urls
+    attr_accessor :intel_json
     attr_accessor :updating_range
 
     before_validation :initial_target_validation_level, on: :create
     after_create :populate_from_trace_urls
+    after_create :populate_from_intel_json
     after_save :update_range
 
     belongs_to :community,      inverse_of: :missions
@@ -96,18 +98,55 @@ module Ingress
     def populate_from_trace_urls
       return unless trace_urls.present?
 
-      links = trace_urls.split("\n")
-      links.each do |link|
-        params = link.gsub('https://www.ingress.com/intel?', '').split('&')
-        coords = params.detect { |param| /pls=/.match(param) }.gsub('pls=', '').split(/[,_]/)
-
-        coords.each_slice(2) do |lat, long|
-          point = Ingress::Point.where(lat: lat, long: long).first_or_create!
-          Ingress::MissionPoint.where(mission: self, point: point).first_or_create!
-        end
-      end
+      # links = trace_urls.split("\n")
+      # links.each do |link|
+      #   params = link.gsub('https://www.ingress.com/intel?', '').split('&')
+      #   coords = params.detect { |param| /pls=/.match(param) }.gsub('pls=', '').split(/[,_]/)
+      #
+      #   coords.each_slice(2) do |lat, long|
+      #     point = Ingress::Point.where(lat: lat, long: long).first_or_create!
+      #     Ingress::MissionPoint.where(mission: self, point: point).first_or_create!
+      #   end
+      # end
 
       self.trace_urls = nil
+    end
+
+    def populate_from_intel_json
+      return unless intel_json.present?
+
+      json = JSON.parse(intel_json)['result']
+
+      # self.unique_id   = json[0]
+      self.name = json[1]
+      # self.description = json[2]
+      self.agent = Ingress::Agent.where(name: json[3]).first_or_create!
+
+      json[9].each do |point_data|
+        # We will not store portal names or state data. The aim is to minimise the use of Ingress's intellectual
+        # property solely to that useful for mission running by both sides. Storing detailed portal information makes
+        # the tool closer to a conventional scraper which is both bad from a TOS compliance and moral perspective!
+        # This is why The model is labelled "Point" not "Portal" - from the point of view of the system it's an
+        # uninteresting node in the larger system of missions and mission series.
+        lat = 0
+        long = 0
+
+        # unique_id = point_data[1]
+        point_type = point_data[3] # 1 = Portal 2 = Field Trip
+        action     = point_data[4] # Hack/Cap/etc
+
+        if point_type == 1
+          lat  = point_data[5][2].to_f / 1_000_000.0
+          long = point_data[5][3].to_f / 1_000_000.0
+        elsif point_type == 2
+          lat  = point_data[5][1].to_f / 1_000_000.0
+          long = point_data[5][2].to_f / 1_000_000.0
+        end
+
+        point = Ingress::Point.where(lat: lat, long: long).first_or_create!
+
+        Ingress::MissionPoint.where(mission: self, point: point).first_or_create!
+      end
     end
 
 

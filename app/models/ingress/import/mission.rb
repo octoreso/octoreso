@@ -93,7 +93,12 @@ module Ingress
           mission.field_trip_waypoint_type = FIELD_TRIP_WAYPOINT_MAPPING[row['Field Trip Waypoints']]
           mission.field_trip_waypoint_qty  = row['FT Qty'].to_i
           mission.passphrase_type          = PASSPHRASE_MAPPING[row['Passphrases']]
-          mission.trace_urls               = row['Trace Link']
+
+          if row['Intel JSON']
+            mission.intel_json = row['Intel JSON']
+          else
+            mission.trace_urls = row['Trace Link']
+          end
 
           mission.save!
         end

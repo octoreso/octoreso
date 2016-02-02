@@ -117,6 +117,7 @@ module Ingress
 
       json = JSON.parse(intel_json)['result']
 
+      # TODO: Validate against link + unique_id mismatch
       # self.unique_id   = json[0]
       self.name = json[1]
       # self.description = json[2]

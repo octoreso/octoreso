@@ -7,6 +7,10 @@
 #  created_at   :datetime
 #  updated_at   :datetime
 #  community_id :integer
+#  min_lat      :decimal(9, 6)
+#  min_long     :decimal(9, 6)
+#  max_lat      :decimal(9, 6)
+#  max_long     :decimal(9, 6)
 #
 
 module Ingress
@@ -41,7 +45,7 @@ module Ingress
     end
 
     def as_json(options = {})
-      super(options.merge(include: [:community, missions: { include: :points }]))
+      super(options.merge(include: [:community, missions: { include: { mission_points: { include: :point }}}]))
     end
   end
 end

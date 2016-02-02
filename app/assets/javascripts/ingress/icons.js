@@ -9,3 +9,5 @@ var Icons = [
   '//maps.google.com/mapfiles/ms/micons/blue.png',
   '//maps.google.com/mapfiles/ms/micons/lightblue.png'
 ];
+
+var DefaultIcon = '//maps.google.com/mapfiles/ms/micons/pink.png';

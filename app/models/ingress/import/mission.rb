@@ -12,7 +12,6 @@ module Ingress
           'Series Type'          => :series_type,
           'Series Name'          => :mission_series_id,
           'Series Index'         => :series_index,
-          'Difficulty'           => :difficulty_type,
           'Field Trip Waypoints' => :field_trip_waypoint_type,
           'FT Qty'               => :field_trip_waypoint_qty,
           'Passphrases'          => :passphrase_type,
@@ -46,17 +45,6 @@ module Ingress
           'Yes (Research)' => :passphrase_type_research,
           'Yes (Other)'    => :passphrase_type_other
         }
-
-        DIFFICULTY_MAPPING = {
-          nil                                      => :difficulty_type_not_set,
-          'All Hacks'                              => :difficulty_type_all_hacks,
-          'All Capture / Upgrade'                  => :difficulty_type_all_capture_upgrade,
-          'All Modding'                            => :difficulty_type_all_modding,
-          'All Linking'                            => :difficulty_type_all_linking,
-          'All Fielding'                           => :difficulty_type_all_fielding,
-          'Easy Variety (Hack/Upgrade)'            => :difficulty_type_easy,
-          'Hard Variety (Includes Mod/Link/Field)' => :difficulty_type_hard
-        }
       end
 
       class_methods do
@@ -89,7 +77,6 @@ module Ingress
             mission.series_index   = row['Series Index'].present? ? row['Series Index'] : nil
           end
 
-          mission.difficulty_type          = DIFFICULTY_MAPPING[row['Difficulty']]
           mission.field_trip_waypoint_type = FIELD_TRIP_WAYPOINT_MAPPING[row['Field Trip Waypoints']]
           mission.field_trip_waypoint_qty  = row['FT Qty'].to_i
           mission.passphrase_type          = PASSPHRASE_MAPPING[row['Passphrases']]

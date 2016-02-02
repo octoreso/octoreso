@@ -13,10 +13,13 @@ var Mission = function(data, mission_series) {
   this.point_data  = [];
   this._polyline   = null;
 
-  this.points = data.points.map(function(point) {
+  this.points = data.mission_points.map(function(mission_point) {
+    var point = mission_point.point;
+
     this.point_data.push({
-      lat: parseFloat(point.lat),
-      lng: parseFloat(point.long)
+      lat:         parseFloat(point.lat),
+      lng:         parseFloat(point.long),
+      action_type: mission_point.action_type
     });
 
     return new Point(point, this);

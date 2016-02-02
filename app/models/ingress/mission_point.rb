@@ -2,11 +2,12 @@
 #
 # Table name: ingress_mission_points
 #
-#  id         :integer          not null, primary key
-#  mission_id :integer
-#  point_id   :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id          :integer          not null, primary key
+#  mission_id  :integer
+#  point_id    :integer
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  action_type :integer
 #
 
 module Ingress
@@ -14,5 +15,9 @@ module Ingress
     belongs_to :community, inverse_of: :mission_points
     belongs_to :mission,   inverse_of: :mission_points
     belongs_to :point,     inverse_of: :mission_points
+
+    def as_json(options = {})
+      super(options.merge(include: :point))
+    end
   end
 end

@@ -4,6 +4,7 @@ var Point = function(data, mission) {
   this.lat                 = parseFloat(data.lat);
   this.long                = parseFloat(data.long);
   this.portal_name         = data.portal_name;
+  this.action_type         = data.action_type;
 
   this.draw = function()
   {
@@ -15,7 +16,7 @@ var Point = function(data, mission) {
 
     if(this.mission.series_id === null)
     {
-      marker_data.icon = '//maps.google.com/mapfiles/ms/micons/pink.png';
+      marker_data.icon = DefaultIcon;
     } else {
       marker_data.icon = Icons[parseFloat(this.mission.series_id) % Icons.length];
     }

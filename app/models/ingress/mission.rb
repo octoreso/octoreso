@@ -10,14 +10,18 @@
 #  series_type              :integer          not null
 #  mission_series_id        :integer
 #  series_index             :integer
-#  difficulty_type          :integer          not null
-#  field_trip_waypoint_type :integer          not null
+#  difficulty_type          :integer          default(0), not null
+#  field_trip_waypoint_type :integer          default(0), not null
 #  field_trip_waypoint_qty  :integer          default(0), not null
 #  passphrase_type          :integer          not null
 #  created_at               :datetime
 #  updated_at               :datetime
 #  community_id             :integer
 #  validation_level         :integer          default(0), not null
+#  min_lat                  :decimal(9, 6)
+#  min_long                 :decimal(9, 6)
+#  max_lat                  :decimal(9, 6)
+#  max_long                 :decimal(9, 6)
 #
 
 module Ingress
@@ -47,12 +51,12 @@ module Ingress
     validates :name,                     presence: true
     validates :agent_id,                 presence: true
     validates :mission_url,              presence: true, uniqueness: true
-    validates :sequence_type,            presence: true, if: :validation_level_two
-    validates :series_type,              presence: true, if: :validation_level_two
-    validates :difficulty_type,          presence: true, if: :validation_level_three
-    validates :field_trip_waypoint_type, presence: true, if: :validation_level_three
-    validates :field_trip_waypoint_qty,  presence: true, if: :validation_level_three
-    validates :passphrase_type,          presence: true, if: :validation_level_three
+    # validates :sequence_type,            presence: true, if: :validation_level_two
+    # validates :series_type,              presence: true, if: :validation_level_two
+    # validates :difficulty_type,          presence: true, if: :validation_level_three
+    # validates :field_trip_waypoint_type, presence: true, if: :validation_level_three
+    # validates :field_trip_waypoint_qty,  presence: true, if: :validation_level_three
+    # validates :passphrase_type,          presence: true, if: :validation_level_three
     validates :validation_level,         inclusion: { in: 1..4 }
 
     enum sequence_type: {
@@ -68,16 +72,16 @@ module Ingress
     }
 
     # TODO: Do we wish to redo as bitmask, reassigning 17/18 manually?
-    enum difficulty_type: {
-      difficulty_type_not_set:             0,
-      difficulty_type_all_hacks:           1,
-      difficulty_type_all_capture_upgrade: 2,
-      difficulty_type_all_modding:         4,
-      difficulty_type_all_linking:         8,
-      difficulty_type_all_fielding:        16,
-      difficulty_type_easy:                17,
-      difficulty_type_hard:                18
-    }
+    # enum difficulty_type: {
+    #   difficulty_type_not_set:             0,
+    #   difficulty_type_all_hacks:           1,
+    #   difficulty_type_all_capture_upgrade: 2,
+    #   difficulty_type_all_modding:         4,
+    #   difficulty_type_all_linking:         8,
+    #   difficulty_type_all_fielding:        16,
+    #   difficulty_type_easy:                17,
+    #   difficulty_type_hard:                18
+    # }
 
     enum passphrase_type: {
       passphrase_type_not_set:  0,
@@ -146,13 +150,13 @@ module Ingress
 
         point = Ingress::Point.where(lat: lat, long: long).first_or_create!
 
-        Ingress::MissionPoint.where(mission: self, point: point).first_or_create!
+        Ingress::MissionPoint.where(mission: self, point: point, action_type: action).first_or_create!
       end
     end
 
 
     def as_json(options = {})
-      super(options.merge(include: [:mission_series, :agent, :points]))
+      super(options.merge(include: [:mission_series, :agent, mission_points: { include: :point }]))
     end
 
     def update_range

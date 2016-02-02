@@ -13,14 +13,10 @@
   <li class="divider">&nbsp; </li>
   <li>
     {{points.length}} Portals
-    {{#if field_trip_waypoint_qty}}
-      + {{t 'ingress/mission.field_trip_waypoint_type' field_trip_waypoint_type}} [x{{field_trip_waypoint_qty}}]
-    {{/if}}
   </li>
   <li class="divider"> &nbsp;</li>
   <li>{{t 'ingress/mission.sequence_type' sequence_type}}</li>
   <li>{{t 'ingress/mission.series_type' series_type}}</li>
-  <li>{{t 'ingress/mission.difficulty_type' difficulty_type}}</li>
 </ul>
 {{#if mission_series_id}}
   <p>

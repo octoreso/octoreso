@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: ingress_mission_series
+#
+#  id           :integer          not null, primary key
+#  name         :string           not null
+#  created_at   :datetime
+#  updated_at   :datetime
+#  community_id :integer
+#  min_lat      :decimal(9, 6)
+#  min_long     :decimal(9, 6)
+#  max_lat      :decimal(9, 6)
+#  max_long     :decimal(9, 6)
+#
+
 module Ingress
   class MissionSeriesController < ApplicationController
     respond_to :json
@@ -8,7 +23,7 @@ module Ingress
       west  = params[:west] || -180
       east  = params[:east] || 180
 
-      @mission_series_collection = Ingress::MissionSeries.includes(:community, missions: :points)
+      @mission_series_collection = Ingress::MissionSeries.includes(:community, missions: { mission_points: :point })
         .where.not('min_lat > ?', north)
         .where.not('max_lat < ?',  south)
         .where.not('min_long > ?', east)
@@ -19,7 +34,7 @@ module Ingress
     end
 
     def show
-      @mission_series = Ingress::MissionSeries.where(id: params[:id]).includes(:community, missions: :points)
+      @mission_series = Ingress::MissionSeries.where(id: params[:id]).includes(:community, missions: { mission_points: :point })
       respond_with @mission_series.first
     end
   end

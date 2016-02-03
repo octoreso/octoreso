@@ -4,26 +4,6 @@ module Ingress
       extend ActiveSupport::Concern
 
       included do
-        CSV_MAPPING = {
-          'Name'                 => :name,
-          'Creator'              => :agent_id,
-          'Mission Link'         => :mission_url,
-          'Sequence Type'        => :sequence_type,
-          'Series Type'          => :series_type,
-          'Series Name'          => :mission_series_id,
-          'Series Index'         => :series_index,
-          'Field Trip Waypoints' => :field_trip_waypoint_type,
-          'FT Qty'               => :field_trip_waypoint_qty,
-          'Passphrases'          => :passphrase_type,
-          'Trace Link'           => :trace_urls
-        }
-
-        SEQUENCE_MAPPING = {
-          'Sequential'        => :sequence_type_sequential,
-          'Sequential Hidden' => :sequence_type_sequential_hidden,
-          'Any Order'         => :sequence_type_any_order
-        }
-
         SERIES_MAPPING = {
           'Banner'   => :series_type_banner,
           'Sequence' => :series_type_sequence,
@@ -48,28 +28,11 @@ module Ingress
       end
 
       class_methods do
-        # TODO: Modification from CSV -
-        #
-        # "Name" => "Edinburgh #1 - 18",
-        # "Creator" => nil,
-        # "Mission Link" => "https://www.ingress.com/mission/7176b31364aa486d8590b1e0b7ca1a4e.1c",
-        # "Sequence Type" => "Sequential",
-        # "Series Type" => "Banner",
-        # "Series Name" => "Edinburgh",
-        # "Series Index" => "1",
-        # "Difficulty" => "All Hacks",
-        # "Field Trip Waypoints" => "No",
-        # "FT Qty" => "0",
-        # "Passphrases" => "No",
-        # "Trace Link" => "https://www.ingress.com/intel?ll=55.952197,-3.17503&z=18&pls=55.952257,-3.174327,55.952359,-3.175461_55.952359,-3.175461,55.952501,-3.175715_55.952501,-3.175715,55.952306,-3.175824_55.952306,-3.175824,55.952131,-3.176426_55.952131,-3.176426,55.951924,-3.176555"
         def create_from_csv!(row, community_name: nil)
           community             = community_name.present? ? Ingress::Community.where(name: community_name).first_or_create! : nil
           mission               = Ingress::Mission.new
           mission.community     = community
-          mission.name          = row['Name']
-          mission.agent         = Ingress::Agent.where(name: row['Creator']).first_or_create!
           mission.mission_url   = row['Mission Link']
-          mission.sequence_type = SEQUENCE_MAPPING[row['Sequence Type']]
           mission.series_type   = SERIES_MAPPING[row['Series Type']]
 
           if row['Series Name'].present? && row['Series Name'] != '-'
@@ -77,17 +40,53 @@ module Ingress
             mission.series_index   = row['Series Index'].present? ? row['Series Index'] : nil
           end
 
-          mission.field_trip_waypoint_type = FIELD_TRIP_WAYPOINT_MAPPING[row['Field Trip Waypoints']]
-          mission.field_trip_waypoint_qty  = row['FT Qty'].to_i
-          mission.passphrase_type          = PASSPHRASE_MAPPING[row['Passphrases']]
+          json = JSON.parse(row['Intel JSON'])['result']
 
-          if row['Intel JSON']
-            mission.intel_json = row['Intel JSON']
-          else
-            mission.trace_urls = row['Trace Link']
+          mission = populate_metadata_from_intel_json(mission, json)
+          mission.save!
+          mission = populate_points_from_intel_json(mission, json)
+          mission.save!
+        end
+
+        def populate_metadata_from_intel_json(mission, json)
+          # TODO: Validate against link + unique_id mismatch
+          # self.unique_id   = json[0]
+          mission.name = json[1]
+          # self.description = json[2]
+          mission.agent = Ingress::Agent.where(name: json[3]).first_or_create!
+          mission.sequence_type = json[8]
+
+          mission
+        end
+
+        def populate_points_from_intel_json(mission, json)
+          json[9].each do |point_data|
+            # We will not store portal names or state data. The aim is to minimise the use of Ingress's intellectual
+            # property solely to that useful for mission running by both sides. Storing detailed portal information makes
+            # the tool closer to a conventional scraper which is both bad from a TOS compliance and moral perspective!
+            # This is why The model is labelled "Point" not "Portal" - from the point of view of the system it's an
+            # uninteresting node in the larger system of missions and mission series.
+            lat = 0
+            long = 0
+
+            # unique_id = point_data[1]
+            point_type = point_data[3] # 1 = Portal 2 = Field Trip
+            action     = point_data[4] # Hack/Cap/etc
+
+            if point_type == 1
+              lat  = point_data[5][2].to_f / 1_000_000.0
+              long = point_data[5][3].to_f / 1_000_000.0
+            elsif point_type == 2
+              lat  = point_data[5][1].to_f / 1_000_000.0
+              long = point_data[5][2].to_f / 1_000_000.0
+            end
+
+            point = Ingress::Point.where(lat: lat, long: long).first_or_create!
+
+            mission.mission_points << Ingress::MissionPoint.where(mission: mission, point: point, action_type: action).first_or_create!
           end
 
-          mission.save!
+          mission
         end
       end
     end

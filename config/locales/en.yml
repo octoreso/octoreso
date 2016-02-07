@@ -30,7 +30,7 @@ en:
       action_type_mod:             'Mod'
       action_type_unknown1:        '???'
       action_type_waypoint:        'Waypoint'
-      action_type_builder:         'Builder'
+      action_type_password:        'Password'
   ingress/mission:
     sequence_type:
       sequence_type_sequential:        'Sequential'

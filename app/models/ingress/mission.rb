@@ -2,26 +2,22 @@
 #
 # Table name: ingress_missions
 #
-#  id                       :integer          not null, primary key
-#  name                     :string           not null
-#  agent_id                 :integer          not null
-#  mission_url              :string           not null
-#  sequence_type            :integer          not null
-#  series_type              :integer          not null
-#  mission_series_id        :integer
-#  series_index             :integer
-#  difficulty_type          :integer          default(0), not null
-#  field_trip_waypoint_type :integer          default(0), not null
-#  field_trip_waypoint_qty  :integer          default(0), not null
-#  passphrase_type          :integer          not null
-#  created_at               :datetime
-#  updated_at               :datetime
-#  community_id             :integer
-#  validation_level         :integer          default(0), not null
-#  min_lat                  :decimal(9, 6)
-#  min_long                 :decimal(9, 6)
-#  max_lat                  :decimal(9, 6)
-#  max_long                 :decimal(9, 6)
+#  id                :integer          not null, primary key
+#  name              :string           not null
+#  agent_id          :integer          not null
+#  mission_url       :string           not null
+#  sequence_type     :integer          not null
+#  series_type       :integer          not null
+#  mission_series_id :integer
+#  series_index      :integer
+#  created_at        :datetime
+#  updated_at        :datetime
+#  community_id      :integer
+#  validation_level  :integer          default(0), not null
+#  min_lat           :decimal(9, 6)
+#  min_long          :decimal(9, 6)
+#  max_lat           :decimal(9, 6)
+#  max_long          :decimal(9, 6)
 #
 
 module Ingress
@@ -63,7 +59,7 @@ module Ingress
 
     # TODO: difficulty_type as bitmask, reassigning 17/18 manually?
     def as_json(options = {})
-      super(options.merge(include: [:mission_series, :agent, mission_points: { include: :point }]))
+      super(options.merge(include: [:mission_series, :agent, mission_points: { methods: :action_icon, include: :point }]))
     end
 
     def update_range

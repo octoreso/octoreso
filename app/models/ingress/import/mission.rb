@@ -9,22 +9,6 @@ module Ingress
           'Sequence' => :series_type_sequence,
           'Solo'     => :series_type_solo
         }
-
-        FIELD_TRIP_WAYPOINT_MAPPING = {
-          nil            => :field_trip_waypoint_type_not_set,
-          'No'           => :field_trip_waypoint_type_none,
-          'Yes (close)'  => :field_trip_waypoint_type_close,
-          'Yes (medium)' => :field_trip_waypoint_type_medium,
-          'Yes (far)'    => :field_trip_waypoint_type_far
-        }
-
-        PASSPHRASE_MAPPING = {
-          nil              => :passphrase_type_not_set,
-          'No'             => :passphrase_type_none,
-          'Yes (Logical)'  => :passphrase_type_logical,
-          'Yes (Research)' => :passphrase_type_research,
-          'Yes (Other)'    => :passphrase_type_other
-        }
       end
 
       class_methods do

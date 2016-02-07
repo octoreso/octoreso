@@ -14,6 +14,12 @@
   <li>
     {{mission_points.length}} Portals
   </li>
+  <li>
+    {{#each mission_points}}
+      <img src="{{action_icon}}" title="{{t 'ingress/mission_point.action_type' action_type}}" alt="{{t 'ingress/mission_point.action_type' action_type}}" />
+    {{/each}}
+  </li>
+
   <li class="divider"> &nbsp;</li>
   <li>{{t 'ingress/mission.sequence_type' sequence_type}}</li>
   <li>{{t 'ingress/mission.series_type' series_type}}</li>

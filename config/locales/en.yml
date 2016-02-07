@@ -20,6 +20,17 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  ingress/mission_point:
+    action_type:
+      action_type_null:            '???'
+      action_type_hack:            'Hack'
+      action_type_capture_upgrade: 'Capture or Upgrade'
+      action_type_link:            'Link'
+      action_type_field:           'Field'
+      action_type_mod:             'Mod'
+      action_type_unknown1:        '???'
+      action_type_waypoint:        'Waypoint'
+      action_type_builder:         'Builder'
   ingress/mission:
     sequence_type:
       sequence_type_sequential:        'Sequential'

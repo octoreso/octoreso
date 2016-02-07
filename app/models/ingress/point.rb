@@ -2,12 +2,11 @@
 #
 # Table name: ingress_points
 #
-#  id          :integer          not null, primary key
-#  lat         :decimal(9, 6)    not null
-#  long        :decimal(9, 6)    not null
-#  portal_name :string
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+#  id         :integer          not null, primary key
+#  lat        :decimal(9, 6)    not null
+#  long       :decimal(9, 6)    not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #
 
 module Ingress

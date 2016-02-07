@@ -10,10 +10,12 @@ var Mission = function(data, mission_series) {
   }
   this.series_id   = parseInt(data.mission_series_id) || null;
   this.series_name = data.mission_series ? data.mission_series.name : null;
+  this.series_index = data.series_index;
+
   this.point_data  = [];
   this._polyline   = null;
 
-  this.points = data.mission_points.map(function(mission_point) {
+  this.points = data.mission_points.map(function(mission_point, i) {
     var point = mission_point.point;
 
     this.point_data.push({
@@ -22,14 +24,17 @@ var Mission = function(data, mission_series) {
       action_type: mission_point.action_type
     });
 
-    return new Point(point, this);
+    return new Point(mission_point, this, i);
   }, this);
 
   if(data.sequence_type == "sequence_type_sequential")
   {
     var color = '#FFFFFF';
-
-    if(this.series_id !== null)
+    if(MissionMap.mode == MissionMap.modes.MISSION_SERIES)
+    {
+      color = IconColors[parseFloat(this.series_index) % IconColors.length];
+    }
+    else if(this.series_id !== null)
     {
       color = IconColors[parseFloat(this.series_id) % IconColors.length];
     }
@@ -39,7 +44,7 @@ var Mission = function(data, mission_series) {
       geodesic: true,
       strokeColor: color,
       strokeOpacity: 0.5,
-      strokeWeight: 2,
+      strokeWeight: 4,
       map: Map
     });
   }

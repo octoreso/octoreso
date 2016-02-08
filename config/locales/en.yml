@@ -22,7 +22,7 @@
 en:
   ingress/mission_point:
     action_type:
-      action_type_null:            '???'
+      action_type_null:            'One or More Hidden Portals'
       action_type_hack:            'Hack'
       action_type_capture_upgrade: 'Capture or Upgrade'
       action_type_link:            'Link'

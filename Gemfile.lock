@@ -66,7 +66,6 @@ GEM
       jmespath (~> 1.0)
     aws-sdk-resources (2.2.14)
       aws-sdk-core (= 2.2.14)
-    bcrypt (3.1.10)
     better_errors (2.1.1)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -80,7 +79,6 @@ GEM
     bullet (5.0.0)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.9.0)
-    cancancan (1.13.1)
     capybara (2.6.2)
       addressable
       mime-types (>= 1.16)
@@ -113,13 +111,6 @@ GEM
     daemons (1.2.3)
     database_cleaner (1.5.1)
     debug_inspector (0.0.2)
-    devise (3.5.6)
-      bcrypt (~> 3.0)
-      orm_adapter (~> 0.1)
-      railties (>= 3.2.6, < 5)
-      responders
-      thread_safe (~> 0.1)
-      warden (~> 1.2.3)
     diff-lcs (1.2.5)
     docile (1.1.5)
     em-http-request (1.1.3)
@@ -151,8 +142,6 @@ GEM
     ffi (1.9.10)
     figaro (1.1.1)
       thor (~> 0.14)
-    font-awesome-rails (4.5.0.0)
-      railties (>= 3.2, < 5.0)
     fuubar (2.0.0)
       rspec (~> 3.0)
       ruby-progressbar (~> 1.4)
@@ -166,7 +155,6 @@ GEM
       haml (>= 4.0.6, < 5.0)
       html2haml (>= 1.0.1)
       railties (>= 4.0.1)
-    hashie (3.4.3)
     headless (2.2.0)
     html2haml (2.0.0)
       erubis (~> 2.7.0)
@@ -187,12 +175,7 @@ GEM
       rails-dom-testing (~> 1.0)
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
-    jquery-ui-rails (5.0.5)
-      railties (>= 3.2.16)
     json (1.8.3)
-    kaminari (0.16.3)
-      actionpack (>= 3.0.0)
-      activesupport (>= 3.0.0)
     launchy (2.4.3)
       addressable (~> 2.3)
     loofah (2.0.3)
@@ -206,19 +189,8 @@ GEM
     mini_portile2 (2.0.0)
     minitest (5.8.4)
     multi_json (1.11.2)
-    nested_form (0.3.2)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
-    omniauth (1.3.1)
-      hashie (>= 1.2, < 4)
-      rack (>= 1.0, < 3)
-    omniauth-openid (1.0.1)
-      omniauth (~> 1.0)
-      rack-openid (~> 1.3.1)
-    omniauth-steam (1.0.3)
-      multi_json
-      omniauth-openid
-    orm_adapter (0.5.0)
     paperclip (4.3.4)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
@@ -254,12 +226,6 @@ GEM
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
     rack (1.6.4)
-    rack-openid (1.3.1)
-      rack (>= 1.1.0)
-      ruby-openid (>= 2.1.8)
-    rack-pjax (0.8.0)
-      nokogiri (~> 1.5)
-      rack (~> 1.1)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.5.1)
@@ -289,20 +255,6 @@ GEM
     rails_12factor (0.0.3)
       rails_serve_static_assets
       rails_stdout_logging
-    rails_admin (0.8.1)
-      builder (~> 3.1)
-      coffee-rails (~> 4.0)
-      font-awesome-rails (>= 3.0, < 5)
-      haml (~> 4.0)
-      jquery-rails (>= 3.0, < 5)
-      jquery-ui-rails (~> 5.0)
-      kaminari (~> 0.14)
-      nested_form (~> 0.3)
-      rack-pjax (~> 0.7)
-      rails (~> 4.0)
-      remotipart (~> 1.0)
-      safe_yaml (~> 1.0)
-      sass-rails (>= 4.0, < 6)
     rails_layout (1.0.29)
     rails_serve_static_assets (0.0.5)
     rails_stdout_logging (0.0.4)
@@ -313,10 +265,8 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rainbow (2.1.0)
     rake (10.5.0)
-    remotipart (1.2.1)
     responders (2.1.1)
       railties (>= 4.2.0, < 5.1)
-    rolify (5.0.0)
     rspec (3.4.0)
       rspec-core (~> 3.4.0)
       rspec-expectations (~> 3.4.0)
@@ -347,12 +297,10 @@ GEM
       ruby-progressbar (~> 1.7)
       unicode-display_width (~> 0.3)
     ruby-graphviz (1.2.2)
-    ruby-openid (2.7.0)
     ruby-progressbar (1.7.5)
     ruby_parser (3.7.3)
       sexp_processor (~> 4.1)
     rubyzip (1.1.7)
-    safe_yaml (1.0.4)
     sass (3.4.21)
     sass-rails (5.0.4)
       railties (>= 4.0.0, < 5.0)
@@ -368,9 +316,6 @@ GEM
     sexp_processor (4.6.1)
     shoulda-matchers (3.1.1)
       activesupport (>= 4.0.0)
-    simple_form (3.2.1)
-      actionpack (> 4, < 5.1)
-      activemodel (> 4, < 5.1)
     simplecov (0.11.2)
       docile (~> 1.1.0)
       json (~> 1.8)
@@ -400,8 +345,6 @@ GEM
     unicode-display_width (0.3.1)
     unicode_utils (1.4.0)
     uniform_notifier (1.9.0)
-    warden (1.2.6)
-      rack (>= 1.0)
     websocket (1.2.2)
     whiny_validation (0.1.1)
       activerecord
@@ -421,12 +364,10 @@ DEPENDENCIES
   binding_of_caller
   bootstrap-sass
   bullet
-  cancancan
   capybara
   capybara-email
   coffee-rails
   database_cleaner
-  devise
   email_spec
   erd
   factory_girl
@@ -441,8 +382,6 @@ DEPENDENCIES
   jbuilder
   jquery-rails
   marco-polo
-  omniauth
-  omniauth-steam
   paperclip
   pg
   pry
@@ -454,16 +393,14 @@ DEPENDENCIES
   quiet_assets
   rails
   rails_12factor
-  rails_admin
   rails_layout
-  rolify
+  responders (~> 2.0)
   rspec-collection_matchers
   rspec-rails
   rubocop
   sass-rails
   selenium-webdriver
   shoulda-matchers
-  simple_form
   simplecov
   thin
   timecop

@@ -1,7 +1,7 @@
 class Version
   MAJOR    = 0
-  MINOR    = 1
-  REVISION = 0
+  MINOR    = 9
+  REVISION = 9
   SUFFIX   = nil
 
   class << self

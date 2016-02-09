@@ -9,9 +9,10 @@ var MissionMap = {
     MISSIONS: 1,
     MISSION: 2,
     MISSION_SERIES_COLLECTION: 3,
-    MISSION_SERIES: 4
+    MISSION_SERIES: 4,
+    CONTENT: 5
   },
-  mode: 3,
+  mode: 5,
   init: function(data){
 
     google.maps.event.addListenerOnce(Map, 'tilesloaded', function(){
@@ -29,7 +30,7 @@ var MissionMap = {
         MissionMap.refresh();
       });
 
-      Ajax.missions();
+      Ajax.initial();
     });
   },
   addMissions:function(data){

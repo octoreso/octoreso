@@ -15,3 +15,9 @@ $(document).on('click', 'a[data-ajax="mission-series"]', function(e){
   var id = $(e.target).data('mission-series-id');
   Ajax.mission_series(id);
 });
+
+
+$(document).on('click', 'a[data-ajax="content"]', function(e){
+  var id = $(e.target).data('content-id');
+  Ajax.content(id);
+});

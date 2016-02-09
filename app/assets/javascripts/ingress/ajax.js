@@ -69,6 +69,36 @@ var Ajax = {
       });
     });
   },
+  content: function(id){
+    MissionMap.mode = MissionMap.modes.CONTENT;
+    $('#sidebar').html(JST['content/'+id]({ id: id }));
+  },
+  initial:function()
+  {
+    MissionMap.mode = MissionMap.modes.CONTENT;
+    $('#sidebar').html(JST['content/1']({ id: 1 }));
+
+    bounds = MissionMap.getViewportBounds();
+
+    Ajax.enqueue('map', function(){
+      $.ajax({
+        url: '/api/mission_series.json',
+        data: bounds
+      }).success(function(data, code) {
+        MissionMap.clear();
+        MissionMap.mode = MissionMap.modes.MISSION_SERIES_COLLECTION;
+        MissionMap.addMissionSeriesCollection(data);
+        $('[data-mission-series-id]').each(
+          function()
+          {
+            var id = parseInt($(this).data('mission-series-id'));
+            var color_id = (id % 7) + 1;
+            $(this).find('.pin').addClass('pin-color-'+color_id);
+          }
+        )
+      });
+    });
+  },
   enqueue:function(type, func) {
     var timeout = Ajax.timeout[type];
 

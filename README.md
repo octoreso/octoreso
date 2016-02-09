@@ -1,13 +1,12 @@
-http://www.tobypinder.com
+Octoreso
 
-Current Features
-* Ludum Dare projects
-  * LD27 - Astronomical Odds
-  * LD29 - Quantum Tunnelling
-  * LD32 - APT
+Source for Octoreso.com, a mapping utility for Ingress Missions.
 
-Current Project
-* Ingress Mission Tool (http://ingress.tobypinder.com)
+== Installation
+Clone and bundle, nothing special.
 
-Project Management
-* Ingress Tool https://trello.com/b/g4Xuoa7G/ingress-mission-tool
+== Running Server
+`thin start --ssl`
+
+== Roadmap
+https://trello.com/b/g4Xuoa7G/ingress-mission-tool

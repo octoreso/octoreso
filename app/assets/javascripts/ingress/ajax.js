@@ -11,6 +11,7 @@ var Ajax = {
         url: '/api/mission_series.json',
         data: bounds
       }).success(function(data, code) {
+        $('#spinner').hide();
         MissionMap.clear();
         MissionMap.mode = MissionMap.modes.MISSION_SERIES_COLLECTION;
         MissionMap.addMissionSeriesCollection(data);
@@ -32,6 +33,7 @@ var Ajax = {
       $.ajax({
         url: "/api/mission_series/"+id+".json"
       }).success(function(data, code) {
+        $('#spinner').hide();
         MissionMap.clear();
         MissionMap.mode = MissionMap.modes.MISSION_SERIES;
         mission = MissionMap.addMissionSeries(data);
@@ -48,6 +50,7 @@ var Ajax = {
         url: '/api/missions.json',
         data: bounds
       }).success(function(data, code) {
+        $('#spinner').hide();
         MissionMap.clear();
         MissionMap.mode = MissionMap.modes.MISSIONS;
         MissionMap.addMissions(data);
@@ -61,6 +64,7 @@ var Ajax = {
       $.ajax({
         url: "/api/missions/"+id+".json"
       }).success(function(data, code) {
+        $('#spinner').hide();
         MissionMap.clear();
         MissionMap.mode = MissionMap.modes.MISSION;
         mission = MissionMap.addMission(data);
@@ -85,6 +89,7 @@ var Ajax = {
         url: '/api/mission_series.json',
         data: bounds
       }).success(function(data, code) {
+        $('#spinner').hide();
         MissionMap.clear();
         MissionMap.mode = MissionMap.modes.MISSION_SERIES_COLLECTION;
         MissionMap.addMissionSeriesCollection(data);
@@ -103,6 +108,7 @@ var Ajax = {
     var timeout = Ajax.timeout[type];
 
     if(timeout !== null) { clearInterval(timeout); }
+    $('#spinner').show();
     Ajax.timeout[type] = setTimeout(func, Ajax.idle_time_before_query)
   }
 };

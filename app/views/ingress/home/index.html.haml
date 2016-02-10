@@ -9,6 +9,10 @@
     #map
   #sidebar-container
     #sidebar
+#spinner-container
+  #spinner
+    = image_tag 'ajax_loader.gif'
+
 
 = javascript_include_tag 'ingress'
 %script{src: "//maps.googleapis.com/maps/api/js?key=AIzaSyAE7CVgjwE9GJoWWjc7f3dcLTjBJVBWvVU&callback=MapLoader&signed_in=false"}

@@ -57,17 +57,19 @@ module Ingress
             point_type = point_data[3] # 1 = Portal 2 = Field Trip
             action     = point_data[4] # Hack/Cap/etc
 
-            if point_type == 1
-              lat  = point_data[5][2].to_f / 1_000_000.0
-              long = point_data[5][3].to_f / 1_000_000.0
-            elsif point_type == 2
-              lat  = point_data[5][1].to_f / 1_000_000.0
-              long = point_data[5][2].to_f / 1_000_000.0
+            unless point_data[5].nil? # deleted portals? No action can be performed on "nothing"
+              if point_type == 1
+                lat  = point_data[5][2].to_f / 1_000_000.0
+                long = point_data[5][3].to_f / 1_000_000.0
+              elsif point_type == 2
+                lat  = point_data[5][1].to_f / 1_000_000.0
+                long = point_data[5][2].to_f / 1_000_000.0
+              end
+
+              point = Ingress::Point.where(lat: lat, long: long).first_or_create!
+
+              mission.mission_points << Ingress::MissionPoint.where(mission: mission, point: point, action_type: action).first_or_create!
             end
-
-            point = Ingress::Point.where(lat: lat, long: long).first_or_create!
-
-            mission.mission_points << Ingress::MissionPoint.where(mission: mission, point: point, action_type: action).first_or_create!
           end
 
           mission

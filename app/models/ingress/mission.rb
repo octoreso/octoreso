@@ -84,7 +84,12 @@ module Ingress
 
       self.updating_range = true
 
-      print '.'
+      if ENV['DEBUG']
+        puts self.mission_url
+      else
+        print '.'
+      end
+
       save!
       # Save
       mission_series.try(:update_range)

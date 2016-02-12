@@ -200,32 +200,78 @@ $ingress-b3b: #005855;
   margin-right: 5px;
 }
 
-$icon1: #00E64D;
-$icon2: #FDF569;
-$icon3: #FF9900;
-$icon4: #FD7567;
-$icon5: #8E67FD;
-$icon6: #6991FD;
-$icon7: #67DDDD;
+/* TODO: Consolidate with IconColors on JS side. */
 
-.pin-color-1 {
-  background-color: $icon1;
-}
-.pin-color-2 {
-  background-color: $icon2;
-}
-.pin-color-3 {
-  background-color: $icon3;
-}
-.pin-color-4 {
-  background-color: $icon4;
-}
-.pin-color-5 {
-  background-color: $icon5;
-}
-.pin-color-6 {
-  background-color: $icon6;
-}
-.pin-color-7 {
-  background-color: $icon7;
-}
+$icon01: #700E25;
+$icon02: #790F12;
+$icon03: #7A230F;
+$icon04: #7A330F;
+$icon05: #7A3E0F;
+$icon06: #7A470F;
+$icon07: #7A4F0F;
+$icon08: #7A560F;
+$icon09: #7A5C0F;
+$icon10: #7A610F;
+$icon11: #7A670F;
+$icon12: #7A6D0F;
+$icon13: #7A730F;
+$icon14: #7A790F;
+$icon15: #6C770E;
+$icon16: #5F750E;
+$icon17: #52720E;
+$icon18: #436F0D;
+$icon19: #306B0D;
+$icon20: #0F630B;
+$icon21: #0A5829;
+$icon22: #095139;
+$icon23: #094A47;
+$icon24: #0C394D;
+$icon25: #0F304F;
+$icon26: #112751;
+$icon27: #141B54;
+$icon28: #191555;
+$icon29: #211354;
+$icon30: #281153;
+$icon31: #301052;
+$icon32: #380E51;
+$icon33: #440C50;
+$icon34: #560A4A;
+$icon35: #610C3E;
+$icon36: #690D32;
+
+.pin-color-1 { background-color: $icon01; }
+.pin-color-2 { background-color: $icon02; }
+.pin-color-3 { background-color: $icon03; }
+.pin-color-4 { background-color: $icon04; }
+.pin-color-5 { background-color: $icon05; }
+.pin-color-6 { background-color: $icon06; }
+.pin-color-7 { background-color: $icon07; }
+.pin-color-8 { background-color: $icon08; }
+.pin-color-9 { background-color: $icon09; }
+.pin-color-10 { background-color: $icon10; }
+.pin-color-11 { background-color: $icon11; }
+.pin-color-12 { background-color: $icon12; }
+.pin-color-13 { background-color: $icon13; }
+.pin-color-14 { background-color: $icon14; }
+.pin-color-15 { background-color: $icon15; }
+.pin-color-16 { background-color: $icon16; }
+.pin-color-17 { background-color: $icon17; }
+.pin-color-18 { background-color: $icon18; }
+.pin-color-19 { background-color: $icon19; }
+.pin-color-20 { background-color: $icon20; }
+.pin-color-21 { background-color: $icon21; }
+.pin-color-22 { background-color: $icon22; }
+.pin-color-23 { background-color: $icon23; }
+.pin-color-24 { background-color: $icon24; }
+.pin-color-25 { background-color: $icon25; }
+.pin-color-26 { background-color: $icon26; }
+.pin-color-27 { background-color: $icon27; }
+.pin-color-28 { background-color: $icon28; }
+.pin-color-29 { background-color: $icon29; }
+.pin-color-30 { background-color: $icon30; }
+.pin-color-31 { background-color: $icon31; }
+.pin-color-32 { background-color: $icon32; }
+.pin-color-33 { background-color: $icon33; }
+.pin-color-34 { background-color: $icon34; }
+.pin-color-35 { background-color: $icon35; }
+.pin-color-36 { background-color: $icon36; }

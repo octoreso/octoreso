@@ -4,7 +4,7 @@ var Ajax = {
     map: null,
   },
   mission_series_collection: function(){
-    bounds = MissionMap.getViewportBounds();
+    var bounds = MissionMap.getViewportBounds();
 
     Ajax.enqueue('map', function(){
       $.ajax({
@@ -21,7 +21,7 @@ var Ajax = {
           function()
           {
             var id = parseInt($(this).data('mission-series-id'));
-            var color_id = (id % 7) + 1;
+            var color_id = (id % IconColors.length) + 1;
             $(this).find('.pin').addClass('pin-color-'+color_id);
           }
         )
@@ -43,7 +43,7 @@ var Ajax = {
     });
   },
   missions: function(){
-    bounds = MissionMap.getViewportBounds();
+    var bounds = MissionMap.getViewportBounds();
 
     Ajax.enqueue('map', function(){
       $.ajax({
@@ -56,6 +56,14 @@ var Ajax = {
         MissionMap.addMissions(data);
         //MissionMap.zoomToBounds();
         $('#sidebar').html(JST.missions(data));
+        $('[data-mission-id]').each(
+          function()
+          {
+            var id = parseInt($(this).data('mission-id'));
+            var color_id = (id % IconColors.length) + 1;
+            $(this).find('.pin').addClass('pin-color-'+color_id);
+          }
+        )
       });
     });
   },
@@ -73,6 +81,37 @@ var Ajax = {
       });
     });
   },
+  communities: function(){
+    var bounds = MissionMap.getViewportBounds();
+
+    console.log("COMMUNITIES")
+    Ajax.enqueue('map', function(){
+      $.ajax({
+        url: "/api/communities.json" // ,
+        // data: bounds TODO: Fix zoom race condition to reenable.
+      }).success(function(data, code) {
+        $('#spinner').hide();
+        MissionMap.clear();
+        MissionMap.mode = MissionMap.modes.COMMUNITIES;
+        MissionMap.addCommunities(data);
+        $('#sidebar').html(JST.communities(data));
+        $('[data-community-id]').each(
+          function()
+          {
+            var id = parseInt($(this).data('community-id'));
+            var color_id = (id % IconColors.length) + 1;
+            $(this).find('.pin').addClass('pin-color-'+color_id);
+          }
+        )
+      });
+    });
+  },
+  community: function(id) {
+    // TODO: Fix race condition with zoomrefresh and this.
+    // Ajax.enqueue('map', function(){
+    //   Ajax.missions();
+    // });
+  },
   content: function(id){
     MissionMap.mode = MissionMap.modes.CONTENT;
     $('#sidebar').html(JST['content/'+id]({ id: id }));
@@ -84,20 +123,21 @@ var Ajax = {
 
     bounds = MissionMap.getViewportBounds();
 
+    // TODO: Prevent Duplication.
     Ajax.enqueue('map', function(){
       $.ajax({
-        url: '/api/mission_series.json',
+        url: '/api/communities.json',
         data: bounds
       }).success(function(data, code) {
         $('#spinner').hide();
         MissionMap.clear();
-        MissionMap.mode = MissionMap.modes.MISSION_SERIES_COLLECTION;
-        MissionMap.addMissionSeriesCollection(data);
-        $('[data-mission-series-id]').each(
+        MissionMap.mode = MissionMap.modes.COMMUNITIES;
+        MissionMap.addCommunities(data);
+        $('[data-community-id]').each(
           function()
           {
-            var id = parseInt($(this).data('mission-series-id'));
-            var color_id = (id % 7) + 1;
+            var id = parseInt($(this).data('community-id'));
+            var color_id = (id % IconColors.length) + 1;
             $(this).find('.pin').addClass('pin-color-'+color_id);
           }
         )
@@ -107,7 +147,9 @@ var Ajax = {
   enqueue:function(type, func) {
     var timeout = Ajax.timeout[type];
 
-    if(timeout !== null) { clearInterval(timeout); }
+    if(timeout !== null) {
+      clearInterval(timeout);
+    }
     $('#spinner').show();
     Ajax.timeout[type] = setTimeout(func, Ajax.idle_time_before_query)
   }

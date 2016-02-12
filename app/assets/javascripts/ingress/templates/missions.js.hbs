@@ -6,7 +6,10 @@
   <li class="divider">&nbsp;</li>
   {{#each this}}
     <li>
-      <a href="#" data-ajax="mission" data-mission-id="{{id}}">{{name}}</a>
+      <a href="#" data-ajax="mission" data-mission-id="{{id}}">
+        <span class="pin" />
+        {{name}}
+      </a>
     </li>
   {{/each}}
 </ul>

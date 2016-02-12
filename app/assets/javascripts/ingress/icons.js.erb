@@ -2,13 +2,12 @@
 // http://maps.google.com/mapfiles/ms/micons/pink.png
 
 var Icons = [
-  '//maps.google.com/mapfiles/ms/micons/green.png',
-  '//maps.google.com/mapfiles/ms/micons/yellow.png',
-  '//maps.google.com/mapfiles/ms/micons/orange.png',
-  '//maps.google.com/mapfiles/ms/micons/red.png',
-  '//maps.google.com/mapfiles/ms/micons/purple.png',
-  '//maps.google.com/mapfiles/ms/micons/blue.png',
-  '//maps.google.com/mapfiles/ms/micons/lightblue.png'
+  <% (1..9).each do |i| %>
+    '<%= asset_url("blank/0#{i}.svg") %>',
+  <% end %>
+  <% (10..36).each do |i| %>
+    '<%= asset_url("blank/#{i}.svg") %>',
+  <% end %>
 ];
 
 var ActionIcons = {
@@ -22,4 +21,4 @@ var ActionIcons = {
   action_type_password:        '<%= asset_url("action_type/password.svg") %>', // password
 }
 
-var DefaultIcon = '//maps.google.com/mapfiles/ms/micons/pink.png';
+var DefaultIcon = '<%= asset_url("blank/00.svg") %>';

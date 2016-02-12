@@ -29,7 +29,7 @@ module Ingress
     }
 
     def action_icon
-      ActionController::Base.helpers.asset_url("#{action_type}.svg")
+      ActionController::Base.helpers.asset_url("action_type/#{action_type.gsub('action_type_', '')}.svg")
     end
 
     def as_json(options = {})

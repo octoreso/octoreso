@@ -3,6 +3,7 @@ Octoreso::Application.routes.draw do
     get '/' => 'home#index'
 
     scope '/api' do
+      resources :communities   , only: [:index, :show]
       resources :missions      , only: [:index, :show]
       resources :mission_series, only: [:index, :show]
     end

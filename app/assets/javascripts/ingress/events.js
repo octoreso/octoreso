@@ -21,3 +21,25 @@ $(document).on('click', 'a[data-ajax="content"]', function(e){
   var id = $(e.target).data('content-id');
   Ajax.content(id);
 });
+
+$(document).on('click', 'a[data-ajax="communities"]', function(x){
+  Ajax.communities();
+});
+
+$(document).on('click', 'a[data-ajax="community"]', function(e){
+  var id = $(e.target).data('community-id');
+  var teleport = $(e.target).data('teleport');
+  if(teleport.length > 0)
+  {
+    teleport = teleport.split(',')
+
+    Map.fitBounds({
+      north: parseFloat(teleport[0]),
+      east:  parseFloat(teleport[1]),
+      south: parseFloat(teleport[2]),
+      west:  parseFloat(teleport[3])
+    });
+  }
+
+  Ajax.missions();
+});

@@ -1,5 +1,6 @@
 var Mission = function(data, mission_series) {
   this.data        = data;
+  this.id          = data.id;
   this.min_lat     = data.min_lat;
   this.max_lat     = data.max_lat;
   this.min_long    = data.min_long;

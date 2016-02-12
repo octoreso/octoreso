@@ -1,0 +1,12 @@
+<h2>Communities</h2>
+<ul>
+  <li class="divider">&nbsp;</li>
+  {{#each this}}
+    <li>
+      <a href="#" data-ajax="community" data-community-id="{{id}}" data-teleport="{{max_lat}},{{max_long}},{{min_lat}},{{min_long}}">
+        <span class="pin" />
+        {{name}}
+      </a>
+    </li>
+  {{/each}}
+</ul>

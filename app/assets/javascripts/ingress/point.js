@@ -14,24 +14,32 @@ var Point = function(data, mission, index) {
       map: Map
     };
 
-    if(MissionMap.mode == MissionMap.modes.MISSION || MissionMap.mode == MissionMap.modes.MISSION_SERIES)
+    switch(MissionMap.mode)
     {
-      var size = 22;
-      if (index == 0) {
-        size = 32;
-      }
+      case MissionMap.modes.MISSION:
+      case MissionMap.modes.MISSION_SERIES:
+        var size = 22;
+        if (index == 0) {
+          size = 32;
+        }
 
-      marker_data.icon = {
-        url: ActionIcons[this.action_type],
-        scaledSize: new google.maps.Size(size, size)
-      }
-      marker_data.title = I18n.t("ingress/mission_point.action_type." + this.action_type);
-    } else {
-      if(this.mission.series_id === null) {
-      marker_data.icon = DefaultIcon;
-      } else {
-      marker_data.icon = Icons[parseFloat(this.mission.series_id) % Icons.length];
-      }
+        marker_data.icon = {
+          url: ActionIcons[this.action_type],
+          scaledSize: new google.maps.Size(size, size)
+        }
+        marker_data.title = I18n.t("ingress/mission_point.action_type." + this.action_type);
+      break;
+      case MissionMap.modes.MISSIONS:
+         marker_data.icon = Icons[parseInt(this.mission.id) % Icons.length];
+      break;
+      case MissionMap.modes.MISSION_SERIES_COLLECTION:
+      default:
+        if(this.mission.series_id === null) {
+          marker_data.icon = DefaultIcon;
+        } else {
+          marker_data.icon = Icons[parseFloat(this.mission.series_id) % Icons.length];
+        }
+      break;
     }
 
     this._marker = new google.maps.Marker(marker_data);

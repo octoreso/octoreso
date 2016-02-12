@@ -40,6 +40,7 @@ module Ingress
     has_many :points, through: :mission_points, inverse_of: :missions
 
     validates :name,                     presence: true
+    validates :community_id,             presence: true
     validates :agent_id,                 presence: true
     validates :mission_url,              presence: true, uniqueness: true
     validates :sequence_type,            presence: true
@@ -93,6 +94,7 @@ module Ingress
       save!
       # Save
       mission_series.try(:update_range)
+      community.update_range
     end
   end
 end

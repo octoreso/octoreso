@@ -13,6 +13,7 @@ require 'csv'
 
 Dir[Rails.root.join('db', 'seeds', 'ingress', 'missions', '**', '*.csv')].each do |file|
   file_name = file.split('db/seeds/ingress/missions/').last.gsub('.csv', '')
+  puts
   puts "* #{file_name}"
 
   file = File.read(file)

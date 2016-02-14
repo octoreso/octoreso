@@ -11,19 +11,25 @@ gem 'bootstrap-sass'
 gem 'figaro'
 gem 'haml-rails'
 gem 'marco-polo'
-gem 'thin'
 gem 'paperclip'
 gem 'aws-sdk'
 gem 'pg'
 gem 'handlebars_assets', github: 'leshill/handlebars_assets'
 gem 'i18n-js', '>= 3.0.0.rc11'
 gem 'responders', '~> 2.0'
+gem 'puma'
 
 group :development do
   gem 'erd'
   gem 'better_errors'
   gem 'html2haml'
   gem 'rails_layout'
+
+  gem 'capistrano',         require: false
+  gem 'capistrano-rvm',     require: false
+  gem 'capistrano-rails',   require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano3-puma',   require: false
 end
 
 group :development, :test do

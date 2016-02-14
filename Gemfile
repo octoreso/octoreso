@@ -25,11 +25,12 @@ group :development do
   gem 'html2haml'
   gem 'rails_layout'
 
-  gem 'capistrano',         require: false
-  gem 'capistrano-rvm',     require: false
-  gem 'capistrano-rails',   require: false
-  gem 'capistrano-bundler', require: false
-  gem 'capistrano3-puma',   require: false
+  gem 'capistrano',            require: false
+  gem 'capistrano-rvm',        require: false
+  gem 'capistrano-rails',      require: false
+  gem 'capistrano-bundler',    require: false
+  gem 'capistrano3-puma',      require: false
+  gem 'capistrano-figaro-yml', require: false
 end
 
 group :development, :test do

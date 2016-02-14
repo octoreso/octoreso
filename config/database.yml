@@ -1,0 +1,6 @@
+# See application.yml (via DATABASE_URL)
+
+#
+# WARNING - DO NOT STORE DATABASE CREDS IN THIS FILE - Use application.yml instead. This file needs to exist for default
+#   capybara stuff to work but needs no content.
+#

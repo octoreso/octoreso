@@ -1,5 +1,5 @@
 Octoreso::Application.routes.draw do
-  scope module: :ingress, constraints: ->(r) { r.subdomain.include?('ingress') } do
+  scope module: :ingress, constraints: ->(r) { r.subdomain.include?('ingress') || r.subdomain.include?('test') } do
     get '/' => 'home#index'
 
     scope '/api' do

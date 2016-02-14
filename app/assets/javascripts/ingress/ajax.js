@@ -84,7 +84,6 @@ var Ajax = {
   communities: function(){
     var bounds = MissionMap.getViewportBounds();
 
-    console.log("COMMUNITIES")
     Ajax.enqueue('map', function(){
       $.ajax({
         url: "/api/communities.json" // ,

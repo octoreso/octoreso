@@ -46,13 +46,7 @@ namespace :puma do
   before :start, :make_dirs
 end
 
-namespace :rake do
-  desc "Run a task on a remote server."
-  # run like: cap staging rake:invoke task=a_certain_task
-  task :invoke do
-    run("cd #{deploy_to}/current; /usr/bin/env rake #{ENV['task']} RAILS_ENV=#{rails_env}")
-  end
-end
+
 
 namespace :deploy do
   desc "Make sure local git is in sync with remote."
@@ -62,6 +56,19 @@ namespace :deploy do
         puts "WARNING: HEAD is not the same as origin/master"
         puts "Run `git push` to sync changes."
         exit
+      end
+    end
+  end
+
+  namespace :rake do
+    desc "Run a task on a remote server."
+    task :invoke => [:set_rails_env] do
+      on roles(:app) do
+        within release_path do
+          with rails_env: fetch(:rails_env) do
+            execute :rake, ENV['TASK']
+          end
+        end
       end
     end
   end

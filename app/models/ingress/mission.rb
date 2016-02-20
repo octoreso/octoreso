@@ -35,7 +35,7 @@ module Ingress
     belongs_to :agent,          inverse_of: :missions
     belongs_to :mission_series, inverse_of: :missions
 
-    has_many :mission_points, inverse_of: :mission
+    has_many :mission_points, inverse_of: :mission, dependent: :destroy
 
     has_many :points, through: :mission_points, inverse_of: :missions
 

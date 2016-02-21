@@ -58,6 +58,32 @@ module Ingress
       series_type_banner:   3
     }
 
+    class << self
+      def for_coords(n:, e:, s:, w:)
+        lat  = "min_lat + ((max_lat - min_lat) / 2)"
+        long = "min_long + ((max_long - min_long) / 2)"
+
+        target_lat = s.to_f + ((n.to_f - s.to_f) / 2)
+        target_long = e.to_f + ((w.to_f - e.to_f) / 2)
+
+        squared_error = "(pow(#{lat} - #{target_lat}, 2) + pow(#{long} - #{target_long}, 2))"
+
+        self
+          .select(*column_names, "#{squared_error} AS distance")
+          .where.not('min_lat > ?', n)
+          .where.not('max_lat < ?',  s)
+          .where.not('min_long > ?', e)
+          .where.not('max_long < ?', w)
+          .order('distance')
+      end
+
+      def page(number)
+        page_size = 400
+
+        self.limit(page_size).offset((number - 1) * page_size)
+      end
+    end
+
     # TODO: difficulty_type as bitmask, reassigning 17/18 manually?
     def as_json(options = {})
       super(options.merge(include: [:mission_series, :agent, mission_points: { methods: :action_icon, include: :point }]))

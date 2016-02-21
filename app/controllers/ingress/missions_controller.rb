@@ -31,11 +31,10 @@ module Ingress
       east  = params[:east] || 180
 
       @missions = Ingress::Mission.all.includes(:mission_series, :agent, mission_points: :point)
-        .where.not('min_lat > ?', north)
-        .where.not('max_lat < ?',  south)
-        .where.not('min_long > ?', east)
-        .where.not('max_long < ?', west)
-        .order(:name)
+        .for_coords(n: north, e: east, s: south, w: west)
+        .page(1)
+        .sort_by(&:name)
+
 
       respond_with @missions
     end

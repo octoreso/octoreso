@@ -8,6 +8,7 @@
 #  mission_url       :string           not null
 #  sequence_type     :integer          not null
 #  series_type       :integer          not null
+#  hidden_points     :integer          default(0), not null
 #  mission_series_id :integer
 #  series_index      :integer
 #  created_at        :datetime

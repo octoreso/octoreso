@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 20160202213006) do
     t.string   "mission_url",                                           null: false
     t.integer  "sequence_type",                                         null: false
     t.integer  "series_type",                                           null: false
+    t.integer  "hidden_points",                             default: 0, null: false
     t.integer  "mission_series_id"
     t.integer  "series_index"
     t.datetime "created_at"

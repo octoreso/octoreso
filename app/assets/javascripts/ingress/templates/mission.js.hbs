@@ -19,6 +19,11 @@
       <img src="{{action_icon}}" title="[#{{index @index}}] {{t 'ingress/mission_point.action_type' action_type}}" alt="[#{{index @index}}] {{t 'ingress/mission_point.action_type' action_type}}" />
     {{/each}}
   </li>
+  {{#if hidden_points}}
+    <li>
+      + {{hidden_points}} hidden objectives.
+    </li>
+  {{/if}}
 
   <li class="divider"> &nbsp;</li>
   <li>{{t 'ingress/mission.sequence_type' sequence_type}}</li>

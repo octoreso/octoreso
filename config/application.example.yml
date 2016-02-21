@@ -16,6 +16,8 @@ APIKEY_STEAM: '1111111'
 AWS_ACCESS_KEY_ID: 'xxx'
 AWS_SECRET_ACCESS_KEY: 'yyy'
 S3_BUCKET_NAME: 'tobypinder'
+GOOGLE_CLIENT_ID: 'xxxxxxxxxxx-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.apps.googleusercontent.com'
+GOOGLE_CLIENT_SECRET: 'xxxxx-xxxxxxxxxxxxxxxxx'
 
 # Heroku will handle non-local db urls automatically.
 development:

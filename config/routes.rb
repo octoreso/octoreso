@@ -1,4 +1,7 @@
 Octoreso::Application.routes.draw do
+
+  devise_for :users, controllers: { omniauth_callbacks: 'callbacks' }
+
   scope module: :ingress, constraints: ->(r) { r.subdomain.include?('ingress') || r.subdomain.include?('test') } do
     get '/' => 'home#index'
 

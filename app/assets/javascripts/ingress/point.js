@@ -3,6 +3,7 @@ var Point = function(data, mission, index) {
   this.mission             = mission;
   this.lat                 = parseFloat(data.point.lat);
   this.long                = parseFloat(data.point.long);
+  this.index               = index;
   this.portal_name         = data.point.portal_name;
   this.action_type         = data.action_type;
 
@@ -10,9 +11,14 @@ var Point = function(data, mission, index) {
   {
     var marker_data = {
       position: { lat: this.lat, lng: this.long },
-      title: "Portal",
       map: Map
     };
+
+    marker_data.title = "[#" + (this.index + 1) + "] ";
+    marker_data.title = marker_data.title + this.mission.name;
+    if(this.mission.series_index) {
+      marker_data.title = marker_data.title + " - " + this.mission.series_name;
+    }
 
     switch(MissionMap.mode)
     {
@@ -27,7 +33,7 @@ var Point = function(data, mission, index) {
           url: ActionIcons[this.action_type],
           scaledSize: new google.maps.Size(size, size)
         }
-        marker_data.title = I18n.t("ingress/mission_point.action_type." + this.action_type);
+        marker_data.title = "[#" + (this.index + 1) + "] " + I18n.t("ingress/mission_point.action_type." + this.action_type);
       break;
       case MissionMap.modes.MISSIONS:
          marker_data.icon = Icons[parseInt(this.mission.id) % Icons.length];

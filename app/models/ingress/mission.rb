@@ -86,7 +86,16 @@ module Ingress
 
     # TODO: difficulty_type as bitmask, reassigning 17/18 manually?
     def as_json(options = {})
-      super(options.merge(include: [:mission_series, :agent, mission_points: { methods: :action_icon, include: :point }]))
+      super(options.merge(
+        include: [
+          :mission_series,
+          :agent,
+          mission_points: {
+            methods: :action_icon,
+            include: :point
+          }
+        ]
+      ))
     end
 
     def update_range

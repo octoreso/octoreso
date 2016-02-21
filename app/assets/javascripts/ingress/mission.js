@@ -1,14 +1,16 @@
 var Mission = function(data, mission_series) {
-  this.data        = data;
-  this.id          = data.id;
-  this.min_lat     = data.min_lat;
-  this.max_lat     = data.max_lat;
-  this.min_long    = data.min_long;
-  this.max_long    = data.max_long;
+  this.data     = data;
+  this.id       = data.id;
+  this.name     = data.name;
+  this.min_lat  = data.min_lat;
+  this.max_lat  = data.max_lat;
+  this.min_long = data.min_long;
+  this.max_long = data.max_long;
   if(mission_series !== undefined)
   {
     this.mission_series = mission_series
   }
+
   this.series_id   = parseInt(data.mission_series_id) || null;
   this.series_name = data.mission_series ? data.mission_series.name : null;
   this.series_index = data.series_index;
@@ -31,6 +33,7 @@ var Mission = function(data, mission_series) {
   if(data.sequence_type == "sequence_type_sequential")
   {
     var color = '#FFFFFF';
+
     if(MissionMap.mode == MissionMap.modes.MISSION_SERIES)
     {
       color = IconColors[parseFloat(this.series_index) % IconColors.length];

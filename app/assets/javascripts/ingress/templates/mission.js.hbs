@@ -16,7 +16,7 @@
   </li>
   <li>
     {{#each mission_points}}
-      <img src="{{action_icon}}" title="{{t 'ingress/mission_point.action_type' action_type}}" alt="{{t 'ingress/mission_point.action_type' action_type}}" />
+      <img src="{{action_icon}}" title="[#{{index @index}}] {{t 'ingress/mission_point.action_type' action_type}}" alt="[#{{index @index}}] {{t 'ingress/mission_point.action_type' action_type}}" />
     {{/each}}
   </li>
 

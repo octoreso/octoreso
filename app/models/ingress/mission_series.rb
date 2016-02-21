@@ -71,7 +71,18 @@ module Ingress
     end
 
     def as_json(options = {})
-      super(options.merge(include: [:community, missions: { include: { mission_points: { include: :point }}}]))
+      super(
+        options.merge(include: [
+          :community,
+          missions: {
+            include: {
+              mission_points: {
+                include: :point
+              }
+            }
+          }
+        ])
+      )
     end
   end
 end

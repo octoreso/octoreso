@@ -20,7 +20,7 @@ var Community = function(data)
       map: Map,
       icon: {
         url: Icons[parseInt(this.id) % Icons.length],
-        scaledSize: new google.maps.Size(48, 48)
+        scaledSize: new google.maps.Size(32, 32)
       }
     };
 

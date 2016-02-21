@@ -57,7 +57,9 @@ module Ingress
             point_type = point_data[3] # 1 = Portal 2 = Field Trip
             action     = point_data[4] # Hack/Cap/etc
 
-            unless point_data[5].nil? # deleted portals? No action can be performed on "nothing"
+            if point_data[5].nil?  # deleted portals? No action can be performed on "nothing"
+              mission.hidden_points += 1
+            else
               if point_type == 1
                 lat  = point_data[5][2].to_f / 1_000_000.0
                 long = point_data[5][3].to_f / 1_000_000.0

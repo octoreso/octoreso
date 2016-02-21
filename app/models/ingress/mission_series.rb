@@ -23,6 +23,32 @@ module Ingress
 
     attr_accessor :updating_range
 
+    class << self
+      def for_coords(n:, e:, s:, w:)
+        lat  = "min_lat + ((max_lat - min_lat) / 2)"
+        long = "min_long + ((max_long - min_long) / 2)"
+
+        target_lat = s.to_f + ((n.to_f - s.to_f) / 2)
+        target_long = e.to_f + ((w.to_f - e.to_f) / 2)
+
+        squared_error = "(pow(#{lat} - #{target_lat}, 2) + pow(#{long} - #{target_long}, 2))"
+
+        self
+          .select(*column_names, "#{squared_error} AS distance")
+          .where.not('min_lat > ?', n)
+          .where.not('max_lat < ?',  s)
+          .where.not('min_long > ?', e)
+          .where.not('max_long < ?', w)
+          .order('distance')
+      end
+
+      def page(number)
+        page_size = 25
+
+        self.limit(page_size).offset((number - 1) * page_size)
+      end
+    end
+
     def update_range
       return if updating_range
 
@@ -45,7 +71,18 @@ module Ingress
     end
 
     def as_json(options = {})
-      super(options.merge(include: [:community, missions: { include: { mission_points: { include: :point }}}]))
+      super(
+        options.merge(include: [
+          :community,
+          missions: {
+            include: {
+              mission_points: {
+                include: :point
+              }
+            }
+          }
+        ])
+      )
     end
   end
 end

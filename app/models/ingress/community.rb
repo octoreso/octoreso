@@ -16,9 +16,10 @@ module Ingress
   class Community < ActiveRecord::Base
     validates :name, presence: true, uniqueness: true
 
-    has_many :mission_points, inverse_of: :community
-    has_many :mission_series, inverse_of: :community
-    has_many :missions,       inverse_of: :community
+    has_many :mission_series, inverse_of: :community, dependent: :destroy
+    has_many :missions,       inverse_of: :community, dependent: :destroy
+
+    has_many :mission_points, through: :missions
 
     attr_accessor :updating_range
 

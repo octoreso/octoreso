@@ -24,11 +24,9 @@ module Ingress
       east  = params[:east] || 180
 
       @mission_series_collection = Ingress::MissionSeries.includes(:community, missions: { mission_points: :point })
-        .where.not('min_lat > ?', north)
-        .where.not('max_lat < ?',  south)
-        .where.not('min_long > ?', east)
-        .where.not('max_long < ?', west)
-        .order(:name)
+        .for_coords(n: north, e: east, s: south, w: west)
+        .page(1)
+        .sort_by(&:name)
 
       respond_with @mission_series_collection
     end

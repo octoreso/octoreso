@@ -124,20 +124,20 @@ var MissionMap = {
       //  // Fix zoom race condition!
     }
     if(this.mode == this.modes.MISSIONS) {
-      if(Map.getZoom()<=10)
-      {
-        Ajax.communities();
-      } else {
+      // if(Map.getZoom()<=10)
+      // {
+      //   Ajax.communities();
+      // } else {
         Ajax.missions();
-      }
+      // }
     }
     if(this.mode == this.modes.MISSION_SERIES_COLLECTION) {
-      if(Map.getZoom()<=10)
-      {
-        Ajax.communities();
-      } else {
+      // if(Map.getZoom()<=10)
+      // {
+      //   Ajax.communities();
+      // } else {
         Ajax.mission_series_collection();
-      }
+      // }
     }
   },
   clear:function(){

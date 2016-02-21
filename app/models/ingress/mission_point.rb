@@ -12,9 +12,10 @@
 
 module Ingress
   class MissionPoint < ActiveRecord::Base
-    belongs_to :community, inverse_of: :mission_points
     belongs_to :mission,   inverse_of: :mission_points
     belongs_to :point,     inverse_of: :mission_points
+
+    before_destroy :destroy_orphaned_points
 
     enum action_type: {
       action_type_null:            0,
@@ -34,6 +35,14 @@ module Ingress
 
     def as_json(options = {})
       super(options.merge(include: :point, methods: :action_icon))
+    end
+
+    private
+
+    def destroy_orphaned_points
+      remaining_missions = point.mission_points.reject { |mp| mp.id == self.id }
+
+      point.destroy! unless remaining_missions.present?
     end
   end
 end

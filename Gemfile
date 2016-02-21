@@ -18,6 +18,8 @@ gem 'handlebars_assets', github: 'leshill/handlebars_assets'
 gem 'i18n-js', '>= 3.0.0.rc11'
 gem 'responders', '~> 2.0'
 gem 'puma'
+gem 'rabl'
+gem 'oj'
 
 group :development do
   gem 'erd'

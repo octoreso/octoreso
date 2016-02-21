@@ -34,8 +34,9 @@ module Ingress
 
     def show
       @community = Ingress::Community.where(id: params[:id]).includes(:mission_series)
+      @community = @community.first
 
-      respond_with @community.first
+      respond_with @community
     end
   end
 end

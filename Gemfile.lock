@@ -208,6 +208,7 @@ GEM
     net-ssh (3.0.2)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
+    oj (2.14.5)
     paperclip (4.3.4)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
@@ -243,6 +244,8 @@ GEM
     puma (2.16.0)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
+    rabl (0.12.0)
+      activesupport (>= 2.3.14)
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -404,6 +407,7 @@ DEPENDENCIES
   jbuilder
   jquery-rails
   marco-polo
+  oj
   paperclip
   pg
   pry
@@ -414,6 +418,7 @@ DEPENDENCIES
   puffing-billy
   puma
   quiet_assets
+  rabl
   rails
   rails_12factor
   rails_layout

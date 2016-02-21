@@ -36,14 +36,14 @@ module Ingress
         .page(1)
         .sort_by(&:name)
 
-
       respond_with @missions
     end
 
     def show
       @mission = Ingress::Mission.where(id: params[:id]).includes(:mission_series, :agent, mission_points: :point)
+      @mission = @mission.first
 
-      respond_with @mission.first
+      respond_with @mission
     end
   end
 end

@@ -51,9 +51,5 @@ module Ingress
       self.updating_range = true
       save!
     end
-
-    def as_json(options = {})
-      super(options.merge(methods: [:lat, :long]))
-    end
   end
 end

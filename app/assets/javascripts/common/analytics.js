@@ -3,7 +3,7 @@
 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-ga('create', 'UA-1644869-11', 'tobypinder.com');
+ga('create', 'UA-1644869-12', 'auto');
 ga('send', 'pageview');
 
 $('[data-toggle=offcanvas]').click(function() {

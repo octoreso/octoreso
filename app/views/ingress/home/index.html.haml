@@ -2,14 +2,14 @@
 #container
   #navbar-container
     #navbar
+      - if current_user.present?
+        = link_to "Sign out #{current_user.email}", destroy_user_session_url(subdomain: nil), class: 'navbar-link pull-right'
+      - else
+        = link_to 'Sign In', user_omniauth_authorize_url(subdomain: nil, provider: 'google_oauth2'), class: 'navbar-link pull-right'
       %a.navbar-link{ href: '#', data: { ajax: 'content', content_id: 1 }} Home
       %a.navbar-link{ href: '#', data: { ajax: 'communities' }} All Communities
       %a.navbar-link{ href: '#', data: { ajax: 'missions' }} All Missions
       %a.navbar-link{ href: '#', data: { ajax: 'mission-series-collection' }} Mission Series
-      - if current_user.present?
-        = link_to current_user.email, destroy_user_session_url(subdomain: nil), class: 'navbar-link'
-      - else
-        = link_to 'Not Signed In', user_omniauth_authorize_url(subdomain: nil, provider: 'google_oauth2'), class: 'navbar-link'
   #map-container
     #map
   #sidebar-container

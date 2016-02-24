@@ -1,0 +1,23 @@
+!!!
+%html{lang: 'en'}
+  %head
+    %meta{charset: 'utf-8'}/
+    %meta{content: 'IE=edge', 'http-equiv' => 'X-UA-Compatible'}/
+    %meta{content: 'width=device-width, initial-scale=1', name: 'viewport'}/
+    %meta{content: 'Octoreso Data Admin Backend', name: 'description'}/
+    %meta{content: '@tobypinder', name: 'author'}/
+    %link{href: 'favicon.ico', rel: 'shortcut icon'}/
+    %title Octoreso Admin
+    = stylesheet_link_tag    'application', media: 'all'
+    = javascript_include_tag 'application'
+    = csrf_meta_tags
+  %body
+    .container-fluid
+      .row
+        .col-md-2
+          %nav
+            %ul.nav.nav-pills.nav-stacked
+              %li{ class: "#{controller_name == 'communities' ? 'active' : ''}", role: :presentation }
+                %a{ href: admin_ingress_communities_path } Communities
+        .col-md-10
+          = yield

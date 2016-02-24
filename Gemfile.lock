@@ -66,6 +66,7 @@ GEM
     bullet (5.0.0)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.9.0)
+    cancancan (1.13.1)
     capistrano (3.4.0)
       i18n
       rake (>= 10.0.0)
@@ -401,6 +402,7 @@ DEPENDENCIES
   binding_of_caller
   bootstrap-sass
   bullet
+  cancancan
   capistrano
   capistrano-bundler
   capistrano-figaro-yml

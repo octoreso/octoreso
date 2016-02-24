@@ -1,0 +1,13 @@
+%table.table.table-striped.table-condensed
+  %thead
+    %tr
+      %th ID
+      %th Name
+      %th Edit
+  %tbody
+    - @communities.each do |community|
+      %tr
+        %td= "##{community.id}"
+        %td= community.name
+        %td
+          %a.btn.btn-default.btn-xs{ href: admin_ingress_community_path(community) } Edit

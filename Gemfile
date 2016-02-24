@@ -12,6 +12,7 @@ gem 'puma'
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
+gem 'cancancan'
 
 # Assets + JS
 gem 'handlebars_assets'

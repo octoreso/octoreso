@@ -1,3 +1,4 @@
+# encoding: utf-8
 # Change these
 server '104.236.114.9', port: 22, roles: [:web, :app, :db], primary: true
 

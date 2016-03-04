@@ -14,8 +14,16 @@
       %th Link
   %tbody
     - @community.missions.each do |mission|
-      %tr
-        %td= mission.mission_series.try(:name) || ''
-        %td= mission.name
-        %td
-          %a.btn.btn-default.btn-xs{ href: mission.mission_url } Intel
+      - if can? :read, mission
+        - if can? :edit, mission
+          %tr
+            %td= mission.mission_series.try(:name) || ''
+            %td= mission.name
+            %td
+              %a.btn.btn-default.btn-xs{ href: mission.mission_url } Intel
+        - else
+          %tr
+            %th{ colspan: 3 } CANNOT EDIT
+      - else
+        %tr
+          %th{ colspan: 3 } CANNOT READ

@@ -16,7 +16,6 @@
     - @community.missions.each do |mission|
       %tr
         %td= mission.mission_series.try(:name) || ''
+        %td= mission.name
         %td
-          %a{ href: mission.name }
-            = mission.name
-        %td= mission.mission_url
+          %a.btn.btn-default.btn-xs{ href: mission.mission_url } Intel

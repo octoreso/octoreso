@@ -46,6 +46,7 @@ module Ingress
 
     scope :active, -> { where(is_active: true) }
     scope :inactive, -> { where(is_active: false) }
+    scope :awaiting_moderation, ->{ inactive.where("mission_url LIKE 'https://%'") }
 
     validates :name,                     presence: true
     validates :community_id,             presence: true

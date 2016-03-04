@@ -17,11 +17,24 @@ module Ingress
     validates :name, presence: true, uniqueness: true
 
     has_many :mission_series, inverse_of: :community, dependent: :destroy
-    has_many :missions,       inverse_of: :community, dependent: :destroy
+
+    has_many :missions, ->{ active }, inverse_of: :community,
+      dependent: :destroy
+
+    has_many :inactive_missions, ->{ inactive }, inverse_of: :proposed_community,
+      dependent: :destroy, class_name: 'Ingress::Mission'
+
+    has_many :all_missions, ->{ order(:mission_series_id, :series_index, :name) }, inverse_of: :admin_community,
+      dependent: :destroy, class_name: 'Ingress::Mission'
 
     has_many :mission_points, through: :missions
 
+    scope :active, -> { where(is_active: true) }
+    scope :inactive, -> { where(is_active: false) }
+
     attr_accessor :updating_range
+
+    accepts_nested_attributes_for :all_missions
 
     def lat
       (max_lat + min_lat) / 2

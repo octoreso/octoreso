@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160221221526) do
+ActiveRecord::Schema.define(version: 20160304110810) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,12 +24,13 @@ ActiveRecord::Schema.define(version: 20160221221526) do
 
   create_table "ingress_communities", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
     t.decimal  "min_lat",    precision: 9, scale: 6
     t.decimal  "min_long",   precision: 9, scale: 6
     t.decimal  "max_lat",    precision: 9, scale: 6
     t.decimal  "max_long",   precision: 9, scale: 6
+    t.boolean  "is_active",                          default: false, null: false
   end
 
   create_table "ingress_mission_points", force: :cascade do |t|
@@ -52,22 +53,23 @@ ActiveRecord::Schema.define(version: 20160221221526) do
   end
 
   create_table "ingress_missions", force: :cascade do |t|
-    t.string   "name",                                                  null: false
-    t.integer  "agent_id",                                              null: false
-    t.string   "mission_url",                                           null: false
-    t.integer  "sequence_type",                                         null: false
-    t.integer  "series_type",                                           null: false
-    t.integer  "hidden_points",                             default: 0, null: false
+    t.string   "name",                                                      null: false
+    t.integer  "agent_id",                                                  null: false
+    t.string   "mission_url",                                               null: false
+    t.integer  "sequence_type",                                             null: false
+    t.integer  "series_type",                                               null: false
+    t.integer  "hidden_points",                             default: 0,     null: false
     t.integer  "mission_series_id"
     t.integer  "series_index"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "community_id"
-    t.integer  "validation_level",                          default: 0, null: false
+    t.integer  "validation_level",                          default: 0,     null: false
     t.decimal  "min_lat",           precision: 9, scale: 6
     t.decimal  "min_long",          precision: 9, scale: 6
     t.decimal  "max_lat",           precision: 9, scale: 6
     t.decimal  "max_long",          precision: 9, scale: 6
+    t.boolean  "is_active",                                 default: false, null: false
   end
 
   create_table "ingress_points", force: :cascade do |t|

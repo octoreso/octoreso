@@ -6,8 +6,10 @@
       %th Edit
   %tbody
     - @communities.each do |community|
-      %tr
-        %td= "##{community.id}"
-        %td= community.name
+      %tr{ class: community.is_active? ? '' : 'error' }
+        %td
+          %a{ href: admin_ingress_community_path(community) }= "##{community.id}"
+        %td
+          %a{ href: admin_ingress_community_path(community) }= community.name
         %td
           %a.btn.btn-default.btn-xs{ href: admin_ingress_community_path(community) } Edit

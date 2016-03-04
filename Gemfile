@@ -2,17 +2,19 @@ source 'https://rubygems.org'
 ruby '2.3.0'
 
 gem 'rails'
-gem 'responders', '~> 2.0'
-gem 'figaro'
-gem 'marco-polo'
-gem 'aws-sdk'
 gem 'pg'
 gem 'puma'
+
+gem 'aws-sdk'
+gem 'figaro'
+gem 'responders', '~> 2.0'
+gem 'marco-polo'
 
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'cancancan'
+gem 'simple_form'
 
 # Assets + JS
 gem 'handlebars_assets'

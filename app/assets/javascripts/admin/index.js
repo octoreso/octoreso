@@ -13,4 +13,11 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
-//= require common/analytics
+//= require handlebars.runtime
+//= require i18n
+//= require i18n.js
+//= require i18n/translations
+//= require common/index
+
+//= require_tree ./templates
+//= require_tree .

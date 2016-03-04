@@ -2,11 +2,11 @@ module Admin
   module Ingress
     class CommunitiesController < Admin::BaseController
       def index
-        @communities = ::Ingress::Community.all.limit(10)
+        @communities = ::Ingress::Community.includes(:all_missions).all
       end
 
       def show
-        @community = ::Ingress::Community.find(params[:id])
+        @community = ::Ingress::Community.includes(:all_missions).find(params[:id])
       end
     end
   end

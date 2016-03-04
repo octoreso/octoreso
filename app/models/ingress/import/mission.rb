@@ -13,7 +13,7 @@ module Ingress
 
       class_methods do
         def create_from_csv!(row, community_name: nil)
-          community             = community_name.present? ? Ingress::Community.where(name: community_name).first_or_create! : nil
+          community             = community_name.present? ? Ingress::Community.where(name: community_name).first_or_create!(is_active: true) : nil
           mission               = Ingress::Mission.new
           mission.community     = community
           mission.mission_url   = row['Mission Link']
@@ -29,6 +29,7 @@ module Ingress
           mission = populate_metadata_from_intel_json(mission, json)
           mission.save!
           mission = populate_points_from_intel_json(mission, json)
+          mission.is_active = true if rand(10) > 5
           mission.save!
         end
 

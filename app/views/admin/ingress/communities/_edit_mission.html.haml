@@ -1,0 +1,6 @@
+%tr{ class: mission.is_active? ? 'success' : 'error' }
+  %td= sf.input :mission_series_name, wrapper: false, label: false, input_html: { class: 'input-sm' }
+  %td= sf.input :series_index, wrapper: false, label: false, input_html: { class: 'input-sm' }
+
+  %td= sf.object.name
+  %td= sf.input :mission_url, wrapper: false, label: false, input_html: { class: 'input-sm' }

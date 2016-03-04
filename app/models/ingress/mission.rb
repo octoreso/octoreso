@@ -32,13 +32,20 @@ module Ingress
 
     after_save :update_range
 
-    belongs_to :community,      inverse_of: :missions
-    belongs_to :agent,          inverse_of: :missions
-    belongs_to :mission_series, inverse_of: :missions
+    # TODO: Can we refrain from inverting 3 times?
+    belongs_to :community,          -> { active },   inverse_of: :missions
+    belongs_to :proposed_community, -> { inactive }, inverse_of: :inactive_missions, class_name: 'Ingress::Community'
+    belongs_to :admin_community,                     inverse_of: :all_missions,      class_name: 'Ingress::Community'
+
+    belongs_to :agent,              inverse_of: :missions
+    belongs_to :mission_series,     inverse_of: :missions
 
     has_many :mission_points, inverse_of: :mission, dependent: :destroy
 
     has_many :points, through: :mission_points, inverse_of: :missions
+
+    scope :active, -> { where(is_active: true) }
+    scope :inactive, -> { where(is_active: false) }
 
     validates :name,                     presence: true
     validates :community_id,             presence: true
@@ -83,6 +90,14 @@ module Ingress
 
         self.limit(page_size).offset((number - 1) * page_size)
       end
+    end
+
+    def mission_series_name
+      mission_series.try(:name)
+    end
+
+    def mission_series_name=(name)
+      fail "Can't assign mission series name yet!"
     end
 
     def update_range

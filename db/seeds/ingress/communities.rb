@@ -1,0 +1,8 @@
+Ingress::Community.new(name: 'greece/athens')
+Ingress::Community.new(name: 'south_africa/plumstead')
+Ingress::Community.new(name: 'switzerland/neuchâtel')
+Ingress::Community.new(name: 'uk/aylesbury')
+Ingress::Community.new(name: 'uk/oxford')
+Ingress::Community.new(name: 'uk/bath')
+Ingress::Community.new(name: 'uk/newcastle')
+Ingress::Community.new(name: 'us/or/portland')

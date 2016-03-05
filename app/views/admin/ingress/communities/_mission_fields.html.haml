@@ -1,0 +1,9 @@
+.nested-fields
+  .row.row-no-padding
+    .col-md-3= f.input :mission_series_name, wrapper: false, label: false, input_html: { class: 'input-sm' }
+    .col-md-1= f.input :series_index, wrapper: false, label: false, input_html: { class: 'input-sm' }
+    .col-md-4= f.input :name, wrapper: false, label: false, input_html: { class: 'input-sm' }, disabled: true
+    .col-md-3= f.input :mission_url, wrapper: false, label: false, input_html: { class: 'input-sm' }
+    .col-md-1
+      = link_to_remove_association f, class: 'remove-mission btn btn-danger btn-sm' do
+        .glyphicon.glyphicon-remove

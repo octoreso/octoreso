@@ -1,6 +1,13 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+.row-no-padding {
+  [class*="col-"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
 html,body,p,h1,h2,h3,h4 {
   /*font-family: 'Droid Sans Mono', sans-serif;*/
 }

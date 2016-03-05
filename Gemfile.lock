@@ -99,6 +99,7 @@ GEM
     childprocess (0.5.9)
       ffi (~> 1.0, >= 1.0.11)
     choice (0.2.0)
+    cocoon (1.2.8)
     coderay (1.1.1)
     coffee-rails (4.1.1)
       coffee-script (>= 2.2.0)
@@ -414,6 +415,7 @@ DEPENDENCIES
   capistrano3-puma
   capybara
   capybara-email
+  cocoon
   coffee-rails
   database_cleaner
   devise

@@ -15,6 +15,7 @@ gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'cancancan'
 gem 'simple_form'
+gem 'cocoon'
 
 # Assets + JS
 gem 'handlebars_assets'

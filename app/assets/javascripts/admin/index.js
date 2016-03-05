@@ -19,5 +19,7 @@
 //= require i18n/translations
 //= require common/index
 
+//= require cocoon
+
 //= require_tree ./templates
 //= require_tree .

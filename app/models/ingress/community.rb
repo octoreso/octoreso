@@ -34,7 +34,7 @@ module Ingress
 
     attr_accessor :updating_range
 
-    accepts_nested_attributes_for :all_missions
+    accepts_nested_attributes_for :all_missions,reject_if: :all_blank, allow_destroy: true
 
     def lat
       (max_lat + min_lat) / 2

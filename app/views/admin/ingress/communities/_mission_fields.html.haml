@@ -1,9 +1,21 @@
 .nested-fields
   .row.row-no-padding
+    .col-md-4.text-right.pad-right.nudge-down
+      - if f.object.persisted?
+        = f.object.name
+
+      - if f.object.persisted? && f.object.is_active
+        .label.label-success Live
+      - elsif f.object.persisted? && !f.object.is_active
+        .label.label-warning Pending
+      - else
+        .label.label-danger New
     .col-md-3= f.input :mission_series_name, wrapper: false, label: false, input_html: { class: 'input-sm' }
     .col-md-1= f.input :series_index, wrapper: false, label: false, input_html: { class: 'input-sm' }
-    .col-md-4= f.input :name, wrapper: false, label: false, input_html: { class: 'input-sm' }, disabled: true
     .col-md-3= f.input :mission_url, wrapper: false, label: false, input_html: { class: 'input-sm' }
-    .col-md-1
-      = link_to_remove_association f, class: 'remove-mission btn btn-danger btn-sm' do
-        .glyphicon.glyphicon-remove
+    .col-md-1.pad-left
+      - if f.object.persisted?
+        = f.input :_destroy, as: :boolean, wrapper: false, label: false, inline_label: 'Delete?'
+      - else
+        = link_to_remove_association f, class: 'remove-mission btn btn-danger btn-block btn-sm' do
+          .glyphicon.glyphicon-remove

@@ -1,25 +1,15 @@
 = simple_form_for(@community, html: { class: 'form-horizontal' }, url: admin_ingress_community_path) do |f|
+  = render 'submit_button', f: f
   = render 'community_fields', f: f
-  .row
-    .col-md-12 Missions
-  .row
-    .col-md-3 Mission Series
-    .col-md-1 Series Index
-    .col-md-4 Mission Name
-    .col-md-3 Link
-    .col-md-1
+  = render 'header_row'
   #missions
     = f.simple_fields_for :all_missions do |sf|
       = render 'mission_fields', f: sf
+    = render 'header_row'
     .links
-      .row-no-padding
-        .col-md-4
-        .col-md-1
-        .col-md-4
-        .col-md-3
-        .col-md-1
-          = link_to_add_association f, :missions, partial: 'mission_fields', class: 'add-mission btn btn-success btn-sm' do
+      .row.row-no-padding
+        .col-md-12
+          = link_to_add_association f, :missions, partial: 'mission_fields', class: 'add-mission btn btn-success btn-block btn', 'data-association-insertion-node' => '#missions .links' do
+            Add new mission
             .glyphicon.glyphicon-plus
-  .row
-    .col-md-12
-      = f.button :submit, 'Request Community Updates', class: 'btn btn-primary'
+  = render 'submit_button', f: f

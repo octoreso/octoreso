@@ -8,6 +8,23 @@
   }
 }
 
+.row-no-padding .pad-right {
+  padding-top: 4px;
+  padding-right: 10px !important;
+}
+
+.row-no-padding .pad-left {
+  padding-left: 10px !important;
+}
+
+.nudge-down {
+  padding-top: 4px;
+}
+
+.spacer {
+    margin-top: 40px; /* define margin as you see fit */
+}
+
 html,body,p,h1,h2,h3,h4 {
   /*font-family: 'Droid Sans Mono', sans-serif;*/
 }

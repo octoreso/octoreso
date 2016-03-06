@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160304110810) do
+ActiveRecord::Schema.define(version: 20160306180531) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,14 @@ ActiveRecord::Schema.define(version: 20160304110810) do
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
   end
+
+  create_table "ingress_user_communities", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "community_id"
+  end
+
+  add_index "ingress_user_communities", ["community_id"], name: "index_ingress_user_communities_on_community_id", using: :btree
+  add_index "ingress_user_communities", ["user_id"], name: "index_ingress_user_communities_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

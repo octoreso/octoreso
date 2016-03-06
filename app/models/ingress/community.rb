@@ -10,13 +10,15 @@
 #  min_long   :decimal(9, 6)
 #  max_lat    :decimal(9, 6)
 #  max_long   :decimal(9, 6)
+#  is_active  :boolean          default(FALSE), not null
 #
 
 module Ingress
   class Community < ActiveRecord::Base
     validates :name, presence: true, uniqueness: true
 
-    has_many :mission_series, inverse_of: :community, dependent: :destroy
+    has_many :mission_series,   inverse_of: :community, dependent: :destroy
+    has_many :user_communities, inverse_of: :community, dependent: :destroy
 
     has_many :missions, ->{ active }, inverse_of: :community,
       dependent: :destroy
@@ -28,6 +30,8 @@ module Ingress
       dependent: :destroy, class_name: 'Ingress::Mission'
 
     has_many :mission_points, through: :missions
+    has_many :users,          through: :user_communities
+
 
     scope :active, -> { where(is_active: true) }
     scope :inactive, -> { where(is_active: false) }

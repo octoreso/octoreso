@@ -1,3 +1,25 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id                     :integer          not null, primary key
+#  email                  :string           default(""), not null
+#  encrypted_password     :string           default(""), not null
+#  reset_password_token   :string
+#  reset_password_sent_at :datetime
+#  remember_created_at    :datetime
+#  sign_in_count          :integer          default(0), not null
+#  current_sign_in_at     :datetime
+#  last_sign_in_at        :datetime
+#  current_sign_in_ip     :inet
+#  last_sign_in_ip        :inet
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  provider               :string
+#  google_uid             :string
+#  google_plus_link       :string
+#
+
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -5,6 +27,9 @@ class User < ActiveRecord::Base
   # :registerable,
   # :recoverable, :rememberable, , :validatable,
 
+  has_many :user_communities, class_name: 'Ingress::UserCommunity', inverse_of: :user
+
+  has_many :communities, through: :user_communities, class_name: 'Ingress::Community'
 
   # https://localtest.me:3000/users/auth/google_oauth2
   class << self

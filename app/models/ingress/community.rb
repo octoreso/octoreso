@@ -20,14 +20,19 @@ module Ingress
     has_many :mission_series,   inverse_of: :community, dependent: :destroy
     has_many :user_communities, inverse_of: :community, dependent: :destroy
 
-    has_many :missions, ->{ active }, inverse_of: :community,
-      dependent: :destroy
+    has_many :missions, ->{ active },
+      inverse_of: :community,
+      dependent:  :destroy
 
-    has_many :inactive_missions, ->{ inactive }, inverse_of: :proposed_community,
-      dependent: :destroy, class_name: 'Ingress::Mission'
+    has_many :inactive_missions, ->{ inactive },
+      inverse_of: :proposed_community,
+      dependent:  :destroy,
+      class_name: 'Ingress::Mission'
 
-    has_many :all_missions, ->{ order(:mission_series_id, :series_index, :name) }, inverse_of: :admin_community,
-      dependent: :destroy, class_name: 'Ingress::Mission'
+    has_many :all_missions, ->{ order(:mission_series_id, :series_index, :name) },
+      inverse_of: :admin_community,
+      dependent:  :destroy,
+      class_name: 'Ingress::Mission'
 
     has_many :mission_points, through: :missions
     has_many :users,          through: :user_communities
@@ -37,8 +42,9 @@ module Ingress
     scope :inactive, -> { where(is_active: false) }
 
     attr_accessor :updating_range
+    after_save :prune_empty_mission_series
 
-    accepts_nested_attributes_for :all_missions,reject_if: :all_blank, allow_destroy: true
+    accepts_nested_attributes_for :all_missions, reject_if: :all_blank, allow_destroy: true
 
     def lat
       (max_lat + min_lat) / 2
@@ -71,6 +77,12 @@ module Ingress
 
       self.updating_range = true
       save!
+    end
+
+    def prune_empty_mission_series
+      mission_series.include(:missions).each do |series|
+        series.destroy! if series.missions.blank?
+      end
     end
   end
 end

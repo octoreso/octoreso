@@ -38,8 +38,8 @@ module Ingress
     belongs_to :proposed_community, -> { inactive }, inverse_of: :inactive_missions, class_name: 'Ingress::Community'
     belongs_to :admin_community,                     inverse_of: :all_missions,      class_name: 'Ingress::Community'
 
-    belongs_to :agent,              inverse_of: :missions
-    belongs_to :mission_series,     inverse_of: :missions
+    belongs_to :agent,          inverse_of: :missions
+    belongs_to :mission_series, inverse_of: :missions
 
     has_many :mission_points, inverse_of: :mission, dependent: :destroy
 
@@ -47,14 +47,13 @@ module Ingress
 
     scope :active, -> { where(is_active: true) }
     scope :inactive, -> { where(is_active: false) }
-    scope :awaiting_moderation, ->{ inactive.where("mission_url LIKE 'https://%'") }
 
-    validates :name,                     presence: true
-    validates :community_id,             presence: true
-    validates :agent_id,                 presence: true
-    validates :mission_url,              presence: true, uniqueness: true
-    validates :sequence_type,            presence: true
-    validates :series_type,              presence: true
+    validates :mission_url,   presence: true, uniqueness: true
+    validates :name,          presence: true, if: :is_active
+    validates :community_id,  presence: true, if: :is_active
+    validates :agent_id,      presence: true, if: :is_active
+    validates :sequence_type, presence: true, if: :is_active
+    validates :series_type,   presence: true, if: :is_active
 
     enum sequence_type: {
       sequence_type_sequential:        1,
@@ -101,9 +100,7 @@ module Ingress
     def mission_series_name=(name)
       return if name.blank?
 
-      self.mission_series = community.mission_series.find_by(name: name)
-
-      fail "Can't assign mission series name yet!" if mission_series.blank?
+      self.mission_series = community.mission_series.where(name: name).first_or_create!
     end
 
     def update_range

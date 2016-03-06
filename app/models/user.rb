@@ -34,6 +34,10 @@ class User < ActiveRecord::Base
 
   has_many :communities, through: :user_communities, class_name: 'Ingress::Community'
 
+  def has_role?(role)
+    (roles % role).zero?
+  end
+
   # https://localtest.me:3000/users/auth/google_oauth2
   class << self
     def from_omniauth(auth)

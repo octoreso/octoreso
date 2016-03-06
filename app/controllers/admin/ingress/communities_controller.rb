@@ -1,6 +1,11 @@
 module Admin
   module Ingress
     class CommunitiesController < Admin::BaseController
+      # TODO: Move 90% of this logic into the models after POC is successful.
+      include ActionView::Helpers::TextHelper
+      include ActionView::Helpers::UrlHelper
+
+
       def index
         @communities = ::Ingress::Community.includes(:all_missions).all
       end
@@ -10,11 +15,11 @@ module Admin
       end
 
       def update
-        @community = ::Ingress::Community.includes(:all_missions).find(params[:id])
+        changed_missions = 0
+        all_valid        = true
+        @community       = ::Ingress::Community.includes(:all_missions).find(params[:id])
 
         ActiveRecord::Base.transaction do
-          all_valid = true
-
           begin
             # Don't actually save using update_params directly, iterate through missions individually
             parameters = update_params
@@ -53,7 +58,8 @@ module Admin
                 # Bail unless changes happened so we don't deactivate entire form.
                 next unless mission.changed?
 
-                #
+                changed_missions += 1
+
                 mission.deactivate
                 mission.save
                 mission.valid?
@@ -70,7 +76,13 @@ module Admin
           end
         end
 
-        render :show
+        if all_valid
+          redirect_to admin_ingress_communities_path(@community),
+            notice: "#{pluralize(changed_missions, 'mission')} updated for '<strong>#{link_to @community, admin_ingress_community_path(@community)}</strong>' Community.".html_safe
+        else
+          flash.now[:error] = "Could not save client"
+          render action: :show
+        end
       end
 
       private

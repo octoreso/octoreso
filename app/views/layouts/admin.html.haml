@@ -12,15 +12,14 @@
     = javascript_include_tag 'admin'
     = csrf_meta_tags
   %body
-    .container-fluid
-      .row
-        .col-md-12
-          %h4 Octoreso Admin
-      .row
-        .col-md-2
-          %nav
-            %ul.nav.nav-pills.nav-stacked
-              %li{ class: "#{controller_name == 'communities' ? 'active' : ''}", role: :presentation }
-                %a{ href: admin_ingress_communities_path } Communities
-        .col-md-10
+    #wrapper
+      #sidebar-wrapper
+        .sidebar-nav
+          %li.sidebar-brand Octoreso Admin
+          %li{ class: "#{controller_name == 'communities' ? 'active' : ''}", role: :presentation }
+            %a{ href: admin_ingress_communities_path }
+              %span.glyphicon.glyphicon-map-marker
+              Communities
+      #page-content-wrapper
+        .container-fluid
           = yield

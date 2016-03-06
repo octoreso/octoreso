@@ -44,6 +44,10 @@ module Ingress
       (max_long + min_long) / 2
     end
 
+    def to_s
+      name
+    end
+
     def update_range
       return if updating_range
 

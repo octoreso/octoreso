@@ -1,5 +1,4 @@
 = simple_form_for(@community, html: { class: 'form-horizontal' }, url: admin_ingress_community_path) do |f|
-  = render 'submit_button', f: f
   = render 'community_fields', f: f
   #missions
     = f.simple_fields_for :all_missions do |sf|

@@ -98,7 +98,11 @@ module Ingress
     end
 
     def mission_series_name=(name)
-      fail "Can't assign mission series name yet!"
+      return if name.blank?
+
+      self.mission_series = community.mission_series.find_by(name: name)
+
+      fail "Can't assign mission series name yet!" if mission_series.blank?
     end
 
     def update_range
@@ -129,6 +133,12 @@ module Ingress
       # Save
       mission_series.try(:update_range)
       community.update_range
+    end
+
+    # Take "offline", clear all live data so that new JSON will be added.
+    def deactivate
+      self.is_active = false
+      self.mission_points.destroy_all
     end
   end
 end

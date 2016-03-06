@@ -18,9 +18,12 @@
 #  provider               :string
 #  google_uid             :string
 #  google_plus_link       :string
+#  roles                  :integer          default(0), not null
 #
 
 class User < ActiveRecord::Base
+  ROLE_ADMIN = 1
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :trackable, :omniauthable, omniauth_providers: [:google_oauth2]

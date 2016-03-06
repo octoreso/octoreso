@@ -6,21 +6,28 @@
 # GMAIL_USERNAME: Your_Gmail_Username
 # makes 'Your_Gmail_Username' available as ENV["GMAIL_USERNAME"]
 
-ADMIN_NAME: 'First User'
 ADMIN_EMAIL: 'user@example.com'
+ADMIN_GOOGLE_UID: '$2a$10$xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+ADMIN_GOOGLE_PLUS_URL: 'https://plus.google.com/+...'
+
+SECRET_TOKEN: '111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111'
+GOOGLE_CLIENT_ID: 'xxxxxxxxxxx-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.apps.googleusercontent.com'
+GOOGLE_CLIENT_SECRET: 'xxxxx-xxxxxxxxxxxxxxxxx'
+
+# DEPRECATED
+ADMIN_NAME: 'First User'
 ADMIN_PASSWORD: 'changeme'
 ROLES: '[admin, user, VIP]'
-SECRET_TOKEN: '111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111'
 ADMIN_STEAM_UID: '111111'
 APIKEY_STEAM: '1111111'
 AWS_ACCESS_KEY_ID: 'xxx'
 AWS_SECRET_ACCESS_KEY: 'yyy'
-S3_BUCKET_NAME: 'tobypinder'
-GOOGLE_CLIENT_ID: 'xxxxxxxxxxx-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.apps.googleusercontent.com'
-GOOGLE_CLIENT_SECRET: 'xxxxx-xxxxxxxxxxxxxxxxx'
+S3_BUCKET_NAME: 'foobar'
 
 # Heroku will handle non-local db urls automatically.
 development:
-  DATABASE_URL: postgres://username:password@localhost:5432/tobypinder_dev
+  DATABASE_URL: postgres://username:password@localhost:5432/octoreso_dev
 test:
-  DATABASE_URL: postgres://username:password@localhost:5432/tobypinder_test
+  DATABASE_URL: postgres://username:password@localhost:5432/octoreso_test
+test:
+  DATABASE_URL: postgres://username:password@localhost:5432/octoreso_production

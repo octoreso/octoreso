@@ -47,14 +47,12 @@ $(document).on('click', 'a[data-ajax="community"]', function(e){
 $(document).on('mousedown', 'span.glyphicon-check[data-check-mission-id]', function(e){
   var id = $(e.target).data('check-mission-id')
 
-  $(e.target).removeClass('glyphicon-check')
-  $(e.target).addClass('glyphicon-refresh')
+  $(e.target).removeClass('glyphicon-check').addClass('glyphicon-refresh')
 
   setTimeout(
     $.proxy(
       function() {
-        $(e.target).removeClass('glyphicon-refresh')
-        $(e.target).addClass('glyphicon-unchecked')
+        $(e.target).removeClass('glyphicon-refresh').addClass('glyphicon-unchecked')
 	    },
       this
     ),
@@ -66,14 +64,12 @@ $(document).on('mousedown', 'span.glyphicon-check[data-check-mission-id]', funct
 $(document).on('mousedown', 'span.glyphicon-unchecked[data-check-mission-id]', function(e){
   var id = $(e.target).data('check-mission-id')
 
-  $(e.target).removeClass('glyphicon-unchecked')
-  $(e.target).addClass('glyphicon-refresh')
+  $(e.target).removeClass('glyphicon-unchecked').addClass('glyphicon-refresh')
 
   setTimeout(
     $.proxy(
       function() {
-        $(e.target).removeClass('glyphicon-refresh')
-        $(e.target).addClass('glyphicon-check')
+        $(e.target).removeClass('glyphicon-refresh').addClass('glyphicon-check')
       },
       this
     ),

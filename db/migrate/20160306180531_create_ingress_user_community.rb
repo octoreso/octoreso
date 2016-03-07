@@ -3,6 +3,7 @@ class CreateIngressUserCommunity < ActiveRecord::Migration
     create_table :ingress_user_communities do |t|
       t.references :user,      index: true
       t.references :community, index: true
+      t.timestamps
     end
   end
 end

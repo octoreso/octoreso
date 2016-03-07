@@ -58,7 +58,6 @@ $(document).on('mousedown', 'span.glyphicon-check[data-check-mission-id]', funct
     ),
     100
   );
-
 });
 
 $(document).on('mousedown', 'span.glyphicon-unchecked[data-check-mission-id]', function(e){

@@ -53,11 +53,11 @@ ActiveRecord::Schema.define(version: 20160306193839) do
   end
 
   create_table "ingress_missions", force: :cascade do |t|
-    t.string   "name",                                                      null: false
-    t.integer  "agent_id",                                                  null: false
-    t.string   "mission_url",                                               null: false
-    t.integer  "sequence_type",                                             null: false
-    t.integer  "series_type",                                               null: false
+    t.string   "name",                                      default: "",    null: false
+    t.integer  "agent_id"
+    t.string   "mission_url",                               default: "",    null: false
+    t.integer  "sequence_type"
+    t.integer  "series_type"
     t.integer  "hidden_points",                             default: 0,     null: false
     t.integer  "mission_series_id"
     t.integer  "series_index"

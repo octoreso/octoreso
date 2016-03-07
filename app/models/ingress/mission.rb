@@ -3,11 +3,11 @@
 # Table name: ingress_missions
 #
 #  id                :integer          not null, primary key
-#  name              :string           not null
-#  agent_id          :integer          not null
-#  mission_url       :string           not null
-#  sequence_type     :integer          not null
-#  series_type       :integer          not null
+#  name              :string           default(""), not null
+#  agent_id          :integer
+#  mission_url       :string           default(""), not null
+#  sequence_type     :integer
+#  series_type       :integer
 #  hidden_points     :integer          default(0), not null
 #  mission_series_id :integer
 #  series_index      :integer
@@ -91,6 +91,39 @@ module Ingress
 
         self.limit(page_size).offset((number - 1) * page_size)
       end
+
+      def modify_from_form!(community, mission_data)
+        # Load if exists
+        mission = ::Ingress::Mission.find_by(id: mission_data[:id])
+
+        # Try to find by mission link otherwise
+        mission ||= ::Ingress::Mission.find_by(mission_url: mission_data[:mission_url])
+
+        # Check if exists in other communities
+        if mission.present? && mission.community != community
+          raise ActiveRecord::Rollback, "Mission #{mission_url} already exists in #{community}"
+        end
+
+        # Or create if not present.
+        mission ||= community.missions.new
+
+
+
+        # Delete the mission if needed
+        if mission_data['_destroy'].present? && mission_data['_destroy'] == "1"
+          mission.destroy!
+          return nil
+        end
+
+        # Add all data from mission_data hash
+        mission_data.each do |key, value|
+          next if ['id', '_destroy'].include?(key)
+
+          mission.public_send("#{key}=", value)
+        end
+
+        mission
+      end
     end
 
     def mission_series_name
@@ -101,7 +134,7 @@ module Ingress
       old_mission_series = mission_series
 
       if name.blank?
-        self.update_attributes!(mission_series: nil)
+        self.update_attributes!(mission_series: nil) unless self.mission_series.blank?
       else
         self.update_attributes!(mission_series: community.mission_series.where(name: name).first_or_create!)
       end

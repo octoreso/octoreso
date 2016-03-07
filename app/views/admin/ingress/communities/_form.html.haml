@@ -9,7 +9,7 @@
     .links
       .row.row-no-padding
         .col-md-12
-          = link_to_add_association f, :missions, partial: 'mission_fields', class: 'add-mission btn btn-success btn-block btn', 'data-association-insertion-node' => '#missions .links' do
+          = link_to_add_association f, :all_missions, partial: 'mission_fields', class: 'add-mission btn btn-success btn-block btn', 'data-association-insertion-node' => '#missions .links' do
             Add new mission
             .glyphicon.glyphicon-plus
   = render 'submit_button', f: f

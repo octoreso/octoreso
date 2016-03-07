@@ -1,10 +1,9 @@
 .nested-fields
   .row
-    .col-md-4.nudge-down
+    .col-md-3.nudge-down
       - if f.object.persisted?
         %span
           = f.object.name
-
       %span.pull-right
         - if f.object.persisted? && f.object.is_active
           %span.label.label-success Live
@@ -12,9 +11,9 @@
           %span.label.label-warning Pending
         - else
           %span.label.label-danger New
-    .col-md-3.no-pad= f.input :mission_series_name, wrapper: false, label: false, input_html: { class: 'input-sm' }
+    .col-md-5.no-pad= f.input :mission_url, wrapper: false, label: false, input_html: { class: 'input-sm' }
+    .col-md-2.no-pad= f.input :mission_series_name, wrapper: false, label: false, input_html: { class: 'input-sm' }
     .col-md-1.no-pad= f.input :series_index, wrapper: false, label: false, input_html: { class: 'input-sm' }
-    .col-md-3.no-pad= f.input :mission_url, wrapper: false, label: false, input_html: { class: 'input-sm' }
     .col-md-1.pad-left
       - if f.object.persisted?
         = f.input :_destroy, as: :boolean, wrapper: false, label: false, inline_label: 'Delete?'

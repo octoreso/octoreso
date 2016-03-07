@@ -16,6 +16,8 @@ User.create!(
   roles:                 User::ROLE_ADMIN
 )
 
+require Rails.root.join('db', 'seeds', 'ingress', 'communities.rb')
+
 Dir[Rails.root.join('db', 'seeds', 'ingress', 'missions', '**', '*.csv')].each do |file|
   file_name = file.split('db/seeds/ingress/missions/').last.gsub('.csv', '')
   puts

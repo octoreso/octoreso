@@ -6,3 +6,5 @@ Ingress::Community.new(name: 'uk/oxford')
 Ingress::Community.new(name: 'uk/bath')
 Ingress::Community.new(name: 'uk/newcastle')
 Ingress::Community.new(name: 'us/or/portland')
+
+Ingress::Community.new(name: 'uk/durham')

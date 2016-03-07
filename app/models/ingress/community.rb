@@ -29,7 +29,7 @@ module Ingress
       dependent:  :destroy,
       class_name: 'Ingress::Mission'
 
-    has_many :all_missions, ->{ order(:mission_series_id, :series_index, :name) },
+    has_many :all_missions, ->{ order(:mission_series_id, :series_index, is_active: :desc, name: :asc) },
       inverse_of: :admin_community,
       dependent:  :destroy,
       class_name: 'Ingress::Mission'

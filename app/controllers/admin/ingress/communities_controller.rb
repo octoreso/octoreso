@@ -7,7 +7,7 @@ module Admin
 
 
       def index
-        @communities = ::Ingress::Community.includes(:all_missions).all.accessible_by(current_ability)
+        @communities = ::Ingress::Community.includes(:all_missions).accessible_by(current_ability)
 
         authorize! :edit, ::Ingress::Community
       end
@@ -63,7 +63,7 @@ module Admin
         end
 
         if all_valid
-          redirect_to admin_ingress_communities_path(@community),
+          redirect_to admin_ingress_communities_path,
             notice: "Missions updated for '<strong>#{link_to @community, admin_ingress_community_path(@community)}</strong>' Community.".html_safe
         else
           render action: :show

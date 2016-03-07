@@ -42,7 +42,6 @@ module Ingress
     scope :inactive, -> { where(is_active: false) }
 
     attr_accessor :updating_range
-    after_save :prune_empty_mission_series
 
     accepts_nested_attributes_for :all_missions, reject_if: :all_blank, allow_destroy: true
 
@@ -77,12 +76,6 @@ module Ingress
 
       self.updating_range = true
       save!
-    end
-
-    def prune_empty_mission_series
-      mission_series.include(:missions).each do |series|
-        series.destroy! if series.missions.blank?
-      end
     end
   end
 end

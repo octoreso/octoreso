@@ -7,17 +7,24 @@ module Admin
 
 
       def index
-        @communities = ::Ingress::Community.includes(:all_missions).all
+        @communities = ::Ingress::Community.includes(:all_missions).all.accessible_by(current_ability)
+
+        authorize! :edit, ::Ingress::Community
       end
 
       def show
-        @community = ::Ingress::Community.includes(:all_missions).find(params[:id])
+        @community = ::Ingress::Community.includes(:all_missions).accessible_by(current_ability).find(params[:id])
+
+        authorize! :edit, @community
       end
 
       def update
+        @community = ::Ingress::Community.includes(:all_missions).accessible_by(current_ability).find(params[:id])
+
+        authorize! :edit, @community
+
         changed_missions = 0
         all_valid        = true
-        @community       = ::Ingress::Community.includes(:all_missions).find(params[:id])
 
         ActiveRecord::Base.transaction do
           begin
@@ -67,7 +74,6 @@ module Admin
                 all_valid = false unless mission.errors.empty?
               end
             end
-
             raise ActiveRecord::Rollback, "Some missions contain errors" unless all_valid
           rescue ActiveRecord::Rollback => e
             @community.errors.add(:base, e.message)

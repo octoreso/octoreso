@@ -15,7 +15,8 @@
     #wrapper
       #sidebar-wrapper
         .sidebar-nav
-          %li.sidebar-brand Octoreso Admin
+          %li.sidebar-brand
+            %a{ href: admin_path } Octoreso Admin
           %li{ class: "#{controller_name == 'communities' ? 'active' : ''}", role: :presentation }
             %a{ href: admin_ingress_communities_path }
               %span.glyphicon.glyphicon-map-marker

@@ -35,7 +35,8 @@ class User < ActiveRecord::Base
   has_many :communities, through: :user_communities, class_name: 'Ingress::Community'
 
   def has_role?(role)
-    (roles % role).zero?
+    # TODO: Refactor into bitmask for multiple roles.
+    roles == role
   end
 
   # https://localtest.me:3000/users/auth/google_oauth2

@@ -3,7 +3,7 @@ class Ability
 
   def initialize(user)
     return unless user.present?
-    return admin if user.has_role? :admin
+    return admin if user.has_role? User::ROLE_ADMIN
 
     authenticated(user)
   end
@@ -13,6 +13,6 @@ class Ability
   end
 
   def authenticated(user)
-    can [:read, :edit], Ingress::Community, id: user.user_communities.map(&:community_ids)
+    can :edit, ::Ingress::Community, id: user.user_communities.map(&:community_id)
   end
 end

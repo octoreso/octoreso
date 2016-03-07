@@ -16,6 +16,8 @@ Octoreso::Application.routes.draw do
     scope module: :ingress, as: :ingress do
       resources :communities, except: [:edit, :destroy]
     end
+
+    get '/', to: redirect('/communities')
   end
 
   root to: 'home#index'

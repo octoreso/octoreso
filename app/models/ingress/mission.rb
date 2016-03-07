@@ -98,9 +98,15 @@ module Ingress
     end
 
     def mission_series_name=(name)
-      return if name.blank?
+      old_mission_series = mission_series
 
-      self.mission_series = community.mission_series.where(name: name).first_or_create!
+      if name.blank?
+        self.update_attributes!(mission_series: nil)
+      else
+        self.update_attributes!(mission_series: community.mission_series.where(name: name).first_or_create!)
+      end
+
+      old_mission_series.try(:prune_if_empty!)
     end
 
     def update_range

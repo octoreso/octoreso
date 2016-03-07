@@ -69,5 +69,9 @@ module Ingress
       self.updating_range = true
       save!
     end
+
+    def prune_if_empty!
+      destroy! if missions.blank?
+    end
   end
 end

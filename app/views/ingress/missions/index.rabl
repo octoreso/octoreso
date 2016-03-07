@@ -30,6 +30,12 @@ child agent: :agent do
     :name
 end
 
+if current_user.present?
+  node :user do |user_node|
+    { completed: (rand(5) > 3) ? true : false }
+  end
+end
+
 child mission_points: :mission_points do
   attributes :id,
     :mission_id,

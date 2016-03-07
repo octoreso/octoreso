@@ -43,3 +43,41 @@ $(document).on('click', 'a[data-ajax="community"]', function(e){
 
   Ajax.missions();
 });
+
+$(document).on('mousedown', 'span.glyphicon-check[data-check-mission-id]', function(e){
+  var id = $(e.target).data('check-mission-id')
+
+  $(e.target).removeClass('glyphicon-check')
+  $(e.target).addClass('glyphicon-refresh')
+
+  setTimeout(
+    $.proxy(
+      function() {
+        $(e.target).removeClass('glyphicon-refresh')
+        $(e.target).addClass('glyphicon-unchecked')
+	    },
+      this
+    ),
+    100
+  );
+
+});
+
+$(document).on('mousedown', 'span.glyphicon-unchecked[data-check-mission-id]', function(e){
+  var id = $(e.target).data('check-mission-id')
+
+  $(e.target).removeClass('glyphicon-unchecked')
+  $(e.target).addClass('glyphicon-refresh')
+
+  setTimeout(
+    $.proxy(
+      function() {
+        $(e.target).removeClass('glyphicon-refresh')
+        $(e.target).addClass('glyphicon-check')
+      },
+      this
+    ),
+    100
+  );
+
+});

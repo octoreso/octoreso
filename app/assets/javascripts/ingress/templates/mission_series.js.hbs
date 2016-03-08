@@ -2,7 +2,17 @@
 <ul>
   {{#each missions}}
     <li>
-      <a href="#" data-ajax="mission" data-mission-id="{{id}}">{{name}}</a>
+      {{#if user}}
+        {{#if user.completed}}
+          <span class="glyphicon glyphicon-check" data-check-mission-id="{{id}}" alt="Track which missions you've completed."/>
+        {{else}}
+          <span class="glyphicon glyphicon-unchecked" data-check-mission-id="{{id}}" alt="Track which missions you've completed."/>
+        {{/if}}
+      {{/if}}
+
+      <a href="#" data-ajax="mission" data-mission-id="{{id}}">
+        {{name}}
+      </a>
     </li>
   {{/each}}
 </ul>

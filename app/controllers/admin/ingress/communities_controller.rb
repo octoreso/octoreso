@@ -7,7 +7,7 @@ module Admin
 
 
       def index
-        @communities = ::Ingress::Community.includes(:all_missions).accessible_by(current_ability)
+        @communities = ::Ingress::Community.includes(:all_missions).accessible_by(current_ability).order(:name)
 
         authorize! :edit, ::Ingress::Community
       end

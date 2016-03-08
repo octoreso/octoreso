@@ -59,3 +59,9 @@ $(document).on('mousedown', 'span.glyphicon-unchecked[data-check-mission-id]', f
 
   Ajax.check_mission(id)
 });
+
+
+// TODO: Make this dynamic so we can use it in sidebar content.
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+});

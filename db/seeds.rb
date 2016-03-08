@@ -10,14 +10,16 @@ User.create!(
   email:                 ENV['ADMIN_EMAIL'],
   password:              pass,
   password_confirmation: pass,
-  provider:              "google_oauth2",
+  provider:              'google_oauth2',
   google_uid:            ENV['ADMIN_GOOGLE_UID'],
   google_plus_link:      ENV['ADMIN_GOOGLE_PLUS_URL'],
   roles:                 User::ROLE_ADMIN
 )
 
-require Rails.root.join('db', 'seeds', 'ingress', 'communities.rb')
+# Community
+load Rails.root.join('db', 'seeds', 'ingress', 'communities.rb')
 
+# Missions
 Dir[Rails.root.join('db', 'seeds', 'ingress', 'missions', '**', '*.csv')].each do |file|
   file_name = file.split('db/seeds/ingress/missions/').last.gsub('.csv', '')
   puts

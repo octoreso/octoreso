@@ -49,15 +49,7 @@ $(document).on('mousedown', 'span.glyphicon-check[data-check-mission-id]', funct
 
   $(e.target).removeClass('glyphicon-check').addClass('glyphicon-refresh')
 
-  setTimeout(
-    $.proxy(
-      function() {
-        $(e.target).removeClass('glyphicon-refresh').addClass('glyphicon-unchecked')
-	    },
-      this
-    ),
-    100
-  );
+  Ajax.uncheck_mission(id)
 });
 
 $(document).on('mousedown', 'span.glyphicon-unchecked[data-check-mission-id]', function(e){
@@ -65,14 +57,5 @@ $(document).on('mousedown', 'span.glyphicon-unchecked[data-check-mission-id]', f
 
   $(e.target).removeClass('glyphicon-unchecked').addClass('glyphicon-refresh')
 
-  setTimeout(
-    $.proxy(
-      function() {
-        $(e.target).removeClass('glyphicon-refresh').addClass('glyphicon-check')
-      },
-      this
-    ),
-    100
-  );
-
+  Ajax.check_mission(id)
 });

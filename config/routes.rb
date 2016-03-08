@@ -9,6 +9,12 @@ Octoreso::Application.routes.draw do
       resources :communities   , only: [:index, :show]
       resources :missions      , only: [:index, :show]
       resources :mission_series, only: [:index, :show]
+      resources :user_completed_mission, only: [] do
+        member do
+          get 'check'
+          get 'uncheck'
+        end
+      end
     end
   end
 

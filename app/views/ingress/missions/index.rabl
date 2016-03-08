@@ -31,8 +31,8 @@ child agent: :agent do
 end
 
 if current_user.present?
-  node :user do |user_node|
-    { completed: (rand(5) > 3) ? true : false }
+  node :user do |mission|
+    { completed: @checked_missions[mission.id] ? true : false }
   end
 end
 

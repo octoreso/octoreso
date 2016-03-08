@@ -30,7 +30,8 @@ class User < ActiveRecord::Base
   # :registerable,
   # :recoverable, :rememberable, , :validatable,
 
-  has_many :user_communities, class_name: 'Ingress::UserCommunity', inverse_of: :user
+  has_many :user_communities,        class_name: 'Ingress::UserCommunity',        inverse_of: :user
+  has_many :user_completed_missions, class_name: 'Ingress::UserCompletedMission', inverse_of: :user
 
   has_many :communities, through: :user_communities, class_name: 'Ingress::Community'
 

@@ -37,6 +37,11 @@ module Ingress
         .page(1)
         .sort_by(&:name)
 
+      if current_user.present?
+        @checked_missions = Ingress::UserCompletedMission.where(user: current_user, mission: @missions.map(&:id))
+          .group_by(&:mission_id)
+      end
+
       respond_with @missions
     end
 

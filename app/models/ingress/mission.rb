@@ -38,6 +38,8 @@ module Ingress
     belongs_to :proposed_community, -> { inactive }, inverse_of: :inactive_missions, class_name: 'Ingress::Community'
     belongs_to :admin_community,                     inverse_of: :all_missions,      class_name: 'Ingress::Community'
 
+    has_many :user_completed_missions, inverse_of: :mission
+
     belongs_to :agent,          inverse_of: :missions
     belongs_to :mission_series, inverse_of: :missions
 

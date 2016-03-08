@@ -10,6 +10,7 @@
 #  min_long   :decimal(9, 6)
 #  max_lat    :decimal(9, 6)
 #  max_long   :decimal(9, 6)
+#  is_active  :boolean          default(FALSE), not null
 #
 
 module Ingress
@@ -34,8 +35,9 @@ module Ingress
 
     def show
       @community = Ingress::Community.where(id: params[:id]).includes(:mission_series)
+      @community = @community.first
 
-      respond_with @community.first
+      respond_with @community
     end
   end
 end

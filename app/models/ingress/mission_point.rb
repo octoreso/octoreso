@@ -33,10 +33,6 @@ module Ingress
       ActionController::Base.helpers.asset_url("action_type/#{action_type.gsub('action_type_', '')}.svg")
     end
 
-    def as_json(options = {})
-      super(options.merge(include: :point, methods: :action_icon))
-    end
-
     private
 
     def destroy_orphaned_points

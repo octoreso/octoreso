@@ -1,0 +1,15 @@
+= simple_form_for(@community, html: { class: 'form-horizontal' }, url: admin_ingress_community_path) do |f|
+  = render 'community_fields', f: f
+  #missions
+    = f.simple_fields_for :all_missions do |sf|
+      - if (sf.index % 20).zero?
+        = render 'header_row'
+      = render 'mission_fields', f: sf
+    = render 'header_row'
+    .links
+      .row.row-no-padding
+        .col-md-12
+          = link_to_add_association f, :all_missions, partial: 'mission_fields', class: 'add-mission btn btn-success btn-block btn', 'data-association-insertion-node' => '#missions .links' do
+            Add new mission
+            .glyphicon.glyphicon-plus
+  = render 'submit_button', f: f

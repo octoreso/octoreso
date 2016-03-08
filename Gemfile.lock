@@ -1,13 +1,3 @@
-GIT
-  remote: git://github.com/leshill/handlebars_assets.git
-  revision: f7779a4e1e39e39bd472a17da96b3f0f6c4fbad7
-  specs:
-    handlebars_assets (0.23.0)
-      execjs (~> 2.0)
-      multi_json (~> 1.0)
-      sprockets (>= 2.0.0)
-      tilt (>= 1.2)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -52,16 +42,17 @@ GEM
       rake (~> 10.4)
     arel (6.0.3)
     ast (2.2.0)
-    autoprefixer-rails (6.3.1)
+    autoprefixer-rails (6.3.3)
       execjs
       json
     awesome_print (1.6.1)
-    aws-sdk (2.2.14)
-      aws-sdk-resources (= 2.2.14)
-    aws-sdk-core (2.2.14)
+    aws-sdk (2.2.18)
+      aws-sdk-resources (= 2.2.18)
+    aws-sdk-core (2.2.18)
       jmespath (~> 1.0)
-    aws-sdk-resources (2.2.14)
-      aws-sdk-core (= 2.2.14)
+    aws-sdk-resources (2.2.18)
+      aws-sdk-core (= 2.2.18)
+    bcrypt (3.1.10)
     better_errors (2.1.1)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -75,6 +66,7 @@ GEM
     bullet (5.0.0)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.9.0)
+    cancancan (1.13.1)
     capistrano (3.4.0)
       i18n
       rake (>= 10.0.0)
@@ -101,17 +93,14 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    capybara-email (2.4.0)
+    capybara-email (2.5.0)
       capybara (~> 2.4)
       mail
     childprocess (0.5.9)
       ffi (~> 1.0, >= 1.0.11)
     choice (0.2.0)
-    climate_control (0.0.3)
-      activesupport (>= 3.0)
-    cocaine (0.5.8)
-      climate_control (>= 0.0.3, < 1.0)
-    coderay (1.1.0)
+    cocoon (1.2.8)
+    coderay (1.1.1)
     coffee-rails (4.1.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.1.x)
@@ -125,6 +114,13 @@ GEM
       unicode_utils (~> 1.4)
     database_cleaner (1.5.1)
     debug_inspector (0.0.2)
+    devise (3.5.6)
+      bcrypt (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (>= 3.2.6, < 5)
+      responders
+      thread_safe (~> 0.1)
+      warden (~> 1.2.3)
     diff-lcs (1.2.5)
     docile (1.1.5)
     em-http-request (1.1.3)
@@ -153,6 +149,8 @@ GEM
     factory_girl_rails (4.6.0)
       factory_girl (~> 4.5.0)
       railties (>= 3.0.0)
+    faraday (0.9.2)
+      multipart-post (>= 1.2, < 3)
     ffi (1.9.10)
     figaro (1.1.1)
       thor (~> 0.14)
@@ -169,7 +167,13 @@ GEM
       haml (>= 4.0.6, < 5.0)
       html2haml (>= 1.0.1)
       railties (>= 4.0.1)
-    headless (2.2.0)
+    handlebars_assets (0.23.0)
+      execjs (~> 2.0)
+      multi_json (~> 1.0)
+      sprockets (>= 2.0.0)
+      tilt (>= 1.2)
+    hashie (3.4.3)
+    headless (2.2.2)
     html2haml (2.0.0)
       erubis (~> 2.7.0)
       haml (~> 4.0.0)
@@ -181,7 +185,7 @@ GEM
     i18n-js (3.0.0.rc12)
       i18n (~> 0.6, >= 0.6.6)
     interception (0.5)
-    jbuilder (2.4.0)
+    jbuilder (2.4.1)
       activesupport (>= 3.0.0, < 5.1)
       multi_json (~> 1.2)
     jmespath (1.1.3)
@@ -190,6 +194,7 @@ GEM
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
     json (1.8.3)
+    jwt (1.5.1)
     launchy (2.4.3)
       addressable (~> 2.3)
     loofah (2.0.3)
@@ -199,22 +204,36 @@ GEM
     marco-polo (1.2.1)
     method_source (0.8.2)
     mime-types (2.99)
-    mimemagic (0.3.0)
     mini_portile2 (2.0.0)
     minitest (5.8.4)
     multi_json (1.11.2)
+    multi_xml (0.5.5)
+    multipart-post (2.0.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (3.0.2)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
-    paperclip (4.3.4)
-      activemodel (>= 3.2.0)
-      activesupport (>= 3.2.0)
-      cocaine (~> 0.5.5)
-      mime-types
-      mimemagic (= 0.3.0)
-    parser (2.3.0.3)
+    oauth2 (1.1.0)
+      faraday (>= 0.8, < 0.10)
+      jwt (~> 1.0, < 1.5.2)
+      multi_json (~> 1.3)
+      multi_xml (~> 0.5)
+      rack (>= 1.2, < 3)
+    oj (2.14.5)
+    omniauth (1.3.1)
+      hashie (>= 1.2, < 4)
+      rack (>= 1.0, < 3)
+    omniauth-google-oauth2 (0.3.1)
+      jwt (~> 1.0)
+      multi_json (~> 1.3)
+      omniauth (>= 1.1.1)
+      omniauth-oauth2 (>= 1.3.1)
+    omniauth-oauth2 (1.4.0)
+      oauth2 (~> 1.0)
+      omniauth (~> 1.2)
+    orm_adapter (0.5.0)
+    parser (2.3.0.6)
       ast (~> 2.2)
     pg (0.18.4)
     powerpack (0.1.1)
@@ -243,6 +262,8 @@ GEM
     puma (2.16.0)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
+    rabl (0.12.0)
+      activesupport (>= 2.3.14)
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -263,7 +284,7 @@ GEM
       activesupport (>= 4.2.0.beta, < 5.0)
       nokogiri (~> 1.6.0)
       rails-deprecated_sanitizer (>= 1.0.1)
-    rails-erd (1.4.5)
+    rails-erd (1.4.6)
       activerecord (>= 3.2)
       activesupport (>= 3.2)
       choice (~> 0.2.0)
@@ -291,7 +312,7 @@ GEM
       rspec-mocks (~> 3.4.0)
     rspec-collection_matchers (1.1.2)
       rspec-expectations (>= 2.99.0.beta1)
-    rspec-core (3.4.2)
+    rspec-core (3.4.3)
       rspec-support (~> 3.4.0)
     rspec-expectations (3.4.0)
       diff-lcs (>= 1.2.0, < 2.0)
@@ -308,17 +329,17 @@ GEM
       rspec-mocks (~> 3.4.0)
       rspec-support (~> 3.4.0)
     rspec-support (3.4.1)
-    rubocop (0.37.0)
-      parser (>= 2.3.0.2, < 3.0)
+    rubocop (0.37.2)
+      parser (>= 2.3.0.4, < 3.0)
       powerpack (~> 0.1)
       rainbow (>= 1.99.1, < 3.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (~> 0.3)
     ruby-graphviz (1.2.2)
     ruby-progressbar (1.7.5)
-    ruby_parser (3.7.3)
+    ruby_parser (3.8.1)
       sexp_processor (~> 4.1)
-    rubyzip (1.1.7)
+    rubyzip (1.2.0)
     sass (3.4.21)
     sass-rails (5.0.4)
       railties (>= 4.0.0, < 5.0)
@@ -326,14 +347,17 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
-    selenium-webdriver (2.51.0)
+    selenium-webdriver (2.52.0)
       childprocess (~> 0.5)
       multi_json (~> 1.0)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
-    sexp_processor (4.6.1)
+    sexp_processor (4.7.0)
     shoulda-matchers (3.1.1)
       activesupport (>= 4.0.0)
+    simple_form (3.2.1)
+      actionpack (> 4, < 5.1)
+      activemodel (> 4, < 5.1)
     simplecov (0.11.2)
       docile (~> 1.1.0)
       json (~> 1.8)
@@ -362,6 +386,8 @@ GEM
     unicode-display_width (0.3.1)
     unicode_utils (1.4.0)
     uniform_notifier (1.9.0)
+    warden (1.2.6)
+      rack (>= 1.0)
     websocket (1.2.2)
     whiny_validation (0.1.1)
       activerecord
@@ -380,6 +406,7 @@ DEPENDENCIES
   binding_of_caller
   bootstrap-sass
   bullet
+  cancancan
   capistrano
   capistrano-bundler
   capistrano-figaro-yml
@@ -388,8 +415,10 @@ DEPENDENCIES
   capistrano3-puma
   capybara
   capybara-email
+  cocoon
   coffee-rails
   database_cleaner
+  devise
   email_spec
   erd
   factory_girl
@@ -397,14 +426,16 @@ DEPENDENCIES
   figaro
   fuubar
   haml-rails
-  handlebars_assets!
+  handlebars_assets
   headless
   html2haml
   i18n-js (>= 3.0.0.rc11)
   jbuilder
   jquery-rails
   marco-polo
-  paperclip
+  oj
+  omniauth
+  omniauth-google-oauth2
   pg
   pry
   pry-coolline
@@ -414,6 +445,7 @@ DEPENDENCIES
   puffing-billy
   puma
   quiet_assets
+  rabl
   rails
   rails_12factor
   rails_layout
@@ -424,6 +456,7 @@ DEPENDENCIES
   sass-rails
   selenium-webdriver
   shoulda-matchers
+  simple_form
   simplecov
   timecop
   uglifier

@@ -115,6 +115,22 @@ var Ajax = {
     MissionMap.mode = MissionMap.modes.CONTENT;
     $('#sidebar').html(JST['content/'+id]({ id: id }));
   },
+  check_mission: function(id)
+  {
+    $.ajax({
+      url: '/api/user_completed_mission/' + id + '/check.json'
+    }).success(function(data, code) {
+      $('span[data-check-mission-id='+id+']').removeClass('glyphicon-refresh').addClass('glyphicon-check')
+    });
+  },
+  uncheck_mission: function(id)
+  {
+    $.ajax({
+      url: '/api/user_completed_mission/' + id + '/uncheck.json'
+    }).success(function(data, code) {
+      $('span[data-check-mission-id='+id+']').removeClass('glyphicon-refresh').addClass('glyphicon-unchecked')
+    });
+  },
   initial:function()
   {
     MissionMap.mode = MissionMap.modes.CONTENT;

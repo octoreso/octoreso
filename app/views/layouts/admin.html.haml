@@ -1,0 +1,43 @@
+!!!
+%html{lang: 'en'}
+  %head
+    %meta{charset: 'utf-8'}/
+    %meta{content: 'IE=edge', 'http-equiv' => 'X-UA-Compatible'}/
+    %meta{content: 'width=device-width, initial-scale=1', name: 'viewport'}/
+    %meta{content: 'Octoreso Data Admin Backend', name: 'description'}/
+    %meta{content: '@tobypinder', name: 'author'}/
+    %link{href: 'favicon.ico', rel: 'shortcut icon'}/
+    %title Octoreso Admin
+    = stylesheet_link_tag    'admin', media: 'all'
+    = javascript_include_tag 'admin'
+    = csrf_meta_tags
+  %body
+    #wrapper
+      #sidebar-wrapper
+        .sidebar-nav
+          %li.sidebar-brand
+            %a{ href: admin_path } Octoreso Admin
+          %li{ class: "#{controller_name == 'communities' ? 'active' : ''}", role: :presentation }
+            %a{ href: admin_ingress_communities_path }
+              %span.glyphicon.glyphicon-map-marker
+              Communities
+          %li.spacer{ role: :presentation }
+            %a{ href: root_url(subdomain: nil) }
+              %span.glyphicon.glyphicon-eject
+              Back to map
+      #page-content-wrapper
+        .container-fluid
+          - flash.each do |key, value|
+            .row
+              .col-md-12
+                - if key == 'alert'
+                  .alert.alert-danger.alert-dismissible
+                    %button.close{ 'data-dismiss' => 'alert', 'aria-label' => "Close" }
+                      %span{ 'aria-hidden' => 'true' } &times;
+                    = value
+                - else
+                  .alert.alert-info.alert-dismissible
+                    %button.close{ 'data-dismiss' => 'alert', 'aria-label' => "Close" }
+                      %span{ 'aria-hidden' => 'true' } &times;
+                    = value
+          = yield

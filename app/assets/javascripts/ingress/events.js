@@ -43,3 +43,25 @@ $(document).on('click', 'a[data-ajax="community"]', function(e){
 
   Ajax.missions();
 });
+
+$(document).on('mousedown', 'span.glyphicon-check[data-check-mission-id]', function(e){
+  var id = $(e.target).data('check-mission-id')
+
+  $(e.target).removeClass('glyphicon-check').addClass('glyphicon-refresh')
+
+  Ajax.uncheck_mission(id)
+});
+
+$(document).on('mousedown', 'span.glyphicon-unchecked[data-check-mission-id]', function(e){
+  var id = $(e.target).data('check-mission-id')
+
+  $(e.target).removeClass('glyphicon-unchecked').addClass('glyphicon-refresh')
+
+  Ajax.check_mission(id)
+});
+
+
+// TODO: Make this dynamic so we can use it in sidebar content.
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+});

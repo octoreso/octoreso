@@ -1,0 +1,75 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "admin/simple-sidebar";
+
+.no-pad {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.padded {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#missions {
+  .nested-fields {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .nested-fields:nth-of-type(2n+1) {
+    background-color: #f6f6f6;
+
+    input {
+      background-color: #f6f6f6;
+    }
+  }
+
+  .nested-fields:hover {
+    background-color: #eeeeee;
+
+    input {
+      background-color: #eeeeee;
+    }
+  }
+}
+
+.nudge-down {
+  padding-top: 4px;
+}
+
+.spacer {
+    margin-top: 40px; /* define margin as you see fit */
+}
+
+html,body,p,h1,h2,h3,h4 {
+  /*font-family: 'Droid Sans Mono', sans-serif;*/
+}
+
+img.front_image
+{
+  margin: 0 auto;
+  display: block;
+}
+
+.row.big_row
+{
+  margin-bottom: 60px;
+}
+
+.title_image
+{
+  background-repeat:no-repeat;
+  /*background-attachment:fixed;*/
+  background-position:right;
+}
+.right-floated-media caption
+{
+  padding-top: 20px;
+}
+
+.right-floated-media
+{
+  margin-left: 40px;
+}

@@ -33,7 +33,12 @@ module Ingress
 
     def show
       @mission_series = Ingress::MissionSeries.where(id: params[:id]).includes(:community, missions: { mission_points: :point })
-      respond_with @mission_series.first
+      @mission_series = @mission_series.first
+
+      @checked_missions = Ingress::UserCompletedMission.where(user: current_user, mission: @mission_series.missions.map(&:id))
+        .group_by(&:mission_id)
+
+      respond_with @mission_series
     end
   end
 end

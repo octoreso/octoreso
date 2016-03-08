@@ -15,7 +15,9 @@
 
 module Ingress
   class MissionSeries < ActiveRecord::Base
-    has_many :missions, inverse_of: :mission_series
+    has_many :missions, -> { active }, inverse_of: :mission_series
+
+    has_many :all_missions, class_name: 'Ingress::Mission'
 
     belongs_to :community, inverse_of: :mission_series
 
@@ -70,19 +72,8 @@ module Ingress
       save!
     end
 
-    def as_json(options = {})
-      super(
-        options.merge(include: [
-          :community,
-          missions: {
-            include: {
-              mission_points: {
-                include: :point
-              }
-            }
-          }
-        ])
-      )
+    def prune_if_empty!
+      destroy! if all_missions.blank?
     end
   end
 end

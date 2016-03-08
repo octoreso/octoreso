@@ -8,14 +8,23 @@
   %table.table.table-striped.table-condensed
     %thead
       %tr
-        %th ID
+        %th
+        %th
         %th Name
         %th Edit
     %tbody
       - @communities.each do |community|
         %tr{ class: community.is_active? ? '' : 'error' }
           %td
-            %a{ href: admin_ingress_community_path(community) }= "##{community.id}"
+            .pull-right
+              %span.glyphicon.glyphicon-remove
+              = community.missions.count
+              %span.label.label-success Live
+          %td
+            .pull-right
+              %span.glyphicon.glyphicon-remove
+              = community.inactive_missions.count
+              %span.label.label-warning Pending
           %td
             %a{ href: admin_ingress_community_path(community) }= community.name
           %td

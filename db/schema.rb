@@ -80,8 +80,10 @@ ActiveRecord::Schema.define(version: 20160307185701) do
   end
 
   create_table "ingress_user_communities", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "community_id"
+    t.integer  "user_id"
+    t.integer  "community_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "ingress_user_communities", ["community_id"], name: "index_ingress_user_communities_on_community_id", using: :btree

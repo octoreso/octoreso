@@ -7,19 +7,27 @@ module Admin
 
 
       def index
-        @communities = ::Ingress::Community.includes(:all_missions).accessible_by(current_ability).order(:name)
+        @communities = ::Ingress::Community
+          .includes(all_missions: :mission_series)
+          .accessible_by(current_ability)
+          .order(:name)
 
         authorize! :edit, ::Ingress::Community
       end
 
       def show
-        @community = ::Ingress::Community.includes(:all_missions).accessible_by(current_ability).find(params[:id])
+        @community = ::Ingress::Community
+          .includes(all_missions: :mission_series)
+          .accessible_by(current_ability)
+          .find(params[:id])
 
         authorize! :edit, @community
       end
 
       def update
-        @community = ::Ingress::Community.includes(:all_missions).accessible_by(current_ability).find(params[:id])
+        @community = ::Ingress::Community
+          .includes(all_missions: :mission_series)
+          .accessible_by(current_ability).find(params[:id])
 
         authorize! :edit, @community
 

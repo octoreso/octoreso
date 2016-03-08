@@ -10,6 +10,7 @@
 #  min_long   :decimal(9, 6)
 #  max_lat    :decimal(9, 6)
 #  max_long   :decimal(9, 6)
+#  is_active  :boolean          default(FALSE), not null
 #
 
 module Ingress

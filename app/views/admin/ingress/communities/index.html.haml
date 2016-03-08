@@ -1,0 +1,27 @@
+%h4 Communities
+%p Below is a list of all the communities you have access to. You can add, remove and change missions under this heading.
+%p
+  %strong Communities
+  %span are geographical areas with a number of missions attached to them. Octoreso's data is built by volunteers who submit the mission data.
+
+- if @communities.present?
+  %table.table.table-striped.table-condensed
+    %thead
+      %tr
+        %th ID
+        %th Name
+        %th Edit
+    %tbody
+      - @communities.each do |community|
+        %tr{ class: community.is_active? ? '' : 'error' }
+          %td
+            %a{ href: admin_ingress_community_path(community) }= "##{community.id}"
+          %td
+            %a{ href: admin_ingress_community_path(community) }= community.name
+          %td
+            %a.btn.btn-default.btn-xs{ href: admin_ingress_community_path(community) } Edit
+- else
+  %p
+    You currently have no communities assigned to you. If you are interested in helping the project cover your local areas,
+    %a{ href: 'https://plus.google.com/communities/115765862150892204670/stream/28a60385-bff3-4ec1-b9ae-eb4684b4e08d' } request mission areas here
+    and we'll get back to you!

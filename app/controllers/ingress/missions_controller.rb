@@ -3,11 +3,11 @@
 # Table name: ingress_missions
 #
 #  id                :integer          not null, primary key
-#  name              :string           not null
-#  agent_id          :integer          not null
-#  mission_url       :string           not null
-#  sequence_type     :integer          not null
-#  series_type       :integer          not null
+#  name              :string           default(""), not null
+#  agent_id          :integer
+#  mission_url       :string           default(""), not null
+#  sequence_type     :integer
+#  series_type       :integer
 #  hidden_points     :integer          default(0), not null
 #  mission_series_id :integer
 #  series_index      :integer
@@ -19,6 +19,7 @@
 #  min_long          :decimal(9, 6)
 #  max_lat           :decimal(9, 6)
 #  max_long          :decimal(9, 6)
+#  is_active         :boolean          default(FALSE), not null
 #
 
 module Ingress
@@ -31,16 +32,21 @@ module Ingress
       west  = params[:west] || -180
       east  = params[:east] || 180
 
-      @missions = Ingress::Mission.all.includes(:mission_series, :agent, mission_points: :point)
+      @missions = Ingress::Mission.active.includes(:mission_series, :agent, mission_points: :point)
         .for_coords(n: north, e: east, s: south, w: west)
         .page(1)
         .sort_by(&:name)
+
+      if current_user.present?
+        @checked_missions = Ingress::UserCompletedMission.where(user: current_user, mission: @missions.map(&:id))
+          .group_by(&:mission_id)
+      end
 
       respond_with @missions
     end
 
     def show
-      @mission = Ingress::Mission.where(id: params[:id]).includes(:mission_series, :agent, mission_points: :point)
+      @mission = Ingress::Mission.active.where(id: params[:id]).includes(:mission_series, :agent, mission_points: :point)
       @mission = @mission.first
 
       respond_with @mission

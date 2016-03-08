@@ -10,18 +10,40 @@
 #  min_long   :decimal(9, 6)
 #  max_lat    :decimal(9, 6)
 #  max_long   :decimal(9, 6)
+#  is_active  :boolean          default(FALSE), not null
 #
 
 module Ingress
   class Community < ActiveRecord::Base
     validates :name, presence: true, uniqueness: true
 
-    has_many :mission_series, inverse_of: :community, dependent: :destroy
-    has_many :missions,       inverse_of: :community, dependent: :destroy
+    has_many :mission_series,   inverse_of: :community, dependent: :destroy
+    has_many :user_communities, inverse_of: :community, dependent: :destroy
+
+    has_many :missions, ->{ active },
+      inverse_of: :community,
+      dependent:  :destroy
+
+    has_many :inactive_missions, ->{ inactive },
+      inverse_of: :proposed_community,
+      dependent:  :destroy,
+      class_name: 'Ingress::Mission'
+
+    has_many :all_missions, ->{ order(:mission_series_id, :series_index, is_active: :desc, name: :asc) },
+      inverse_of: :admin_community,
+      dependent:  :destroy,
+      class_name: 'Ingress::Mission'
 
     has_many :mission_points, through: :missions
+    has_many :users,          through: :user_communities
+
+
+    scope :active, -> { where(is_active: true) }
+    scope :inactive, -> { where(is_active: false) }
 
     attr_accessor :updating_range
+
+    accepts_nested_attributes_for :all_missions, allow_destroy: true
 
     def lat
       (max_lat + min_lat) / 2
@@ -29,6 +51,10 @@ module Ingress
 
     def long
       (max_long + min_long) / 2
+    end
+
+    def to_s
+      name
     end
 
     def update_range

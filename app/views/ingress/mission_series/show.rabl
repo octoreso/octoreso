@@ -33,6 +33,12 @@ child missions: :missions do
     :max_lat,
     :max_long
 
+  if current_user.present?
+    node :user do |mission|
+      { completed: @checked_missions[mission.id] ? true : false }
+    end
+  end
+
   child mission_points: :mission_points do
     attributes :id,
       :mission_id,

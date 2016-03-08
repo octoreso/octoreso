@@ -15,6 +15,13 @@ attributes :id,
   :max_lat,
   :max_long
 
+  if current_user.present?
+    node :user do |mission|
+      { completed: @checked_missions[mission.id] ? true : false }
+    end
+  end
+
+
 child mission_series: :mission_series do
   attributes :id,
     :name,

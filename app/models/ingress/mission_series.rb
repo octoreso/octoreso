@@ -15,7 +15,9 @@
 
 module Ingress
   class MissionSeries < ActiveRecord::Base
-    has_many :missions, inverse_of: :mission_series
+    has_many :missions, -> { active }, inverse_of: :mission_series
+
+    has_many :all_missions, class_name: 'Ingress::Mission'
 
     belongs_to :community, inverse_of: :mission_series
 
@@ -71,7 +73,7 @@ module Ingress
     end
 
     def prune_if_empty!
-      destroy! if missions.blank?
+      destroy! if all_missions.blank?
     end
   end
 end

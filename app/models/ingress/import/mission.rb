@@ -29,7 +29,7 @@ module Ingress
           mission = populate_metadata_from_intel_json(mission, json)
           mission.save!
           mission = populate_points_from_intel_json(mission, json)
-          mission.is_active = true if rand(10) > 5
+          mission.is_active = true
           mission.save!
         end
 

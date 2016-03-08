@@ -32,7 +32,7 @@ module Ingress
       west  = params[:west] || -180
       east  = params[:east] || 180
 
-      @missions = Ingress::Mission.all.includes(:mission_series, :agent, mission_points: :point)
+      @missions = Ingress::Mission.active.includes(:mission_series, :agent, mission_points: :point)
         .for_coords(n: north, e: east, s: south, w: west)
         .page(1)
         .sort_by(&:name)
@@ -46,7 +46,7 @@ module Ingress
     end
 
     def show
-      @mission = Ingress::Mission.where(id: params[:id]).includes(:mission_series, :agent, mission_points: :point)
+      @mission = Ingress::Mission.active.where(id: params[:id]).includes(:mission_series, :agent, mission_points: :point)
       @mission = @mission.first
 
       respond_with @mission

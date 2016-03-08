@@ -40,12 +40,19 @@ module Ingress
 
     has_many :user_completed_missions, inverse_of: :mission
 
-    belongs_to :agent,          inverse_of: :missions
-    belongs_to :mission_series, inverse_of: :missions
+    belongs_to :agent,                   inverse_of: :missions
+    belongs_to :mission_series,          inverse_of: :missions
+    belongs_to :proposed_mission_series, inverse_of: :missions, class_name: 'Ingress::MissionSeries'
 
     has_many :mission_points, inverse_of: :mission, dependent: :destroy
 
     has_many :points, through: :mission_points, inverse_of: :missions
+
+    has_many :users_completed,
+      through: :user_completed_missions,
+      inverse_of: :completed_missions,
+      class_name: 'User',
+      source: :user
 
     scope :active, -> { where(is_active: true) }
     scope :inactive, -> { where(is_active: false) }

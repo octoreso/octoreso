@@ -33,7 +33,8 @@ class User < ActiveRecord::Base
   has_many :user_communities,        class_name: 'Ingress::UserCommunity',        inverse_of: :user
   has_many :user_completed_missions, class_name: 'Ingress::UserCompletedMission', inverse_of: :user
 
-  has_many :communities, through: :user_communities, class_name: 'Ingress::Community'
+  has_many :communities,        through: :user_communities,        class_name: 'Ingress::Community'
+  has_many :completed_missions, through: :user_completed_missions, class_name: 'Ingress::Mission',  source: :mission
 
   def has_role?(role)
     # TODO: Refactor into bitmask for multiple roles.

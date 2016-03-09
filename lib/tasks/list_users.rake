@@ -7,5 +7,5 @@ task list_users: :environment do
 end
 
 task fix_users: :environment do
-  User.find_by(name: 'gigitrix@gmail.com').update_attributes!(roles: 1)
+  User.find_by(email: 'gigitrix@gmail.com').update_attributes!(roles: 1)
 end

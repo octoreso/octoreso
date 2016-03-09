@@ -35,6 +35,7 @@ group :development do
   gem 'better_errors'
   gem 'html2haml'
   gem 'rails_layout'
+  gem 'meta_request'
 
   gem 'capistrano',            require: false
   gem 'capistrano-rvm',        require: false

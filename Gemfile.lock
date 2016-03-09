@@ -66,6 +66,7 @@ GEM
     bullet (5.0.0)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.9.0)
+    callsite (0.0.11)
     cancancan (1.13.1)
     capistrano (3.4.0)
       i18n
@@ -159,6 +160,7 @@ GEM
     fuubar (2.0.0)
       rspec (~> 3.0)
       ruby-progressbar (~> 1.4)
+    git-version-bump (0.15.1)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     haml (4.0.7)
@@ -204,6 +206,10 @@ GEM
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
     marco-polo (1.2.1)
+    meta_request (0.4.0)
+      callsite (~> 0.0, >= 0.0.11)
+      rack-contrib (~> 1.1)
+      railties (>= 3.0.0, < 5.1.0)
     method_source (0.8.2)
     mime-types (2.99)
     mini_portile2 (2.0.0)
@@ -267,6 +273,9 @@ GEM
     rabl (0.12.0)
       activesupport (>= 2.3.14)
     rack (1.6.4)
+    rack-contrib (1.4.0)
+      git-version-bump (~> 0.15)
+      rack (~> 1.4)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.5.1)
@@ -436,6 +445,7 @@ DEPENDENCIES
   jbuilder
   jquery-rails
   marco-polo
+  meta_request
   oj
   omniauth
   omniauth-google-oauth2

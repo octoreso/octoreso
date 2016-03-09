@@ -108,20 +108,19 @@ module Ingress
         # Try to find by mission link otherwise
         mission ||= ::Ingress::Mission.find_by(mission_url: mission_data[:mission_url])
 
-        # Check if exists in other communities
-        if mission.present? && mission.community != community
-          raise ActiveRecord::Rollback, "Mission #{mission_url} already exists in #{community}"
+        # Delete the mission if needed
+        if mission.present? && mission_data['_destroy'].present? && mission_data['_destroy'] == '1'
+          mission.destroy!
+          return nil
         end
 
         # Or create if not present.
         mission ||= community.missions.new
 
-
-
-        # Delete the mission if needed
-        if mission_data['_destroy'].present? && mission_data['_destroy'] == "1"
-          mission.destroy!
-          return nil
+        # Check if exists in other communities
+        if mission.present? && mission.admin_community != community
+          mission.errors.add(:base, "Mission #{mission.mission_url} already exists in #{community}")
+          return mission
         end
 
         # Add all data from mission_data hash

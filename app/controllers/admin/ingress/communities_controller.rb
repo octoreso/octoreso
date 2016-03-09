@@ -55,8 +55,8 @@ module Admin
                 mission.save
                 mission.valid?
                 # iterate over mission.errors, adding them back to main hash
-                mission.errors.each do |mission_error|
-                  @community.errors.add :base, mission_error
+                mission.errors.values.each do |mission_error|
+                  @community.errors.add(:base, mission_error.map(&:to_s).join('<br />').html_safe)
                 end
 
                 all_valid = false unless mission.errors.empty?
@@ -65,7 +65,8 @@ module Admin
             raise ActiveRecord::Rollback, "Some missions contain errors" unless all_valid
           rescue ActiveRecord::Rollback => e
             @community.errors.add(:base, e.message)
-            flash.now[:alert] = @community.errors.full_message
+            flash[:alert] = @community.errors.full_messages.join('<br />').html_safe
+            # flash.now[:alert] = "Some missions contained errors - we had to revert your changes! Make sure to always add a mission link!<br />#{@community.errors.full_messages.join('<br />')}".html_safe
 
           end
         end
@@ -74,7 +75,9 @@ module Admin
           redirect_to admin_ingress_communities_path,
             notice: "Missions updated for '<strong>#{link_to @community, admin_ingress_community_path(@community)}</strong>' Community.".html_safe
         else
-          render action: :show
+          # render action: :show
+          redirect_to admin_ingress_community_path(@community),
+            error: "Missions not updated for '<strong>#{link_to @community, admin_ingress_community_path(@community)}</strong>' Community.".html_safe
         end
       end
 

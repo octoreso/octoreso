@@ -21,6 +21,11 @@
             %a{ href: admin_ingress_communities_path }
               %span.glyphicon.glyphicon-map-marker
               Communities
+          - if(can? :edit, ::User)
+            %li{ class: "#{controller_name == 'users' ? 'active' : ''}", role: :presentation }
+              %a{ href: admin_ingress_users_path }
+                %span.glyphicon.glyphicon-map-marker
+                Users
           %li.spacer{ role: :presentation }
             %a{ href: root_url(subdomain: nil) }
               %span.glyphicon.glyphicon-eject

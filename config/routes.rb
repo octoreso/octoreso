@@ -21,6 +21,7 @@ Octoreso::Application.routes.draw do
   scope module: :admin, constraints: ->(r) { r.subdomain.include?('admin') }, as: :admin do
     scope module: :ingress, as: :ingress do
       resources :communities, except: [:edit, :destroy]
+      resources :users,       except: [:edit, :destroy]
     end
 
     get '/', to: redirect('/communities')

@@ -42,6 +42,7 @@ group :development do
   gem 'capistrano-bundler',    require: false
   gem 'capistrano3-puma',      require: false
   gem 'capistrano-figaro-yml', require: false
+  gem 'capistrano-rails-console'
 end
 
 group :development, :test do

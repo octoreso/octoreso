@@ -8,8 +8,8 @@
           %span.label.label-warning Pending
         - else
           %span.label.label-danger New
-    .col-md-2.no-pad= f.input :name, wrapper: false, label: false, input_html: { class: 'input-sm' }
-    .col-md-5.no-pad= f.input :mission_url, wrapper: false, label: false, input_html: { class: 'input-sm' }
+    .col-md-2.no-pad= f.input :name, wrapper: false, label: false, input_html: { class: 'input-sm' }, placeholder: 'Optional Name'
+    .col-md-5.no-pad= f.input :mission_url, wrapper: false, label: false, input_html: { class: 'input-sm' }, placeholder: 'https://www.ingress.com/mission/00000000000000000000000000000000.1c'
     .col-md-2.no-pad= f.input :mission_series_name, wrapper: false, label: false, input_html: { class: 'input-sm' }
     .col-md-1.no-pad= f.input :series_index, wrapper: false, label: false, input_html: { class: 'input-sm' }
     .col-md-1.pad-left

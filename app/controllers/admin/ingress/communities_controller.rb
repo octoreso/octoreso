@@ -49,30 +49,32 @@ module Admin
                 next if mission.nil?
                 next unless mission.changed? || mission.new_record?
 
+                mission.name ||= ''
+
                 changed_missions += 1
 
                 mission.deactivate
                 mission.save
                 mission.valid?
                 # iterate over mission.errors, adding them back to main hash
-                mission.errors.values.each do |mission_error|
-                  @community.errors.add(:base, mission_error.map(&:to_s).join('<br />').html_safe)
+                mission.errors.full_messages.each do |mission_error|
+                  @community.errors.add(:base, mission_error)
                 end
 
-                all_valid = false unless mission.errors.empty?
+                all_valid = false if mission.errors.present? || @community.errors.present?
               end
             end
             raise ActiveRecord::Rollback, "Some missions contain errors" unless all_valid
           rescue ActiveRecord::Rollback => e
+            all_valid = false
             @community.errors.add(:base, e.message)
             flash[:alert] = @community.errors.full_messages.join('<br />').html_safe
-            # flash.now[:alert] = "Some missions contained errors - we had to revert your changes! Make sure to always add a mission link!<br />#{@community.errors.full_messages.join('<br />')}".html_safe
-
+            flash.now[:alert] = "Some missions contained errors - we had to revert your changes! Make sure to always add a mission link!<br />#{@community.errors.full_messages.join('<br />')}".html_safe
           end
         end
 
         if all_valid
-          redirect_to admin_ingress_communities_path,
+          redirect_to admin_ingress_community_path(@community),
             notice: "Missions updated for '<strong>#{link_to @community, admin_ingress_community_path(@community)}</strong>' Community.".html_safe
         else
           # render action: :show

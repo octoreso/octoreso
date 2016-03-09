@@ -43,7 +43,7 @@ module Ingress
 
     attr_accessor :updating_range
 
-    accepts_nested_attributes_for :all_missions, reject_if: proc { |m| m.mission_url.blank? }
+    accepts_nested_attributes_for :all_missions
 
     def lat
       (max_lat + min_lat) / 2

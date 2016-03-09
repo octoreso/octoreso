@@ -13,6 +13,8 @@ class Ability
   end
 
   def authenticated(user)
-    can :edit, ::Ingress::Community, id: user.user_communities.map(&:community_id)
+    can [:read, :edit], ::Ingress::Community, id: user.user_communities.map(&:community_id)
   end
+
+
 end

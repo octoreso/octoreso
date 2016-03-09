@@ -6,6 +6,6 @@ task list_users: :environment do
   end
 end
 
-task fix_users: :environment do
-  User.find_by(email: 'gigitrix@gmail.com').update_attributes!(roles: 1)
+task temp: :environment do
+  ::Ingress::Community.create!('uk/darlington')
 end

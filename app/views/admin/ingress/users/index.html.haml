@@ -1,0 +1,15 @@
+%h4 Users
+
+.row
+  .col-md-1
+  .col-md-10
+    User
+  .col-md-1
+- @users.each do |user|
+  .row
+    .col-md-1
+      %a.btn.btn-default.btn-xs{ href: admin_ingress_user_path(user) } Edit
+    .col-md-10
+      = user.to_s
+    .col-md-1
+      %a.btn.btn-default.btn-xs{ href: admin_ingress_user_path(user) } Edit

@@ -1,3 +1,10 @@
 .row.spacer
   .col-md-12
-    = f.button :submit, 'Request Community Updates', class: 'btn btn-primary btn-block'
+    %p
+      %strong Please Note:
+      any missions you change
+      %strong will
+      be reverted to Draft status and have to be reapproved! This will remove the missions from view.
+.row.spacer
+  .col-md-12
+    = f.button :submit, 'Update Community', class: 'btn btn-primary btn-block'

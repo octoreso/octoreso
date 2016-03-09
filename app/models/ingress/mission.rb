@@ -108,17 +108,25 @@ module Ingress
         # Try to find by mission link otherwise
         mission ||= ::Ingress::Mission.find_by(mission_url: mission_data[:mission_url])
 
+        # Or create if not present.
+        mission ||= community.missions.new(community_id: community.id)
+
         # Delete the mission if needed
         if mission.present? && mission_data['_destroy'].present? && mission_data['_destroy'] == '1'
           mission.destroy!
           return nil
         end
 
-        # Or create if not present.
-        mission ||= community.missions.new
+        # Skip if no Url
+        if mission.new_record? && mission_data['mission_url'].blank?
+          mission.errors.add(:base, "Blank mission was deleted - missions must always contain a mission_url")
+          mission.destroy!
+          return nil
+        end
+
 
         # Check if exists in other communities
-        if mission.present? && mission.admin_community != community
+        if mission.community_id != community.id
           mission.errors.add(:base, "Mission #{mission.mission_url} already exists in #{community}")
           return mission
         end
@@ -129,6 +137,8 @@ module Ingress
 
           mission.public_send("#{key}=", value)
         end
+
+
 
         mission
       end

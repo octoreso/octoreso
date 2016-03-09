@@ -7,5 +7,5 @@ task list_users: :environment do
 end
 
 task temp: :environment do
-  ::Ingress::Community.create!('uk/darlington')
+  ::Ingress::Community.create!(name: 'uk/darlington')
 end

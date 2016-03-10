@@ -17,9 +17,12 @@ gem 'cancancan'
 gem 'simple_form'
 gem 'cocoon'
 
+# errors
+gem 'rollbar'
+
 # Assets + JS
 gem 'handlebars_assets'
-gem 'i18n-js',    '>= 3.0.0.rc11'
+gem 'i18n-js', '>= 3.0.0.rc11'
 gem 'jbuilder'
 gem 'rabl'
 gem 'oj'

@@ -14,6 +14,8 @@ SECRET_TOKEN: '11111111111111111111111111111111111111111111111111111111111111111
 GOOGLE_CLIENT_ID: 'xxxxxxxxxxx-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.apps.googleusercontent.com'
 GOOGLE_CLIENT_SECRET: 'xxxxx-xxxxxxxxxxxxxxxxx'
 
+ROLLBAR_ACCESS_TOKEN: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+
 # DEPRECATED
 ADMIN_NAME: 'First User'
 ADMIN_PASSWORD: 'changeme'

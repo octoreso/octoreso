@@ -88,7 +88,7 @@ module Admin
       def update_params
         params.require(:ingress_community).permit(
           all_missions_attributes: [
-            :id, :mission_series_name, :series_index, :mission_url, :_destroy
+            :id, :mission_series_name, :series_index, :mission_url, :name, :_destroy
           ]
         )
       end

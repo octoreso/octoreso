@@ -152,9 +152,9 @@ module Ingress
       old_mission_series = mission_series
 
       if name.blank?
-        self.update_attributes!(mission_series: nil) unless self.mission_series.blank?
+        self.mission_series = nil unless self.mission_series.blank?
       else
-        self.update_attributes!(mission_series: community.mission_series.where(name: name).first_or_create!)
+        self.mission_series = Ingress::Community.find(community_id).mission_series.where(name: name).first_or_create!
       end
 
       old_mission_series.try(:prune_if_empty!)

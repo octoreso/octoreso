@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160310215636) do
+ActiveRecord::Schema.define(version: 20160310223403) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,8 +56,8 @@ ActiveRecord::Schema.define(version: 20160310215636) do
     t.string   "name",                                      default: "",    null: false
     t.integer  "agent_id"
     t.string   "mission_url",                               default: "",    null: false
-    t.integer  "sequence_type"
-    t.integer  "series_type"
+    t.integer  "sequence_type",                             default: 0
+    t.integer  "series_type",                               default: 0
     t.integer  "hidden_points",                             default: 0,     null: false
     t.integer  "mission_series_id"
     t.integer  "series_index"

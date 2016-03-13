@@ -5,7 +5,6 @@ module Admin
       include ActionView::Helpers::TextHelper
       include ActionView::Helpers::UrlHelper
 
-
       def index
         @communities = ::Ingress::Community
           .includes(all_missions: :mission_series)
@@ -47,7 +46,7 @@ module Admin
 
                 # Bail unless changes happened so we don't deactivate entire form.
                 next if mission.nil?
-                next unless mission.changed? || mission.new_record?
+                next unless mission.changed? || mission.new_record? || mission.intel_json.present?
 
                 mission.name ||= ''
 
@@ -86,6 +85,22 @@ module Admin
       private
 
       def update_params
+        if can? :approve, @community
+          update_approval_params
+        else
+          update_moderator_params
+        end
+      end
+
+      def update_approval_params
+        params.require(:ingress_community).permit(
+          all_missions_attributes: [
+            :id, :mission_series_name, :series_index, :mission_url, :name, :_destroy, :intel_json
+          ]
+        )
+      end
+
+      def update_moderator_params
         params.require(:ingress_community).permit(
           all_missions_attributes: [
             :id, :mission_series_name, :series_index, :mission_url, :name, :_destroy

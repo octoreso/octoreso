@@ -32,6 +32,7 @@ gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'bootstrap-sass'
 gem 'haml-rails'
+gem 'chosen-rails'
 
 group :development do
   gem 'erd'

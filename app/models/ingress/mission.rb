@@ -24,7 +24,7 @@
 
 module Ingress
   class Mission < ActiveRecord::Base
-    include Import::Mission
+    # include Import::Mission
 
     attr_accessor :from_csv_import
     attr_accessor :trace_urls
@@ -32,6 +32,7 @@ module Ingress
     attr_accessor :updating_range
 
     after_save :update_range
+    after_save :populate_from_intel_json
 
     # TODO: Can we refrain from inverting 3 times?
     belongs_to :community,          -> { active },   inverse_of: :missions
@@ -124,7 +125,6 @@ module Ingress
           return nil
         end
 
-
         # Check if exists in other communities
         if mission.community_id != community.id
           mission.errors.add(:base, "Mission #{mission.mission_url} already exists in #{community}")
@@ -137,8 +137,6 @@ module Ingress
 
           mission.public_send("#{key}=", value)
         end
-
-
 
         mission
       end
@@ -187,8 +185,72 @@ module Ingress
       save!
       # Save
       mission_series.try(:update_range)
-      community.update_range
+      Ingress::Community.find(self.community_id).update_range
     end
+
+    def populate_from_intel_json
+      return unless intel_json.present?
+
+      json = JSON.parse(intel_json)['result']
+      self.intel_json = nil
+
+      populate_metadata_from_intel_json(json)
+      save!
+      populate_points_from_intel_json(json)
+      self.is_active = true
+      save!
+      Ingress::Community.find(community_id).update_attributes!(is_active: true)
+    end
+
+
+    def populate_metadata_from_intel_json(json)
+      # TODO: Validate against link + unique_id mismatch
+      # self.unique_id   = json[0]
+      self.name = json[1]
+      # self.description = json[2]
+      self.agent = Ingress::Agent.where(name: json[3]).first_or_create!
+      self.sequence_type = json[8]
+
+      if self.mission_series.present?
+        self.series_type = :series_type_sequence
+      else
+        self.series_type = :series_type_solo
+      end
+    end
+
+    def populate_points_from_intel_json(json)
+      json[9].each do |point_data|
+        # We will not store portal names or state data. The aim is to minimise the use of Ingress's intellectual
+        # property solely to that useful for mission running by both sides. Storing detailed portal information makes
+        # the tool closer to a conventional scraper which is both bad from a TOS compliance and moral perspective!
+        # This is why The model is labelled "Point" not "Portal" - from the point of view of the system it's an
+        # uninteresting node in the larger system of missions and mission series.
+        lat = 0
+        long = 0
+
+        # unique_id = point_data[1]
+        point_type = point_data[3] # 1 = Portal 2 = Field Trip
+        action     = point_data[4] # Hack/Cap/etc
+
+        if point_data[5].nil?  # deleted portals? No action can be performed on "nothing"
+          self.hidden_points += 1
+        else
+          if point_type == 1
+            lat  = point_data[5][2].to_f / 1_000_000.0
+            long = point_data[5][3].to_f / 1_000_000.0
+          elsif point_type == 2
+            lat  = point_data[5][1].to_f / 1_000_000.0
+            long = point_data[5][2].to_f / 1_000_000.0
+          end
+
+          point = Ingress::Point.where(lat: lat, long: long).first_or_create!
+
+          self.mission_points << Ingress::MissionPoint.where(mission: self, point: point, action_type: action).first_or_create!
+        end
+      end
+    end
+
+
 
     # Take "offline", clear all live data so that new JSON will be added.
     def deactivate

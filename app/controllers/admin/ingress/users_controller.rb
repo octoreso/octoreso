@@ -3,7 +3,7 @@ module Admin
     class UsersController < Admin::BaseController
 
       def index
-        @users = User.all
+        @users = User.all.order(:id)
 
         authorize! :edit, User
       end

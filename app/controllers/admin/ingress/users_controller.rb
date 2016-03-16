@@ -15,6 +15,7 @@ module Admin
         @communities = ::Ingress::Community.all
       end
 
+
       def update
         @user = User.find(params[:id])
         authorize! :edit, @user

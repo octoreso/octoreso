@@ -22,6 +22,7 @@ Octoreso::Application.routes.draw do
     scope module: :ingress, as: :ingress do
       resources :communities, except: [:edit, :destroy]
       resources :users,       except: [:edit, :destroy]
+      resources :stats,       only:   [:index]
     end
 
     get '/', to: redirect('/communities')

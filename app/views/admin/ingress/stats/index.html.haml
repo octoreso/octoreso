@@ -1,0 +1,45 @@
+%h4 Octoreso Stats
+
+.row
+  .col-md-4
+
+  .col-md-4
+    %span.label.label-success Live
+  .col-md-4
+    %span.label.label-warning Pending
+.row
+  .col-md-4
+    %strong Community
+  .col-md-4
+    = @stats[:community][:live]
+  .col-md-4
+    = @stats[:community][:pending]
+.row
+  .col-md-4
+    %strong Missions
+  .col-md-4
+    = @stats[:missions][:live]
+  .col-md-4
+    = @stats[:missions][:pending]
+%br
+.row
+  .col-md-4
+    %strong Mission Series
+  .col-md-4
+    = @stats[:mission_series][:live]
+  .col-md-4
+    /= @stats[:community][:pending]
+.row
+  .col-md-4
+    %strong Portals
+  .col-md-4
+    = @stats[:points][:live]
+  .col-md-4
+    /= @stats[:community][:pending]
+.row
+  .col-md-4
+    %strong Mission Steps
+  .col-md-4
+    = @stats[:mission_points][:live]
+  .col-md-4
+    /= @stats[:community][:pending]

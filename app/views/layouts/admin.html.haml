@@ -24,8 +24,12 @@
           - if(can? :edit, ::User)
             %li{ class: "#{controller_name == 'users' ? 'active' : ''}", role: :presentation }
               %a{ href: admin_ingress_users_path }
-                %span.glyphicon.glyphicon-map-marker
+                %span.glyphicon.glyphicon-user
                 Users
+          %li{ class: "#{controller_name == 'stats' ? 'active' : ''}", role: :presentation }
+            %a{ href: admin_ingress_stats_path }
+              %span.glyphicon.glyphicon-stats
+              Stats
           %li.spacer{ role: :presentation }
             %a{ href: root_url(subdomain: nil) }
               %span.glyphicon.glyphicon-eject

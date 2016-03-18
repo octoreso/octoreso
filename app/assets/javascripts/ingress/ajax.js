@@ -16,7 +16,7 @@ var Ajax = {
         MissionMap.mode = MissionMap.modes.MISSION_SERIES_COLLECTION;
         MissionMap.addMissionSeriesCollection(data);
         //MissionMap.zoomToBounds();
-        $('#sidebar').html(JST.mission_series_collection(data));
+        $('#sidebar-content').html(JST.mission_series_collection(data));
         $('[data-mission-series-id]').each(
           function()
           {
@@ -38,7 +38,7 @@ var Ajax = {
         MissionMap.mode = MissionMap.modes.MISSION_SERIES;
         mission = MissionMap.addMissionSeries(data);
         //mission.zoomToBounds();
-        $('#sidebar').html(JST.mission_series(data));
+        $('#sidebar-content').html(JST.mission_series(data));
       });
     });
   },
@@ -55,7 +55,7 @@ var Ajax = {
         MissionMap.mode = MissionMap.modes.MISSIONS;
         MissionMap.addMissions(data);
         //MissionMap.zoomToBounds();
-        $('#sidebar').html(JST.missions(data));
+        $('#sidebar-content').html(JST.missions(data));
         $('[data-mission-id]').each(
           function()
           {
@@ -77,7 +77,7 @@ var Ajax = {
         MissionMap.mode = MissionMap.modes.MISSION;
         mission = MissionMap.addMission(data);
         //mission.zoomToBounds();
-        $('#sidebar').html(JST.mission(data));
+        $('#sidebar-content').html(JST.mission(data));
       });
     });
   },
@@ -93,7 +93,7 @@ var Ajax = {
         MissionMap.clear();
         MissionMap.mode = MissionMap.modes.COMMUNITIES;
         MissionMap.addCommunities(data);
-        $('#sidebar').html(JST.communities(data));
+        $('#sidebar-content').html(JST.communities(data));
         $('[data-community-id]').each(
           function()
           {
@@ -113,7 +113,7 @@ var Ajax = {
   },
   content: function(id){
     MissionMap.mode = MissionMap.modes.CONTENT;
-    $('#sidebar').html(JST['content/'+id]({ id: id }));
+    $('#sidebar-content').html(JST['content/'+id]({ id: id }));
   },
   check_mission: function(id)
   {
@@ -134,7 +134,7 @@ var Ajax = {
   initial:function()
   {
     MissionMap.mode = MissionMap.modes.CONTENT;
-    $('#sidebar').html(JST['content/1']({ id: 1 }));
+    $('#sidebar-content').html(JST['content/1']({ id: 1 }));
 
     bounds = MissionMap.getViewportBounds();
 

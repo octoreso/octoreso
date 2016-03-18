@@ -34,6 +34,17 @@ $ingress-b2b: #009B99;
 $ingress-b3a: #008780;
 $ingress-b3b: #005855;
 
+.sidebar-menu-group a
+{
+  min-width: 40px;
+  color: #ffffff;
+}
+
+.sidebar-menu-group:nth-of-type(3)
+{
+  float: right;
+}
+
 #sidebar ul , #sidebar li {
    list-style-type: none;
    padding-left: 0px;
@@ -80,7 +91,6 @@ $ingress-b3b: #005855;
   height: 100%;
   max-height: 100%;
   border: 1px solid $ingress-b1;
-  padding-top: 20px;
 }
 
 #map {
@@ -90,23 +100,21 @@ $ingress-b3b: #005855;
   z-index: 1;
 }
 
-#navbar {
-  position: fixed;
-  width: 100%;
-  height: 28px;
-  z-index: 2;
-  background-color: $ingress-bg2;
-  border-bottom: 1px solid $ingress-b1;
-  border-top: 1px solid $ingress-b1;
+#sidebar-menu {
+  font-size: 30px;
+  a {
+    transition:.5s;
+    text-decoration: none;
+  }
+  a:hover {
+    color: #6904C1;
+  }
 }
 
-#navbar a{
-  color: $ingress-b1;
-  border-left: 1px solid $ingress-b1;
-  border-right: 1px solid $ingress-b1;
-  padding: 4px 8px;
-  height: 100%;
-  float: left;
+
+.no-pad {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }
 
 #spinner-container {

@@ -1,21 +1,27 @@
 
 #container
-  #navbar-container
-    #navbar
-      %span{ class: 'pull-right' }
-        - if current_user.present?
-          = link_to 'Contributor Backend', admin_url(subdomain: 'admin'), class: 'navbar-link', title: 'Help make Octoreso better by contributing mission data.', data: { toggle: 'tooltip', placement: 'bottom' }
-          = link_to "Sign out #{current_user.email}", destroy_user_session_url(subdomain: nil), class: 'navbar-link'
-        - else
-          = link_to 'Sign In', user_omniauth_authorize_url(subdomain: nil, provider: 'google_oauth2'), class: 'navbar-link', title: 'Sign in to track mission progress using your Google+ account.', data: { toggle: 'tooltip', placement: 'bottom' }
-      %a.navbar-link{ href: '#', data: { ajax: 'content', content_id: 1 }} Home
-      %a.navbar-link{ href: '#', data: { ajax: 'communities' }} All Communities
-      %a.navbar-link{ href: '#', data: { ajax: 'missions' }} All Missions
-      %a.navbar-link{ href: '#', data: { ajax: 'mission-series-collection' }} Mission Series
   #map-container
     #map
   #sidebar-container
     #sidebar
+      #sidebar-menu
+        .container-fluid
+          .row
+            .col-lg-2
+              %a.glyphicon.glyphicon-home{ href: '#', title: 'Home', data: { ajax: 'content', content_id: 1, toggle: 'tooltip', placement: 'bottom' } }
+            .col-lg-6
+              %a.glyphicon.glyphicon-th-large{ href: '#', title: 'All Communities', data: { ajax: 'communities', toggle: 'tooltip', placement: 'bottom' } }
+              %a.glyphicon.glyphicon-th{ href: '#', title: 'All Mission Series', data: { ajax: 'mission-series-collection', toggle: 'tooltip', placement: 'bottom' } }
+              %a.glyphicon.glyphicon-map-marker{ href: '#', title: 'All Missions', data: { ajax: 'missions', toggle: 'tooltip', placement: 'bottom' } }
+            .col-lg-4
+              .text-right
+                - if current_user.present?
+                  %a.glyphicon.glyphicon-wrench{ href: admin_url(subdomain: 'admin'), title: 'Contributor Backend', data: { toggle: 'tooltip', placement: 'bottom' } }
+                  %a.glyphicon.glyphicon-eject{ href: destroy_user_session_url(subdomain: nil), title: "Sign out #{current_user.email}", data: { toggle: 'tooltip', placement: 'bottom' } }
+                - else
+                  %a.glyphicon.glyphicon-user{ href: user_omniauth_authorize_url(subdomain: nil, provider: 'google_oauth2'), title: 'Sign in with G+', data: { toggle: 'tooltip', placement: 'bottom' } }
+      #sidebar-content
+
 #spinner-container
   #spinner
     = image_tag 'ajax_loader.gif'

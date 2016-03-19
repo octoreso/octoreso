@@ -168,7 +168,7 @@ module Ingress
       self.max_long = nil
 
       mission_points.each do |mission_point|
-        point = mission_point.pointl
+        point = mission_point.point
 
         if self.min_lat.nil?
           self.min_lat = point.lat

@@ -60,6 +60,11 @@ module Ingress
     def update_range
       return if updating_range
 
+      self.min_lat  = nil
+      self.max_lat  = nil
+      self.min_long = nil
+      self.max_long = nil
+
       missions.each do |mission|
         if self.min_lat.nil?
           self.min_lat  = mission.min_lat

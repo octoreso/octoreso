@@ -162,8 +162,13 @@ module Ingress
       return if updating_range
       return if mission_points.blank?
 
+      self.min_lat = nil
+      self.max_lat = nil
+      self.min_long = nil
+      self.max_long = nil
+
       mission_points.each do |mission_point|
-        point = mission_point.point
+        point = mission_point.pointl
 
         if self.min_lat.nil?
           self.min_lat = point.lat

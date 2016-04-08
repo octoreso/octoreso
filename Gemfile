@@ -57,13 +57,16 @@ group :development, :test do
   gem 'bullet'
   gem 'database_cleaner'
   gem 'factory_girl_rails'
+
   gem 'rspec-rails'
   gem 'rspec-collection_matchers'
+
   gem 'pry'
   gem 'pry-coolline'
   gem 'pry-rails'
   gem 'pry-rescue'
   gem 'pry-stack_explorer'
+
   gem 'quiet_assets'
   gem 'rubocop'
   gem 'whiny_validation'

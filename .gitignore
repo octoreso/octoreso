@@ -88,3 +88,4 @@ pickle-email-*.html
 /config/application.yml
 
 /public/assets/*
+/spec/examples.txt

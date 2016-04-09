@@ -43,6 +43,8 @@ module Ingress
 
     attr_accessor :updating_range
 
+    before_save :update_activity
+
     accepts_nested_attributes_for :all_missions
 
     def lat
@@ -81,6 +83,12 @@ module Ingress
 
       self.updating_range = true
       save!
+    end
+
+    def update_activity
+      self.is_active = missions.present?
+
+      true
     end
   end
 end

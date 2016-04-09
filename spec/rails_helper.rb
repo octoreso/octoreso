@@ -3,6 +3,12 @@ ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
+
+if ENV['SIMPLECOV']
+  require 'simplecov'
+  SimpleCov.start 'rails'
+end
+
 require 'spec_helper'
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
@@ -26,7 +32,13 @@ require 'rspec/rails'
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
 
+Dir.glob Rails.root.join "spec/acceptance_steps/**/*.rb" do |file|
+  load file
+end
+
 RSpec.configure do |config|
+  config.include AcceptanceSteps
+
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 

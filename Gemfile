@@ -88,4 +88,5 @@ group :test do
   gem 'shoulda-matchers'
   gem 'simplecov'
   gem 'timecop'
+  gem 'turnip'
 end

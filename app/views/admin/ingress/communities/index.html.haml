@@ -16,22 +16,22 @@
       - if @communities[true].present?
         %tr
           %th{ colspan: 4 } Active
-      - @communities[true].each do |community|
-        %tr
-          %td
-            .pull-right
-              %span.glyphicon.glyphicon-remove
-              = community.missions.count
-              %span.label.label-success Live
-          %td
-            .pull-right
-              %span.glyphicon.glyphicon-remove
-              = community.inactive_missions.count
-              %span.label.label-warning Pending
-          %td
-            %a{ href: admin_ingress_community_path(community) }= community.name
-          %td
-            %a.btn.btn-default.btn-xs{ href: admin_ingress_community_path(community) } Edit
+        - @communities[true].each do |community|
+          %tr
+            %td
+              .pull-right
+                %span.glyphicon.glyphicon-remove
+                = community.missions.count
+                %span.label.label-success Live
+            %td
+              .pull-right
+                %span.glyphicon.glyphicon-remove
+                = community.inactive_missions.count
+                %span.label.label-warning Pending
+            %td
+              %a{ href: admin_ingress_community_path(community) }= community.name
+            %td
+              %a.btn.btn-default.btn-xs{ href: admin_ingress_community_path(community) } Edit
       - if @communities[false].present?
         %tr
           %th{ colspan: 4 } Inactive

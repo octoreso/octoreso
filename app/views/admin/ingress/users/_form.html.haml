@@ -2,5 +2,8 @@
   .row
     .col-md-12
       = f.input :community_ids, label: 'Moderates communities', collection: @communities, input_html: { multiple: true, class: 'chosen-select' }
-    .col-md-12
+    .col-md-6
       = f.submit
+    - unless @user.new_record?
+      .col-md-6
+        = link_to 'Add new Community', new_admin_ingress_user_communities_path(@user), class: 'btn btn-warning'

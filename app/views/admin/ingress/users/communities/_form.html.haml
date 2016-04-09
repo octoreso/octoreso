@@ -1,0 +1,9 @@
+= simple_form_for(@community, html: { class: 'form-horizontal' }, url: admin_ingress_user_communities_path, method: :post) do |f|
+  %h2
+    Create Community for
+    = @user.to_s
+  .row
+    .col-md-12
+      = f.input :name
+    .col-md-12
+      = f.submit

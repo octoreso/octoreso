@@ -21,7 +21,11 @@ Octoreso::Application.routes.draw do
   scope module: :admin, constraints: ->(r) { r.subdomain.include?('admin') }, as: :admin do
     scope module: :ingress, as: :ingress do
       resources :communities, except: [:edit, :destroy]
-      resources :users,       except: [:edit, :destroy]
+      resources :users,       except: [:edit, :destroy] do
+        scope module: :users do
+          resource :communities, only: [:new, :create]
+        end
+      end
       resources :stats,       only:   [:index]
     end
 

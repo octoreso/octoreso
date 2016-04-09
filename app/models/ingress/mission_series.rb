@@ -51,6 +51,10 @@ module Ingress
       end
     end
 
+    def missions_by_index
+      missions.sort_by(&:series_index)
+    end
+
     def update_range
       return if updating_range
 

@@ -16,7 +16,7 @@ child community: :community do
     :max_long
 end
 
-child missions: :missions do
+child missions_by_index: :missions do
   attributes :id,
     :name,
     :agent_id,

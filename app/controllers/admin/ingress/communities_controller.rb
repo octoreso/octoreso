@@ -10,6 +10,7 @@ module Admin
           .includes(all_missions: :mission_series)
           .accessible_by(current_ability)
           .order(:name)
+          .group_by(&:is_active)
 
         authorize! :edit, ::Ingress::Community
       end

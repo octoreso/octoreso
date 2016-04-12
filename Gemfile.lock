@@ -45,12 +45,12 @@ GEM
     autoprefixer-rails (6.3.6)
       execjs
     awesome_print (1.6.1)
-    aws-sdk (2.2.33)
-      aws-sdk-resources (= 2.2.33)
-    aws-sdk-core (2.2.33)
+    aws-sdk (2.2.34)
+      aws-sdk-resources (= 2.2.34)
+    aws-sdk-core (2.2.34)
       jmespath (~> 1.0)
-    aws-sdk-resources (2.2.33)
-      aws-sdk-core (= 2.2.33)
+    aws-sdk-resources (2.2.34)
+      aws-sdk-core (= 2.2.34)
     bcrypt (3.1.11)
     better_errors (2.1.1)
       coderay (>= 1.0.0)
@@ -74,6 +74,8 @@ GEM
     capistrano-bundler (1.1.4)
       capistrano (~> 3.1)
       sshkit (~> 1.2)
+    capistrano-db-tasks (0.4)
+      capistrano (>= 3.0.0)
     capistrano-figaro-yml (1.0.2)
       capistrano (~> 3.1)
       sshkit (~> 1.2, >= 1.2.0)
@@ -155,13 +157,13 @@ GEM
       http_parser.rb (>= 0.6.0)
     em-socksify (0.3.1)
       eventmachine (>= 1.0.0.beta.4)
-    em-synchrony (1.0.4)
+    em-synchrony (1.0.5)
       eventmachine (>= 1.0.0.beta.1)
     email_spec (2.0.0)
       htmlentities (~> 4.3.3)
       launchy (~> 2.1)
       mail (~> 2.6.3)
-    erd (0.3.3)
+    erd (0.4.0)
       nokogiri
       rails-erd (>= 0.4.5)
     erubis (2.7.0)
@@ -347,7 +349,7 @@ GEM
       ffi (>= 0.5.0)
     responders (2.1.2)
       railties (>= 4.2.0, < 5.1)
-    rollbar (2.9.0)
+    rollbar (2.9.1)
       multi_json
     rspec (3.4.0)
       rspec-core (~> 3.4.0)
@@ -453,6 +455,7 @@ DEPENDENCIES
   cancancan
   capistrano
   capistrano-bundler
+  capistrano-db-tasks
   capistrano-figaro-yml
   capistrano-rails
   capistrano-rails-console

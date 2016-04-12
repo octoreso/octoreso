@@ -1,6 +1,11 @@
 # See application.yml (via DATABASE_URL)
-
 #
 # WARNING - DO NOT STORE DATABASE CREDS IN THIS FILE - Use application.yml instead. This file needs to exist for default
 #   capybara stuff to work but needs no content.
 #
+development:
+  url: postgres://postgres:postgres@localhost:5432/octoreso_dev
+test:
+  url: postgres://postgres:postgres@localhost:5432/octoreso_test
+production:
+  url: <%= ENV['DATABASE_URL'] %>

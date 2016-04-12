@@ -27,6 +27,13 @@ set :puma_init_active_record, true  # Change to false when not using ActiveRecor
 set :rollbar_token, ENV['ROLLBAR_ACCESS_TOKEN']
 set :rollbar_env, Proc.new { fetch :stage }
 set :rollbar_role, Proc.new { :app }
+
+require 'capistrano-db-tasks'
+set :db_local_clean, false
+set :db_remote_clean, true
+set :disallow_pushing, true
+
+
 ## Defaults:
 # set :scm,           :git
 # set :branch,        :master

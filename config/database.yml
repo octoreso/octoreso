@@ -4,8 +4,11 @@
 #   capybara stuff to work but needs no content.
 #
 development:
+  adapter: postgresql
   url: postgres://postgres:postgres@localhost:5432/octoreso_dev
 test:
+  adapter: postgresql
   url: postgres://postgres:postgres@localhost:5432/octoreso_test
 production:
+  adapter: postgresql
   url: <%= ENV['DATABASE_URL'] %>

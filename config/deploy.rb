@@ -29,7 +29,7 @@ set :rollbar_env, Proc.new { fetch :stage }
 set :rollbar_role, Proc.new { :app }
 
 require 'capistrano-db-tasks'
-set :db_local_clean, false
+set :db_local_clean, true
 set :db_remote_clean, true
 set :disallow_pushing, true
 

@@ -5,10 +5,20 @@
 #
 development:
   adapter: postgresql
-  url: postgres://postgres:postgres@localhost:5432/octoreso_dev
+  encoding: unicode
+  database: octoreso_dev
+  pool: 2
+  username: postgres
+  password: postgres
+
 test:
   adapter: postgresql
-  url: postgres://postgres:postgres@localhost:5432/octoreso_test
+  encoding: unicode
+  database: octoreso_test
+  pool: 2
+  username: postgres
+  password: postgres
+
 production:
   adapter: postgresql
   url: <%= ENV['DATABASE_URL'] %>

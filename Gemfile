@@ -49,6 +49,7 @@ group :development do
   gem 'capistrano-figaro-yml',    require: false
   gem 'capistrano-db-tasks' ,     require: false
   gem 'capistrano-rails-console', require: false
+  gem 'airbrussh',                require: false
 end
 
 group :development, :test do

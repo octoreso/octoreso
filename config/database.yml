@@ -6,19 +6,23 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: octoreso_dev
   pool: 2
+  database: octoreso_dev
   username: postgres
   password: postgres
 
 test:
   adapter: postgresql
   encoding: unicode
-  database: octoreso_test
   pool: 2
+  database: octoreso_test
   username: postgres
   password: postgres
 
 production:
   adapter: postgresql
-  url: <%= ENV['DATABASE_URL'] %>
+  encoding: unicode
+  pool: 5
+  database: <%= ENV['DB_NAME'] %>
+  username: <%= ENV['DB_USER'] %>
+  password: <%= ENV['DB_PASS'] %>

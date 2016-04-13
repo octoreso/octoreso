@@ -25,4 +25,4 @@ production:
   pool: 5
   database: <%= ENV['DB_NAME'] %>
   username: <%= ENV['DB_USER'] %>
-  password: <%= ENV['DB_PASS'] %>
+  password: <%= ENV['DB_PASSWORD'] %>

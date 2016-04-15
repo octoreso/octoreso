@@ -29,7 +29,7 @@ set :rollbar_env, Proc.new { fetch :stage }
 set :rollbar_role, Proc.new { :app }
 
 require 'capistrano-db-tasks'
-set :db_local_clean, true
+set :db_local_clean, false
 set :db_remote_clean, true
 set :disallow_pushing, true
 
@@ -44,6 +44,10 @@ set :disallow_pushing, true
 ## Linked Files & Directories (Default None):
 # set :linked_files, %w{config/database.yml}
 # set :linked_dirs,  %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
+
+Airbrussh.configure do |config|
+  config.command_output = true
+end
 
 namespace :puma do
   desc 'Create Directories for Puma Pids and Socket'

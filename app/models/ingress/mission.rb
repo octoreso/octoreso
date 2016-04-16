@@ -24,10 +24,6 @@
 
 module Ingress
   class Mission < ActiveRecord::Base
-    # include Import::Mission
-
-    attr_accessor :from_csv_import
-    attr_accessor :trace_urls
     attr_accessor :intel_json
     attr_accessor :updating_range
 

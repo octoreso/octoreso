@@ -1,8 +1,8 @@
 I18n = {}
 I18n.translations = { }
 // Dataset
-<% if Translation.table_exists? %>
-  <% Translation.for_javascript.group_by(&:locale).each do |locale, translations| %>
+<% if ::Translation.table_exists? %>
+  <% ::Translation.for_javascript.group_by(&:locale).each do |locale, translations| %>
     I18n.translations.<%= locale %> = {}
     <% translations.each do |t| %>I18n.translations.<%= locale %>['<%= escape_javascript t.key %>'] = "<%= escape_javascript t.value.to_s %>"
     <% end %><% end %>

@@ -1,10 +1,8 @@
 .row.spacer
   .col-md-12
     %p
-      %strong Please Note:
-      any missions you change
-      %strong will
-      be reverted to Draft status and have to be reapproved! This will remove the missions from view.
+      %strong
+        = t('backend.communities.edit_modification_info')
 .row.spacer
   .col-md-12
-    = f.button :submit, 'Update Community', class: 'btn btn-primary btn-block'
+    = f.button :submit, t('backend.communities.edit_button'), class: 'btn btn-primary btn-block'

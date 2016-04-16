@@ -4,10 +4,10 @@
     %meta{charset: 'utf-8'}/
     %meta{content: 'IE=edge', 'http-equiv' => 'X-UA-Compatible'}/
     %meta{content: 'width=device-width, initial-scale=1', name: 'viewport'}/
-    %meta{content: 'Ingress Mapping Utility', name: 'description'}/
+    %meta{content: t('meta_tag'), name: 'description'}/
     %meta{content: '@tobypinder', name: 'author'}/
     = render 'shared/favicons'
-    %title Octoreso
+    %title= t('site_name')
     = stylesheet_link_tag    'ingress', media: 'all'
     = javascript_include_tag 'ingress'
     = csrf_meta_tags

@@ -1,11 +1,15 @@
 .row.padded
   .col-md-1
   .col-md-2
-    %strong{ title: 'Entering this is optional and used for tracking purposes. Any values are overwritten from Intel once the mission goes live.', data: { toggle: 'tooltip', placement: 'bottom' } } Mission Name
+    %strong{ title: t('backend.communities.mission_table.hint.mission_name'), data: { toggle: 'tooltip', placement: 'bottom' } }
+      = t('backend.communities.mission_table.mission_name')
   .col-md-5
-    %strong{ title: 'Paste the intel link, accessible by selecting a mission on stock intel then hitting "Link".', data: { toggle: 'tooltip', placement: 'bottom' } } Link
+    %strong{ title: t('backend.communities.mission_table.hint.link'), data: { toggle: 'tooltip', placement: 'bottom' } }
+      = t('backend.communities.mission_table.link')
   .col-md-2
-    %strong{ title: 'If the mission is part of a mission series/banner/etc, give it a CONSISTENT name here. It must be identical to all other stages of the series.', data: { toggle: 'tooltip', placement: 'bottom' } } Mission Series
+    %strong{ title: t('backend.communities.mission_table.hint.mission_series'), data: { toggle: 'tooltip', placement: 'bottom' } }
+      = t('backend.communities.mission_table.mission_series')
   .col-md-1
-    %strong{ title: 'The "order" in the mission series. If a mission has no particular order, you can just do it arbitrarily.', data: { toggle: 'tooltip', placement: 'bottom' } } Series Index
+    %strong{ title: t('backend.communities.mission_table.hint.series_index'), data: { toggle: 'tooltip', placement: 'bottom' } }
+      = t('backend.communities.mission_table.series_index')
   .col-md-1

@@ -3,18 +3,21 @@
     .col-md-1.nudge-down
       %span.pull-right
         - if f.object.persisted? && f.object.is_active
-          %span.label.label-success Live
+          %span.label.label-success
+            = t('backend.communities.mode.live')
         - elsif f.object.persisted? && !f.object.is_active
-          %span.label.label-warning Pending
+          %span.label.label-warning
+            = t('backend.communities.mode.pending')
         - else
-          %span.label.label-danger New
-    .col-md-2.no-pad= f.input :name, wrapper: false, label: false, input_html: { class: 'input-sm' }, placeholder: 'Optional Name'
-    .col-md-5.no-pad= f.input :mission_url, wrapper: false, label: false, input_html: { class: 'input-sm' }, placeholder: 'https://www.ingress.com/mission/00000000000000000000000000000000.1c'
+          %span.label.label-danger
+            = t('backend.communities.mode.new')
+    .col-md-2.no-pad= f.input :name, wrapper: false, label: false, input_html: { class: 'input-sm' }, placeholder: t('backend.communities.mission_table.placeholder.name')
+    .col-md-5.no-pad= f.input :mission_url, wrapper: false, label: false, input_html: { class: 'input-sm' }, placeholder: t('backend.communities.mission_table.placeholder.mission_url')
     .col-md-2.no-pad= f.input :mission_series_name, wrapper: false, label: false, input_html: { class: 'input-sm' }
     .col-md-1.no-pad= f.input :series_index, wrapper: false, label: false, input_html: { class: 'input-sm' }
     .col-md-1.pad-left
       - if f.object.persisted?
-        = f.input :_destroy, as: :boolean, wrapper: false, label: false, inline_label: 'Delete?'
+        = f.input :_destroy, as: :boolean, wrapper: false, label: false, inline_label: t('backend.communities.delete_mission')
       - else
         = link_to_remove_association f, class: 'remove-mission btn btn-danger btn-block btn-sm' do
           .glyphicon.glyphicon-remove

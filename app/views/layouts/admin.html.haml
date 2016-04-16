@@ -4,10 +4,10 @@
     %meta{charset: 'utf-8'}/
     %meta{content: 'IE=edge', 'http-equiv' => 'X-UA-Compatible'}/
     %meta{content: 'width=device-width, initial-scale=1', name: 'viewport'}/
-    %meta{content: 'Octoreso Data Admin Backend', name: 'description'}/
+    %meta{content: t('backend.meta_tag'), name: 'description'}/
     %meta{content: '@tobypinder', name: 'author'}/
     = render 'shared/favicons'
-    %title Octoreso Admin
+    %title= t('backend.site_name')
     = stylesheet_link_tag    'admin', media: 'all'
     = javascript_include_tag 'admin'
     = csrf_meta_tags
@@ -16,24 +16,24 @@
       #sidebar-wrapper
         .sidebar-nav
           %li.sidebar-brand
-            %a{ href: admin_path } Octoreso Admin
+            %a{ href: admin_path }= t('backend.site_name')
           %li{ class: "#{controller_name == 'communities' ? 'active' : ''}", role: :presentation }
             %a{ href: admin_ingress_communities_path }
               %span.glyphicon.glyphicon-map-marker
-              Communities
+              = t('backend.main_menu.communities')
           - if(can? :edit, ::User)
             %li{ class: "#{controller_name == 'users' ? 'active' : ''}", role: :presentation }
               %a{ href: admin_ingress_users_path }
                 %span.glyphicon.glyphicon-user
-                Users
+                = t('backend.main_menu.users')
           %li{ class: "#{controller_name == 'stats' ? 'active' : ''}", role: :presentation }
             %a{ href: admin_ingress_stats_path }
               %span.glyphicon.glyphicon-stats
-              Stats
+              = t('backend.main_menu.stats')
           %li.spacer{ role: :presentation }
             %a{ href: root_url(subdomain: nil) }
               %span.glyphicon.glyphicon-eject
-              Back to map
+              = t('backend.main_menu.return')
       #page-content-wrapper
         .container-fluid
           - flash.each do |key, value|

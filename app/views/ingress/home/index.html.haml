@@ -8,18 +8,18 @@
         .container-fluid
           .row
             .col-lg-2
-              %a.glyphicon.glyphicon-home{ href: '#', title: 'Home', data: { ajax: 'content', content_id: 1, toggle: 'tooltip', placement: 'bottom' } }
+              %a.glyphicon.glyphicon-home{ href: '#', title: t('main_menu.home'), data: { ajax: 'content', content_id: 1, toggle: 'tooltip', placement: 'bottom' } }
             .col-lg-6
-              %a.glyphicon.glyphicon-th-large{ href: '#', title: 'All Communities', data: { ajax: 'communities', toggle: 'tooltip', placement: 'bottom' } }
-              %a.glyphicon.glyphicon-th{ href: '#', title: 'All Mission Series', data: { ajax: 'mission-series-collection', toggle: 'tooltip', placement: 'bottom' } }
-              %a.glyphicon.glyphicon-map-marker{ href: '#', title: 'All Missions', data: { ajax: 'missions', toggle: 'tooltip', placement: 'bottom' } }
+              %a.glyphicon.glyphicon-th-large{ href: '#', title: t('main_menu.communities'), data: { ajax: 'communities', toggle: 'tooltip', placement: 'bottom' } }
+              %a.glyphicon.glyphicon-th{ href: '#', title: t('main_menu.mission_series'), data: { ajax: 'mission-series-collection', toggle: 'tooltip', placement: 'bottom' } }
+              %a.glyphicon.glyphicon-map-marker{ href: '#', title: t('main_menu.missions'), data: { ajax: 'missions', toggle: 'tooltip', placement: 'bottom' } }
             .col-lg-4
               .text-right
                 - if current_user.present?
-                  %a.glyphicon.glyphicon-wrench{ href: admin_url(subdomain: 'admin'), title: 'Contributor Backend', data: { toggle: 'tooltip', placement: 'bottom' } }
-                  %a.glyphicon.glyphicon-eject{ href: destroy_user_session_url(subdomain: nil), title: "Sign out #{current_user.email}", data: { toggle: 'tooltip', placement: 'bottom' } }
+                  %a.glyphicon.glyphicon-wrench{ href: admin_url(subdomain: 'admin'), title: t('main_menu.backend') , data: { toggle: 'tooltip', placement: 'bottom' } }
+                  %a.glyphicon.glyphicon-eject{ href: destroy_user_session_url(subdomain: nil), title: t('main_menu.logout', email: current_user.email), data: { toggle: 'tooltip', placement: 'bottom' } }
                 - else
-                  %a.glyphicon.glyphicon-user{ href: user_omniauth_authorize_url(subdomain: nil, provider: 'google_oauth2'), title: 'Sign in with G+', data: { toggle: 'tooltip', placement: 'bottom' } }
+                  %a.glyphicon.glyphicon-user{ href: user_omniauth_authorize_url(subdomain: nil, provider: 'google_oauth2'), title: t('main_menu.login'), data: { toggle: 'tooltip', placement: 'bottom' } }
       #sidebar-content
 
 #spinner-container

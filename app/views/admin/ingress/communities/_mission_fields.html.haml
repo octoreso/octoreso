@@ -21,7 +21,7 @@
       - else
         = link_to_remove_association f, class: 'remove-mission btn btn-danger btn-block btn-sm' do
           .glyphicon.glyphicon-remove
-  - if f.object.persisted? && !f.object.is_active && can?(:approve, @community)
+  - if params[:approve].present? && f.object.persisted? && !f.object.is_active && can?(:approve, @community)
     .row
       .col-md-12
         = f.input :intel_json, wrapper: false, label: false, as: :text, input_html: { class: 'input-sm' }

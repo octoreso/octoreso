@@ -1,4 +1,5 @@
 en:
+  site_name: 'Octoreso'
   meta_tag: 'Ingress Mapping Utility'
   main_menu:
     home: 'Home'
@@ -17,7 +18,7 @@ en:
       stats: 'Stats'
       return: 'Back to map'
     communities:
-      edit_title: 'Edit Community: #{community}'
+      edit_title: 'Edit Community: %{community}'
       edit_tutorial: 'Add missions to this Octoreso community here. Use the green "Add new mission" button to get additional rows, and hit the blue "Update Community" button to save the form. As with any part of Octoreso. Submissions are currently in beta as we scale up: if you encounter any issues either shout at @gigitrix in comms, yell in the hangouts or email octoreso at gmail dot com!'
       edit_modification_info: 'Please Note: any missions you change will be reverted to Draft status and have to be reapproved! This will remove the missions from view.'
       edit_button: 'Update Community'

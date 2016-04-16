@@ -1,0 +1,22 @@
+I18n = {}
+I18n.translations = { }
+// Dataset
+<% Translation.for_javascript.group_by(&:locale).each do |locale, translations| %>
+  I18n.translations.<%= locale %> = {}
+  <% translations.each do |t| %>I18n.translations.<%= locale %>['<%= escape_javascript t.key %>'] = "<%= escape_javascript t.value.to_s %>"
+  <% end %><% end %>
+
+I18n.translate = function(key, opts) {
+  var value = I18n.translations.en[key];
+
+  if(typeof(opts) == 'undefined') {
+    opts = {}
+  }
+
+  for(var key in opts) {
+    value = value.replace('%{'+ key +'}', opts[key]);
+  }
+
+  return value
+}
+I18n.t = I18n.translate

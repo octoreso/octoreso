@@ -8,3 +8,9 @@ Rails.application.config.assets.precompile += [
 ]
 
 Rails.application.config.assets.initialize_on_precompile = true
+
+Rails.application.config.assets.configure do |env|
+  env.context_class.class_eval do
+    include ActionView::Helpers::JavaScriptHelper
+  end
+end

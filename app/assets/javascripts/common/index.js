@@ -1,1 +1,2 @@
 //= require ./analytics
+//= require ./translations

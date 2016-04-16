@@ -13,8 +13,6 @@ Bundler.require(*Rails.groups)
 
 module Octoreso
   class Application < Rails::Application
-    config.middleware.use I18n::JS::Middleware
-
     config.force_ssl = true
 
     # don't generate RSpec tests for views and helpers
@@ -44,5 +42,6 @@ module Octoreso
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
     config.i18n.default_locale = :en
     config.i18n.available_locales = [:en]
+    config.i18n.enforce_available_locales = false
   end
 end

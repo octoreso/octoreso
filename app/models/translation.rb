@@ -12,7 +12,7 @@
 #  updated_at     :datetime
 #
 
-class Translation < ActiveRecord::Base
+class Translation < I18n::Backend::ActiveRecord::Translation
   scope :default, ->{ where(locale: I18n.default_locale) }
-
+  scope :for_javascript, ->{ where("key NOT LIKE 'backend.%'") }
 end

@@ -3,11 +3,11 @@
 # Table name: ingress_missions
 #
 #  id                :integer          not null, primary key
-#  name              :string           default(""), not null
+#  name              :string           not null
 #  agent_id          :integer
-#  mission_url       :string           default(""), not null
-#  sequence_type     :integer
-#  series_type       :integer
+#  mission_url       :string           not null
+#  sequence_type     :integer          default(0), not null
+#  series_type       :integer          default(0), not null
 #  hidden_points     :integer          default(0), not null
 #  mission_series_id :integer
 #  series_index      :integer

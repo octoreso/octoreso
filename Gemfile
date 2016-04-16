@@ -22,7 +22,6 @@ gem 'rollbar'
 
 # Assets + JS
 gem 'handlebars_assets'
-gem 'i18n-js', '>= 3.0.0.rc11'
 gem 'jbuilder'
 gem 'rabl'
 gem 'oj'
@@ -33,6 +32,10 @@ gem 'jquery-rails'
 gem 'bootstrap-sass'
 gem 'haml-rails'
 gem 'chosen-rails'
+
+# I18n
+gem 'i18n-active_record', require: 'i18n/active_record'
+gem 'i18n-js', '>= 3.0.0.rc11'
 
 group :development do
   gem 'erd'

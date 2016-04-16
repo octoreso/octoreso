@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160310223403) do
+ActiveRecord::Schema.define(version: 20160416132655) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,11 +53,11 @@ ActiveRecord::Schema.define(version: 20160310223403) do
   end
 
   create_table "ingress_missions", force: :cascade do |t|
-    t.string   "name",                                      default: "",    null: false
+    t.string   "name",                                                      null: false
     t.integer  "agent_id"
-    t.string   "mission_url",                               default: "",    null: false
-    t.integer  "sequence_type",                             default: 0
-    t.integer  "series_type",                               default: 0
+    t.string   "mission_url",                                               null: false
+    t.integer  "sequence_type",                             default: 0,     null: false
+    t.integer  "series_type",                               default: 0,     null: false
     t.integer  "hidden_points",                             default: 0,     null: false
     t.integer  "mission_series_id"
     t.integer  "series_index"
@@ -98,6 +98,16 @@ ActiveRecord::Schema.define(version: 20160310223403) do
 
   add_index "ingress_user_completed_missions", ["mission_id"], name: "index_ingress_user_completed_missions_on_mission_id", using: :btree
   add_index "ingress_user_completed_missions", ["user_id"], name: "index_ingress_user_completed_missions_on_user_id", using: :btree
+
+  create_table "translations", force: :cascade do |t|
+    t.string   "locale"
+    t.string   "key"
+    t.text     "value"
+    t.text     "interpolations"
+    t.boolean  "is_proc",        default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

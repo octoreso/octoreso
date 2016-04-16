@@ -43,6 +43,6 @@ module Octoreso
     # config.i18n.load_path += Dir[Rails.root.join('app', 'locales', 'ingress', '*.{rb,yml}').to_s]
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
     config.i18n.default_locale = :en
-    config.i18n.available_locales = [:en, :emoji]
+    config.i18n.available_locales = [:en]
   end
 end

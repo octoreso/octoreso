@@ -213,6 +213,8 @@ GEM
     htmlentities (4.3.4)
     http_parser.rb (0.6.0)
     i18n (0.7.0)
+    i18n-active_record (0.1.0)
+      i18n (>= 0.5.0)
     i18n-js (3.0.0.rc12)
       i18n (~> 0.6, >= 0.6.6)
     interception (0.5)
@@ -481,6 +483,7 @@ DEPENDENCIES
   handlebars_assets
   headless
   html2haml
+  i18n-active_record
   i18n-js (>= 3.0.0.rc11)
   jbuilder
   jquery-rails

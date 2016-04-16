@@ -1,11 +1,15 @@
 %h4 Users
 .row
-  .col-md-11
+  .col-md-9
     User
+  .col-md-2
+    Created At
   .col-md-1
 - @users.each do |user|
   .row
-    .col-md-11
+    .col-md-9
       = user.to_s
+    .col-md-2
+      = user.created_at
     .col-md-1
       %a.btn.btn-default.btn-xs{ href: admin_ingress_user_path(user) } Edit

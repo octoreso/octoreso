@@ -34,16 +34,11 @@ $ingress-b2b: #009B99;
 $ingress-b3a: #008780;
 $ingress-b3b: #005855;
 
-.sidebar-menu-group a
+#sidebar-menu a
 {
-  min-width: 40px;
-  color: #ffffff;
+  min-width: 34px;
 }
 
-.sidebar-menu-group:nth-of-type(3)
-{
-  float: right;
-}
 
 #sidebar ul , #sidebar li {
    list-style-type: none;

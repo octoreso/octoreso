@@ -7,4 +7,4 @@
 - if params[:approve].blank? && f.object.persisted? && !f.object.is_active && can?(:approve, @community)
   .row.row-no-padding
     .col-md-12
-      = link_to 'Approve', admin_ingress_community_path(@community, approve: 1), class: 'btn btn-block btn-warning'
+      = link_to t('backend.communities.approve_button'), admin_ingress_community_path(@community, approve: 1), class: 'btn btn-block btn-warning'

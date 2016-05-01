@@ -42,6 +42,7 @@ group :development do
   gem 'html2haml'
   gem 'rails_layout'
   gem 'meta_request'
+  gem 'i18n-debug'
 
   gem 'capistrano',               require: false
   gem 'capistrano-rvm',           require: false

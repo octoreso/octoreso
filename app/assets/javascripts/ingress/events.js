@@ -29,7 +29,7 @@ $(document).on('click', 'a[data-ajax="communities"]', function(x){
 $(document).on('click', 'a[data-ajax="community"]', function(e){
   var id = $(e.target).data('community-id');
   var teleport = $(e.target).data('teleport');
-  if(teleport.length > 0)
+  if(teleport && teleport.length > 0)
   {
     teleport = teleport.split(',')
 
